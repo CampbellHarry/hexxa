@@ -1,0 +1,224 @@
+:root{
+    --background: #333333;
+    --primary: #00A5FF;
+    --secondary: #FFFFFF;
+    --tursh: #191970;
+    --contrast: #CCCCCC;
+}
+
+body{
+    background-image: linear-gradient(to top right, #424040, #999999);
+    margin: 0;
+    padding: 0;
+}
+header{
+    background-color: var(--primary);
+    margin: 0;
+    padding: 0;
+}
+section{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.header1{
+    background-color: var(--tursh);
+    box-shadow: 1px 0px 10px 0px var(--contrast);
+    min-height: 50px;
+}
+nav{
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    align-items: center;
+    padding: 0 20px;
+    text-align: center;
+}
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+nav li {
+    display: inline-block;
+}
+.box{
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    height: 20px;
+    top: 15px;
+    position: relative;
+    margin: 0 25px;
+    padding: 2px 10px;
+    width: auto;
+}
+.box:hover{
+    border: var(--secondary) 1px solid;
+    color: var(--secondary);
+
+}
+.text{
+    text-decoration: none;
+    color: white;
+}
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-top: -70px;
+    margin-bottom: 30px;
+}
+
+.search-box {
+    position: relative;
+    width: 500px;
+    height: 40px;
+}
+
+.search-box input[type="text"] {
+    width: 90%;
+    height: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+
+}
+
+.search-box button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 150%;
+    width: 80px;
+    border: none;
+    background-color: var(--primary);
+    color: var(--secondary);
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    border-left: #000000 4px solid;
+}
+
+.search-box button:hover {
+    background-color: var(--tursh);
+}
+.login-box {
+    display: inline-block;
+    align-items: right;
+    position: relative;
+    float: right;
+    margin-right: 500px;
+    top: -100px;
+}
+
+.login-box form {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 300px;
+    background-color: var(--primary);
+    border-radius: 5px;
+    box-shadow: 0 0 10px var(--contrast);
+    padding: 20px;
+    transition: all 1s ease-in-out;
+}
+
+.login-box h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    transition: all 1s ease-in-out;
+}
+
+.login-box input[type="text"],
+.login-box input[type="password"] {
+    width: 95%;
+    padding: 10px;
+    border: none;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.login-box input[type="submit"] {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.login-box input[type="submit"]:hover {
+    background-color: #3e8e41;
+}
+
+.login-box:hover form {
+    display: block;
+    transition: all 1s ease-in-out;
+}
+
+.login-box a {
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+    transition: all 1s ease-in-out;
+}
+.forgr{
+    background-color: #000000;
+    color: #fff;
+    border-radius: 10px;
+    border: var(--contrast) 5px solid;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    width: 30%;
+}
+.submit{
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.submit.disabled {
+    background-color: gray;
+    color: white;
+    cursor: not-allowed;
+}
+
+.submit.enabled {
+    background-color: #4CAF50;
+    color: #fff;
+}
+.signup{
+    background-color: #000000;
+    color: #fff;
+    border-radius: 10px;
+    border: var(--contrast) 5px solid;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    width: 5%;
+    text-align: center;
+    float: right;
+    position: relative;
+    top: -70px;
+    width: auto;
+}
+.signup:hover{
+    background-color: var(--tursh);
+}
+.logo{
+    margin: 10px;
+}
