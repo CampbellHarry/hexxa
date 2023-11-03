@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hexxa</title>
+    <link rel="icon" href="/assets/images/favicon.png">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/footer.css">
+    <link rel="stylesheet" href="/assets/css/sell.css">
+    <link rel="stylesheet" href="/assets/css/allitems.css">
+</head>
+<body>
+    <header>
+        <img src="/assets/images/favicon.png" class="logo" alt="Hexxa Logo" height="100px">
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" placeholder="Search for products, brands and more with Hexxa">
+                <button>Search</button>
+            </div>
+        </div>
+            <a href="" class="signup">Welcome <span id="username"></span></a>
+        </div>
+        <header class="header1">
+            <nav>
+                <ul>
+                    <li class="box"><a class="text" href="index.html">Home</a></li>
+                    <li class="box"><a class="text" href="">Customer Service</a></li>
+                    <li class="box"><a class="text" href="">Contact</a></li>
+                    <li class="box"><a class="text" href="shopping.html">Shopping</a></li>
+                    <li class="box"><a class="text" href="">Todays Deals</a></li>
+                    <li class="box"><a class="text" href="allitems.html">All Items</a></li>
+                    <li class="box"><a class="text" href="sell.html">Sell a Item</a></li>
+                </ul>
+            </nav>
+        </header>
+    </header>
+    <main>
+        <section>
+            <div class="text1">
+                <h1 class="text1">Sell with <span style="color: #191970; -webkit-text-stroke: 2px black;">H</span><span style="color: #00FFFF;-webkit-text-stroke: 2px black;">e</span><span style="color: #00A5FF;-webkit-text-stroke: 2px black;">xx</span><span style="color: #00FFFF;-webkit-text-stroke: 2px black;">a</span></h1>
+            </div>
+        </section>
+        <section>
+            <div class="text2">
+                <h2 class="text2"><span style="color: #191970; -webkit-text-stroke: 2px black;">Your</span><span style="color: #00FFFF;-webkit-text-stroke: 2px black;"> Gateway</span> to a <span style="color: #00A5FF;-webkit-text-stroke: 2px black;"> Global</span><span style="color: #00FFFF;-webkit-text-stroke: 2px black;"> Audience</span>.</h2>
+        </section>
+        <section>
+            <form id="sellf" action="/submit" method="post">
+                <div class="text3">
+                    <h2 class="text3">Your Items first step:</h2>
+                </div>
+                <fieldset>
+                    <legend class="text3">Item Information</legend>
+                    <div class="text3">
+                        <label for="productName">What's your item called?</label>
+                        <input type="text" id="productName" name="productName" placeholder="Product Name" required>
+                    </div>
+                    <div class="text3">
+                        <label for="category">What category does your item fall under?</label>
+                        <select name="category" id="category" required>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Clothing">Clothing</option>
+                            <option value="Furniture">Furniture</option>
+                            <option value="Toys">Toys</option>
+                            <option value="Books">Books</option>
+                            <option value="Unspecified">Other</option>
+                        </select>
+                    </div>
+                    <div class="text3">
+                        <label for="condition">What condition is your item in?</label>
+                        <select name="condition" id="condition" required>
+                            <option value="new">New</option>
+                            <option value="nobox">New - No Box</option>
+                            <option value="used">Used</option>
+                            <option value="broken">Broken</option>
+                        </select>
+                    </div>
+                    <div class="text3">
+                        <label for="price">What price are you selling your item for?</label>
+                        <input type="number" id="price" name="price" placeholder="Price" required>
+                    </div>
+                    <div class="text3">
+                        <label for="description">What is your item's description?</label>
+                        <textarea name="description" id="description" cols="30" rows="10" placeholder="Description" required></textarea>
+                    </div>
+                    <div class="text3" style="align-items: center;">
+                        <label for="image">What is your item's image?</label>
+                        <br>
+                        <input type="file" id="image" accept="image/*" name="image" required>
+                    </div>
+                </fieldset>
+                <div class="text3">
+                    <h3 class="text3">All happy? Click review to review.</h3>
+                    <input type="button" id="previewBtn" class="submit" value="Click here!" ></input>
+                </div>
+            </form>
+        </section>
+    
+        <section>
+            <div class="text3">
+                <h2>Your Second Step, <br> Review your Item.</h2>
+            </div>
+        </section>
+    
+        <section>
+            <div class="box2">
+                <h2 id="itemname">Your Item Name</h2>
+                <img src="/assets/images/hexxa.png" alt="Product 2" id="itemimg">
+                <p id="itemdesc">Your Items Description</p>
+                <p id="rating">
+                    <img src="/assets/images/800px-Five-pointed_star.svg.png" style="height: 30px; width: 30px;">
+                    <img src="/assets/images/800px-Five-pointed_star.svg.png" style="height: 30px; width: 30px;">
+                    <img src="/assets/images/800px-Five-pointed_star.svg.png" style="height: 30px; width: 30px;">
+                    <img src="/assets/images/800px-Five-pointed_star.svg.png" style="height: 30px; width: 30px;">
+                    <img src="/assets/images/800px-Five-pointed_star.svg.png" style="height: 30px; width: 30px;">
+                </p>
+                <p id="itemcond">Your Items Condition</p>
+                <p id="itemcat">Your Items Category</p>
+                <p id="pricecang">Your Items Price</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </section>
+    
+        <section>
+            <div class="text3">
+                <h2>Your Third Step,</h2>
+            </div>
+        </section>
+    
+        <section>
+            <button type="submit" class="submitit" id="submitit">Send it on Hexxa!</button>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>About Hexxa</h3>
+                <p>Hexxa is an online marketplace that offers a wide range of products from electronics to clothing. We have a wide range of brands to choose from and we are committed to providing our customers with the best shopping experience possible.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Returns &amp; Refunds</a></li>
+                    <li><a href="#">Shipping &amp; Delivery</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect with Us</h3>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Linkedin</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Hexxa. All Rights Reserved.</p><p>Terms &amp; Conditions | Privacy Policy</p><p>Hexxa is apart of the hdev group</p>
+            </p>
+        </div>
+    </footer>
+    <script src="/backend/sell.js"></script>
+    <script>
+        document.getElementById('submitit').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+        
+            // Validate the form manually
+            var form = document.getElementById('sellf');
+            if (form.checkValidity()) {
+                form.submit(); // Submit the form if it's valid
+            } else {
+                alert('Please fill out all required fields.'); // Display an error message if form is invalid
+            }
+        });
+        </script>
+        <script>
+document.getElementById('previewBtn').addEventListener('click', function() {
+    // Get the values from the form
+    const productName = document.getElementById('productName').value;
+    const category = document.getElementById('category').value;
+    const condition = document.getElementById('condition').value;
+    const price = document.getElementById('price').value;
+    const description = document.getElementById('description').value;
+
+    // Get the selected image file
+    const image = document.getElementById('image').files[0];
+    const imageUrl = URL.createObjectURL(image);
+
+    // Update the content in box 2
+    document.getElementById('itemname').textContent = productName;
+    document.getElementById('itemdesc').textContent = description;
+    document.getElementById('itemcond').textContent = condition;
+    document.getElementById('itemcat').textContent = category;
+    document.getElementById('pricecang').textContent = price;
+    document.getElementById('itemimg').src = imageUrl; // Update the image source
+});
+        </script>
+</body>
+</html>

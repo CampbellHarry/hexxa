@@ -1,0 +1,120 @@
+.text1{
+    font-size: 4rem;
+    font-weight: bold;
+    color: white;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+section{
+    align-items: center;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+.text2 {
+    font-size: 3.5rem;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.text3 {
+    font-size: 1.5rem;
+    color: white;
+    margin-bottom: 10px;
+}
+input[type="text"],
+select,
+textarea {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+input[type="file"] {
+    margin-top: 20px;
+}
+
+input[type="button"] {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+input[id="text"]:invalid{
+    border: red 3px solid;
+}
+input[id="price"]:invalid{
+    border: red 3px solid;
+}
+input[id="productName"]:invalid{
+    border: red 3px solid;
+}
+input[id="image"]:invalid{
+    border: red 3px solid;
+}
+select:invalid{
+    border: red 3px solid;
+}
+textarea:invalid{
+    border: red 3px solid;
+}
+input[id="text"]:valid{
+    border: green 3px solid;
+}
+input[id="image"]:valid{
+    border: green 3px solid;
+}
+select:valid{
+    border: green 3px solid;
+}
+textarea:valid{
+    border: green 3px solid;
+}
+input[id="price"]:valid{
+    border: green 3px solid;
+}
+input[id="productName"]:valid{
+    border: green 3px solid;
+}
+form:valid input[type="submit"] {
+    background-color: green;
+}
+form:invalid input[type="submit"] {
+    background-color: red;
+    cursor: not-allowed;
+}
+
+form:invalid .submitit {
+    background-color: red;
+    cursor: not-allowed;
+}
+
+form:valid .submitit {
+    background-color: green;
+}
+
+.submitit {
+    background-color: #ffffff;
+    border: none;
+    color: rgb(0, 0, 0);
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
