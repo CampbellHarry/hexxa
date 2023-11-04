@@ -18,6 +18,10 @@
                 <button>Search</button>
             </div>
         </div>
+        <div class="basket">
+            <img src="/assets/images/shoppingb.png" height="100px" alt="Basket">
+                <p>0</p>
+        </div>
             <a href="" class="signup">Welcome <span id="username"></span></a>
         </div>
         <header class="header1">
@@ -129,5 +133,20 @@
             </p>
         </div>
     </footer>
+    <script>
+        // app.js
+        const token = process.env.ACCESS_TOKEN;
+        document.getElementById('myButton').addEventListener('click', function() {
+    fetch('/protected', {
+        method: 'GET',
+        headers: {
+            'Authorization': token
+        }
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
+});
+    </script>
 </body>
 </html>

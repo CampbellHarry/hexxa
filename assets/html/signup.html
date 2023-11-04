@@ -15,16 +15,15 @@
 <body>
     <img src="/assets/images/hexxa.png" class="img1" alt="Hexxa Logo" height="200px">
     <h1>Signup to <span style="color: #191970;">H</span><span style="color: #00FFFF;">e</span><span style="color: #00A5FF;">xx</span><span style="color: #00FFFF;">a</span></h1></h1>
-    <form onsubmit="return validateRecaptcha();" action="shopping.html" method="post">
+    <form onsubmit="return validateRecaptcha();" id="signupForm" action="shopping" method="post">
         <label for="username" maxlength="38">Username:</label>
         <input type="text" id="username" name="username" required><br><br>
         <label for="password" maxlength="70">Password:</label>
         <input type="password" id="password" name="password" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required title="Password must be at least 8 characters long and contain at least one digit, one uppercase letter, and one lowercase letter"><br>
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <div class="g-recaptcha" data-sitekey="6LcgYfIoAAAAAJCnv3pUKcA-2cJSklJ146mlV2y_" aria-required="false"></div>
-
         <a href="/assets/html/login.html">Already have an account?</a><br><br>
-        <input type="submit" value="Submit">
+        <input type="submit" id="submitBtn" value="Submit">
     </form>
     <footer>
         <div class="footer-container">
@@ -59,13 +58,47 @@
     <script>
         function validateRecaptcha() {
             var response = grecaptcha.getResponse();
-            if(response.length == 0) {
-                alert("Please complete the reCAPTCHA");
+            if (response.length === 0) {
+                alert('Please verify that you are not a robot.');
                 return false;
             } else {
                 return true;
             }
         }
-    </script>
+        
+    document.getElementById('signupForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
+
+    var data = {
+        username: username,
+        password: password
+    };
+
+    console.log('Sending data:', data); // Debug log
+
+    fetch('/signup', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Response data:', data); // Debug log
+        if (data.success) {
+            alert('Signup successful!');
+            window.location.href = '/';
+        } else {
+            alert('Signup failed. Please try again.');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+        </script>
   </body>
 </html>

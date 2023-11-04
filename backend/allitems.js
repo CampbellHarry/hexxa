@@ -24,7 +24,7 @@ fetch('backend/items.json')
                 <p id="categoryitem">${item.category}</p>
                 <p id="descriptionitem">${description}</p>
                 <p id="priceitem">${item.price}</p>
-                <button>Add to Cart</button>
+                <button id="${item.productId}">Add to Cart</button>
             `;
             console.log(productName)
             container.appendChild(div);

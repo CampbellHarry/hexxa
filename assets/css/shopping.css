@@ -155,6 +155,9 @@
         flex-direction: column;
         align-items: center;
     }
+    .photosphere{
+        height: 400px !important;
+    }
 }
 /* photo wheel */
 .photosphere {
