@@ -7,7 +7,7 @@
     <link rel="icon" href="/assets/images/favicon.png">
     <link rel="stylesheet" href="/assets/css/header.css">
     <link rel="stylesheet" href="/assets/css/footer.css">
-    <link rel="stylesheet" href="/assets/css/allitems.css">
+    <link rel="stylesheet" href="/assets/css/moderation.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.4/purify.min.js"></script>
 </head>
 <body>
@@ -15,7 +15,7 @@
         <img src="/assets/images/favicon.png" class="logo" alt="Hexxa Logo" height="100px">
         <div class="search-container">
             <div class="search-box">
-                <input type="text" placeholder="Search for products, brands and more with Hexxa">
+                <input type="text" placeholder="Welcome Moderator {{name}}!">
                 <button>Search</button>
             </div>
         </div>
@@ -36,11 +36,61 @@
         </header>
     </header>
     <main>
-        <section>
-            <div id="container">
-            </div>
+        <section class="moderation-section">
+            <h2>Reported Items</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item ID</th>
+                        <th>View Item</th>
+                        <th>Reported By</th>
+                        <th>Reason</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1234</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <button class="btn btn-approve">Approve</button>
+                            <button class="btn btn-reject">Reject</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+            <section class="moderation-section">
+            <h2>Awaiting Approval</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item ID</th>
+                        <th>View Item</th>
+                        <th>Submitted By</th>
+                        <th>Item Title</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1234</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <button class="btn btn-approve">Approve</button>
+                            <button class="btn btn-reject">Reject</button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
         </section>
     </main>
+    <!-- END: ed8c6549bwf9 -->
     <footer>
         <div class="footer-container">
             <div class="footer-section">

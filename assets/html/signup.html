@@ -8,15 +8,21 @@
     <link rel="stylesheet" href="/assets/css/login.css">
     <link rel="stylesheet" href="/assets/css/header.css">
     <link rel="stylesheet" href="/assets/css/footer.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/speakeasy/6.1.3/speakeasy.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.4/purify.min.js"></script>
 </head>
 <body>
     <img src="/assets/images/hexxa.png" class="img1" alt="Hexxa Logo" height="200px">
     <h1>Signup to <span style="color: #191970;">H</span><span style="color: #00FFFF;">e</span><span style="color: #00A5FF;">xx</span><span style="color: #00FFFF;">a</span></h1></h1>
-    <form>
-        <label for="username">Username:</label>
+    <form onsubmit="return validateRecaptcha();" action="shopping.html" method="post">
+        <label for="username" maxlength="38">Username:</label>
         <input type="text" id="username" name="username" required><br><br>
-        <label for="password">Password:</label>
+        <label for="password" maxlength="70">Password:</label>
         <input type="password" id="password" name="password" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required title="Password must be at least 8 characters long and contain at least one digit, one uppercase letter, and one lowercase letter"><br>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<div class="g-recaptcha" data-sitekey="6LcgYfIoAAAAAJCnv3pUKcA-2cJSklJ146mlV2y_" aria-required="false"></div>
+
         <a href="/assets/html/login.html">Already have an account?</a><br><br>
         <input type="submit" value="Submit">
     </form>
@@ -50,5 +56,16 @@
             </p>
         </div>
     </footer>
+    <script>
+        function validateRecaptcha() {
+            var response = grecaptcha.getResponse();
+            if(response.length == 0) {
+                alert("Please complete the reCAPTCHA");
+                return false;
+            } else {
+                return true;
+            }
+        }
+    </script>
   </body>
 </html>

@@ -28,12 +28,13 @@ section{
     box-shadow: 1px 0px 10px 0px var(--contrast);
     min-height: 50px;
 }
+
 nav{
     display: flex;
     justify-content: space-between;
     position: relative;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 2%;
     text-align: center;
 }
 nav ul {
@@ -75,24 +76,24 @@ nav li {
 
 .search-box {
     position: relative;
-    width: 500px;
     height: 40px;
 }
 
 .search-box input[type="text"] {
-    width: 90%;
+    width: auto;
+    min-width: 370px;
     height: 100%;
     padding: 10px;
     border: none;
     border-radius: 20px;
     font-size: 16px;
-
 }
 
 .search-box button {
-    position: absolute;
+    position: relative;
     top: 0;
     right: 0;
+    left: -30px;
     height: 150%;
     width: 80px;
     border: none;

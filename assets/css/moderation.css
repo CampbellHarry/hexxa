@@ -1,0 +1,53 @@
+/* Add some spacing between elements */
+.moderation-section {
+    margin-top: 2rem;
+    padding: 10px;
+    align-items: center;
+}
+
+body{
+    overflow-x: hidden;
+}
+
+h2 {
+    margin-bottom: 1rem;
+}
+
+table {
+    border-collapse: collapse;
+    width: 80%;
+    border: black 4px solid;
+    margin: auto;
+}
+
+th, td {
+    text-align: left;
+    padding: 0.5rem;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* Style the approve and reject buttons */
+.btn {
+    border: none;
+    color: white;
+    padding: 0.5rem;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem;
+    margin: 0.2rem;
+    cursor: pointer;
+    border-radius: 0.25rem;
+}
+
+.btn-approve {
+    background-color: #4CAF50;
+}
+
+.btn-reject {
+    background-color: #f44336;
+}

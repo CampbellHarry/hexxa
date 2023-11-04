@@ -3,30 +3,41 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const multer = require('multer')
+const speakeasy = require('speakeasy');
 
 const app = express();
 
 // Serve static files (CSS, images, JavaScript, etc.)
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
+app.use('/backend', express.static(path.join(__dirname, 'backend')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Define routes
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   res.sendFile(path.join(__dirname, 'assets/html', 'index.html'));
 });
 
-app.get('/allitems', (req, res) => {
+app.get('/allitems', (_req, res) => {
   res.sendFile(path.join(__dirname, 'assets/html', 'allitems.html'));
 });
 
-app.get('/login', (req, res) => {
+app.get('/allitems.js', (_req, res) => {
+  res.sendFile(path.join(__dirname, 'backend', 'allitems.js'));
+});
+
+app.get('/allitems.js', (_req, res) => {
+  res.sendFile(path.join(__dirname, 'backend', 'items.json'));
+});
+
+app.get('/login', (_req, res) => {
   res.sendFile(path.join(__dirname, 'assets/html', 'login.html'));
 });
 
-app.get('/shopping', (req, res) => {
+app.get('/shopping', (_req, res) => {
   res.sendFile(path.join(__dirname, 'assets/html', 'shopping.html'));
 });
 
-app.get('/signup', (req, res) => {
+app.get('/signup', (_req, res) => {
   res.sendFile(path.join(__dirname, 'assets/html', 'signup.html'));
 });
 
@@ -34,19 +45,46 @@ app.get('/signup', (req, res) => {
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 // Define routes
-app.get('/sell', (req, res) => {
+app.get('/sell', (_req, res) => {
   res.sendFile(path.join(__dirname, 'assets/html', 'sell.html'));
 });
 
+app.use(bodyParser.urlencoded({ extended: true }));
+
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
+  destination: (_req, _file, cb) => {
     cb(null, 'uploads/');
   },
-  filename: (req, file, cb) => {
+  filename: (_req, file, cb) => {
     const productId = Date.now();
     cb(null, `${productId}-${file.originalname}`);
   }
 });
+
+// Middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Routes
+const indexRouter = require('./backend/signup.js');
+app.use('/', indexRouter);
+
+
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+
+
+// Middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Routes
+const indexRouter = require('./backend/signup.js');
+app.use('/', indexRouter);
 
 const upload = multer({ storage: storage });
 
