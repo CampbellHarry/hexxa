@@ -11,15 +11,15 @@
 </head>
 <body>
     <img src="/assets/images/hexxa.png" class="img1" alt="Hexxa Logo" height="200px">
-    <h1>Signup to <span style="color: #191970;">H</span><span style="color: #00FFFF;">e</span><span style="color: #00A5FF;">xx</span><span style="color: #00FFFF;">a</span></h1></h1>
-    <form>
+    <h1>Login to <span style="color: #191970;">H</span><span style="color: #00FFFF;">e</span><span style="color: #00A5FF;">xx</span><span style="color: #00FFFF;">a</span></h1></h1>
+    <form action="/login" method="post">
         <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br><br>
+        <input type="text" id="username" maxlength="38" name="username" required><br><br>
         <label for="password">Password:</label>
-        <input type="password" id="password" name="password" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required title="Password must be at least 8 characters long and contain at least one digit, one uppercase letter, and one lowercase letter"><br>
+        <input type="password" id="password" name="password" maxlength="70" required><br>
         <a href="forgotpassword.html"></a><br><br>
         <a href="/assets/html/signup">Dont have an account?</a><br><br>
-        <input type="submit" value="Submit">
+        <input type="submit" value="Login">
     </form>
     <footer>
         <div class="footer-container">
@@ -51,5 +51,6 @@
             </p>
         </div>
     </footer>
+    <script src="/backend/login.js"></script>
   </body>
 </html>

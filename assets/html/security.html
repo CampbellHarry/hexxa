@@ -70,5 +70,11 @@
             </p>
         </div>
     </footer>
+    <script>
+        localStorage.setItem('token', data.token); // Store the token
+        console.log('Token stored:', data.token);
+        const token = localStorage.getItem('token');
+        console.log('Token:', token);
+    </script>
 </body>
 </html>

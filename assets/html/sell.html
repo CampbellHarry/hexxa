@@ -79,11 +79,15 @@
                     </div>
                     <div class="text3">
                         <label for="price">What price are you selling your item for?</label>
-                        <input type="number" id="price" name="price" placeholder="Price" required maxlength="6">
+                        <input type="number" id="price" name="price" placeholder="Price" step="any" required maxlength="6">
                     </div>
                     <div class="text3">
                         <label for="description">What is your item's description?</label>
                         <textarea name="description" id="description" cols="30" rows="10" placeholder="Description" required maxlength="200"></textarea>
+                    </div>
+                    <div class="text3">
+                        <label for="delivery">What is your item's estimated delivery?</label>
+                        <input name="delivery" id="delivery" cols="30" rows="10" placeholder="delivery" required maxlength="200"></input>
                     </div>
                     <div class="text3" style="align-items: center;">
                         <label for="image">What is your item's image?</label>
@@ -185,6 +189,7 @@ document.getElementById('previewBtn').addEventListener('click', function() {
     const condition = document.getElementById('condition').value;
     const price = document.getElementById('price').value;
     const description = document.getElementById('description').value;
+    const delivery = document.getElementById('delivery').value;
 
     // Get the selected image file
     const image = document.getElementById('image').files[0];
@@ -199,5 +204,6 @@ document.getElementById('previewBtn').addEventListener('click', function() {
     document.getElementById('itemimg').src = imageUrl; // Update the image source
 });
         </script>
+            <script src="/backend/auth.js"></script>
 </body>
 </html>

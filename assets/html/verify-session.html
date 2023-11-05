@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Getting you signed in.</h1>
+</body>
+<script>
+const sessionToken = getCookie("session_token");
+console.log("Session Token:", sessionToken);
+
+
+  
+    if (sessionToken) {
+      fetch("/verify-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ sessionToken }),
+      })
+      .then(response => {
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json();
+})
+.then(data => {
+        if (data.loggedIn) {
+          document.getElementById("username-display").innerText = data.username;
+          window.location.href = '/shopping';
+        } else {
+          window.location.href = '/login';
+        }
+      });
+    } else {
+      window.location.href = '/login';
+    }
+    
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+    
+</script>
+</html>

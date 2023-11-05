@@ -66,6 +66,12 @@ header{
     margin-right: 20px;
 }
 
+.basket p{
+    right: 55px;
+    top: -15px;
+    position: relative;
+}
+
 .basket img {
     margin-right: 10px;
 }

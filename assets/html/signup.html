@@ -23,7 +23,7 @@
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <div class="g-recaptcha" data-sitekey="6LcgYfIoAAAAAJCnv3pUKcA-2cJSklJ146mlV2y_" aria-required="false"></div>
         <a href="/assets/html/login.html">Already have an account?</a><br><br>
-        <input type="submit" id="submitBtn" value="Submit">
+        <input type="submit" id="submitBtn" value="Sign up">
     </form>
     <footer>
         <div class="footer-container">
@@ -66,39 +66,40 @@
             }
         }
         
-    document.getElementById('signupForm').addEventListener('submit', function(event) {
-    event.preventDefault();
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+  event.preventDefault();
 
-    var username = document.getElementById('username').value;
-    var password = document.getElementById('password').value;
+  var username = document.getElementById('username').value;
+  var password = document.getElementById('password').value;
 
-    var data = {
-        username: username,
-        password: password
-    };
+  var data = {
+      username: username,
+      password: password,
+      approved: false,
+  };
 
-    console.log('Sending data:', data); // Debug log
+  console.log('Sending data:', data); // Debug log
 
-    fetch('/signup', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Response data:', data); // Debug log
-        if (data.success) {
-            alert('Signup successful!');
-            window.location.href = '/';
-        } else {
-            alert('Signup failed. Please try again.');
-        }
-    })
-    .catch(error => console.error('Error:', error));
+  fetch('/signup', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(data => {
+      console.log('Response data:', data); // Debug log
+      if (data.success) {
+          alert('Signup successful!');
+          window.location.href = '/shopping';
+      } else {
+          alert('Signup failed. Please try again.');
+      }
+  })
+  .catch(error => console.error('Error:', error));
 });
 
-        </script>
+</script>
   </body>
 </html>

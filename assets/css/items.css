@@ -1,0 +1,226 @@
+
+/* FILEPATH: /c:/Users/htheb/OneDrive/Desktop/Code/hexxa/assets/css/items.css */
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-image-container {
+    margin-right: 2rem;
+}
+
+.product-info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    color: white;
+    max-width: 600px;
+
+}
+
+.item {
+    margin-top: 2rem;
+}
+
+.item h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.item p {
+    margin-bottom: 1rem;
+}
+
+#addbasket {
+    padding: 1rem 2rem;
+    background-color: #007bff;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 0.5rem;
+    font-size: large;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    margin-top: 1rem;
+    width: 300px;
+}
+
+#addbasket:hover {
+    background-color: #0069d9;
+}
+
+#buynow {
+    padding: 1rem 2rem;
+    background-color: #00eeff;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 0.5rem;
+    font-size: large;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    margin-top: 1rem;
+    width: 300px;
+}
+
+#buynow:hover {
+    background-color: #00eeff96;
+}
+
+.buy-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    margin-left: 10%;
+}
+.buysection{
+    padding: 20px;
+    border: 2px white solid;
+}
+#approved{
+    border: 1px solid #005700;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    margin-bottom: 15px;
+}
+hr{
+    border: 1px solid rgb(87, 85, 85);
+}
+#price{
+    color: white;
+    font-size: 20px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+#delivery{
+    color: white;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+#instock{
+    color: rgb(0, 255, 13);
+    font-size: 20px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+#description{
+    color: white;
+    font-size: 20px;
+    margin-bottom: 15px;
+    white-space: pre-line;
+    word-wrap: break-word;
+    max-width: 400px;
+}
+#price1{
+    color: white;
+    font-size: 20px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+#seller{
+    color: white;
+    font-size: 12px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    max-width: 400px;
+}
+#name{
+    color: white;
+    font-size: 30px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    white-space: pre-line;
+    word-wrap: break-word;
+    max-width: 400px;
+}
+#reviews{
+    color: white;
+    font-size: 15px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    white-space: pre-line;
+    word-wrap: break-word;
+    max-width: 400px;
+}
+
+#reviewsac {
+    text-align: center;
+    margin: 20px 0;
+    margin-top: -30px;
+}
+
+.reviews-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.review {
+    max-width: 400px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    margin: 10px;
+    text-align: left;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.review h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.review p {
+    margin-bottom: 10px;
+}
+
+.reviewer {
+    font-style: italic;
+    color: #777;
+}
+
+
+.checked {
+    color: #f8d12e;
+}
+
+#qna {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.qna-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.question {
+    max-width: 400px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    margin: 5px; /* Reduced margin here */
+    text-align: left;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.question h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.question p {
+    margin-bottom: 10px;
+}
+h2{
+    color: white;
+}

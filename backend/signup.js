@@ -6,7 +6,8 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
 
   var data = {
       username: username,
-      password: password
+      password: password,
+      approved: false,
   };
 
   console.log('Sending data:', data); // Debug log

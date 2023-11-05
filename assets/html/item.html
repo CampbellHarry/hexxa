@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hexxa</title>
+    <link rel="icon" href="/assets/images/favicon.png">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/footer.css">
+    <link rel="stylesheet" href="/assets/css/items.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.4/purify.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+    <header>
+        <img src="/assets/images/favicon.png" class="logo" alt="Hexxa Logo" height="100px">
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" placeholder="Search for products, brands and more with Hexxa">
+                <button>Search</button>
+            </div>
+        </div>
+        <div class="basket">
+            <img src="/assets/images/shoppingb.png" height="100px" alt="Basket">
+                <p>0</p>
+        </div>
+            <a href="" class="signup">Welcome <span id="username-display"></span></a>
+        </div>
+        <header class="header1">
+            <nav>
+                <ul>
+                    <li class="box"><a class="text" href="/">Home</a></li>
+                    <li class="box"><a class="text" href="">Customer Service</a></li>
+                    <li class="box"><a class="text" href="">Contact</a></li>
+                    <li class="box"><a class="text" href="shopping">Shopping</a></li>
+                    <li class="box"><a class="text" href="">Todays Deals</a></li>
+                    <li class="box"><a class="text" href="allitems">All Items</a></li>
+                    <li class="box"><a class="text" href="sell">Sell a Item</a></li>
+                </ul>
+            </nav>
+        </header>
+    </header>
+    <main>
+        <section class="product-image-container">
+            <img src="/assets/images/hexxa.png" alt="Product Image">
+        </section>
+            <section class="product-info-container">
+                <div class="item">
+                    <h2 id="name"></h2>
+                    <div id="reviews">1/5 stars</div>
+                    <div id="seller"></div>
+                    <hr>
+                    <p id="price1"></p>
+                    <hr>
+                    <p id="category"></p>
+                    <p id="condition"></p>
+                    <p id="description"></p>
+                </div>
+            </section>
+            <section class="buy-container">
+                <div class="buysection">
+                    <div id="approved">THIS SELLER IS <span>APPROVED / NOT</span></div>
+                    <hr>
+                    <div id="price">Price</div>
+                    <div id="delivery">Delivery</div>
+                    <hr>
+                    <div id="instock">In stock</div>
+                    <hr>
+                    <button id="addbasket">Add to Basket</button>
+                    <button id="buynow">Buy Now</button>
+                </div>
+            </section>
+        </main>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <section id="reviewsac">
+            <h2>Reviews</h2>
+            <form>
+                <label for="review">Write a review:</label>
+                <textarea id="review" name="review" rows="4" cols="50" maxlength="300"></textarea>
+                <label for="rating">Rating:</label>
+                <select id="rating" name="rating">
+                    <option value="1">1 Star</option>
+                    <option value="2">2 Stars</option>
+                    <option value="3">3 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="5">5 Stars</option>
+                </select>
+                <input type="submit" value="Submit">
+            </form>
+            <div class="reviews-container">
+                <div class="review">
+                    <h3>TEST</h3>
+                    <p>TEST</p>
+                    <p class="reviewer">- Thor</p>
+                    <div class="stars">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                </div>
+                <div class="review">
+                    <h3>TEST</h3>
+                    <p>TEST</p>
+                    <p class="reviewer">- Harry Campbell</p>
+                    <div class="stars">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="qna">
+            <h2>Q&A</h2>
+            <div class="qna-container">
+                <div class="question">
+                    <h3>What is the warranty on this product?</h3>
+                    <p>The warranty on this product is one year.</p>
+                </div>
+                <div class="question">
+                    <h3>Does this product come with a user manual?</h3>
+                    <p>Yes, this product comes with a user manual.</p>
+                </div>
+            </div>
+        </section>
+
+        <script>
+            // Replace with actual product information
+            const productName = "Product Name";
+            const productPrice = "£9.99";
+            const productDescription = "Product description goes here.";
+            const seller = "Seller name";
+            const category = "Category";
+            const condition = "Condition";
+
+            // Update HTML with product information
+            document.getElementById("name").innerHTML = productName;
+            document.getElementById("price1").innerHTML = productPrice;
+            document.getElementById("description").innerHTML = productDescription;
+            document.getElementById("seller").innerHTML = seller;
+            document.getElementById("category").innerHTML = category;
+            document.getElementById("condition").innerHTML = condition;
+        </script>
+    </main>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>About Hexxa</h3>
+                <p>Hexxa is an online marketplace that offers a wide range of products from electronics to clothing. We have a wide range of brands to choose from and we are committed to providing our customers with the best shopping experience possible.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Returns &amp; Refunds</a></li>
+                    <li><a href="#">Shipping &amp; Delivery</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect with Us</h3>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Linkedin</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Hexxa. All Rights Reserved.</p><p>Terms &amp; Conditions | Privacy Policy</p><p>Hexxa is apart of the hdev group</p>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
