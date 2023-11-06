@@ -18,11 +18,12 @@
                 <button>Search</button>
             </div>
         </div>
+        <button id="logoutButton">Logout</button>
         <div class="basket">
             <img src="/assets/images/shoppingb.png" height="100px" alt="Basket">
                 <p>0</p>
         </div>
-            <a href="" class="signup" id="username-display"></span></a>
+            <a href="" class="signup" id="username-display">Welcome, <span id="username"></span>!</a>
         </div>
         <header class="header1">
             <nav>
@@ -135,11 +136,36 @@
     </footer>
         <script src="/backend/auth.js"></script>
 <script>
-  const username = '<%= req.session.user %>'; // This will be dynamically set based on the authenticated user
-  const divElement = document.getElementById('username-display');
-
-  divElement.innerHTML = `Welcome, ${username}!`;
-</script>
-
+document.getElementById('logoutButton').addEventListener('click', function() {
+  // Send a request to the /logout route when the button is clicked
+  fetch('/logout', {
+    method: 'GET',
+    credentials: 'same-origin', // Use 'same-origin' to send cookies with the request
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      // Redirect to the login page after successful logout
+      window.location.href = '/';
+    } else {
+      // Handle error (optional)
+      console.error('Error logging out:', data.message);
+    }
+  })
+  .catch(error => {
+    // Handle network or other errors (optional)
+    console.error('Error:', error);
+  });
+});
+    </script>
+<script>
+    fetch('/getUsername')
+      .then(response => response.json())
+      .then(data => {
+        var usernameElement = document.getElementById("username");
+        usernameElement.innerHTML = data.username;
+      })
+      .catch(error => console.error('Error:', error));
+  </script>
 </body>
 </html>

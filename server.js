@@ -16,15 +16,7 @@ app.get('/', (_req, res) => {
   res.sendFile(path.join(__dirname, 'assets/html', 'index.html'));
 });
 
-app.get('/allitems', (_req, res) => {
-  res.sendFile(path.join(__dirname, 'assets/html', 'allitems.html'));
-});
 
-
-
-app.post('/allitems', (_req, res) => {
-  res.sendFile(path.join(__dirname, 'assets/html', 'allitems.html'));
-});
 
 app.get('/login', (_req, res) => {
   res.sendFile(path.join(__dirname, 'assets/html', 'login.html'));
@@ -34,24 +26,12 @@ app.get('/signup', (_req, res) => {
   res.sendFile(path.join(__dirname, 'assets/html', 'signup.html'));
 });
 
-app.get('/shopping', (_req, res) => {
-  res.sendFile(path.join(__dirname, 'assets/html', 'shopping.html'));
-});
 
 // Serve static files (CSS, images, JavaScript, etc.)
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 // Define routes
-app.get('/sell', (_req, res) => {
-  res.sendFile(path.join(__dirname, 'assets/html', 'sell.html'));
-});
 
-app.get('/shopping', (_req, res) => {
-  res.sendFile(path.join(__dirname, 'assets/html', 'shopping.html'));
-});
-app.post('/shopping', (_req, res) => {
-  res.sendFile(path.join(__dirname, 'assets/html', 'shopping.html'));
-});
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -98,9 +78,6 @@ const storage = multer.diskStorage({
   }
 });
 
-app.get('/success', (_req, res) => {
-  res.sendFile(path.join(__dirname, 'assets/html', 'success.html'));
-});
 
 app.get('/items.json', (_req, res) => {
   res.sendFile(path.join(__dirname, 'items.json'));
@@ -110,9 +87,6 @@ app.get('/login', (_req, res) => {
   res.sendFile(path.join(__dirname, 'assets/html', 'login.html'));
 });
 
-app.post('/success', (_req, res) => {
-  res.sendFile(path.join(__dirname, 'assets/html', 'success.html'));
-});
 
 app.post('/verify-session', (_req, res) => {
   res.sendFile(path.join(__dirname, 'assets/html', 'verify-session.html'));
@@ -128,47 +102,6 @@ app.get('/security', (_req, res) => {
 
 app.post('/security', (_req, res) => {
   res.sendFile(path.join(__dirname, 'assets/html', 'security.html'));
-});
-
-const upload = multer({ storage: storage });
-
-app.post('/submit', upload.single('image'), (req, res) => {
-  const productId = Date.now();
-
-  const productName = req.body.productName;
-  const category = req.body.category;
-  const condition = req.body.condition;
-  const price = req.body.price;
-  const description = req.body.description;
-  const delivery = req.body.delivery;
-  const reviews = req.body.reviews;
-
-  const image = req.file;
-  const imageUrl = image ? `/uploads/${image.filename}` : '';
-
-  const itemData = {
-    productId,
-    productName,
-    category,
-    condition,
-    price,
-    description,
-    imageUrl,
-    reviews,
-    delivery,
-    approved: false,
-    sold: 0,
-    totalCost: 0
-  };
-
-  const rawData = fs.readFileSync('./items.json');
-  let items = JSON.parse(rawData);
-
-  items.push(itemData);
-
-  fs.writeFileSync('./items.json', JSON.stringify(items));
-
-  res.redirect('/success');
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -198,23 +131,18 @@ app.post('/login', (req, res) => {
   const password = req.body.password;
 
   const user = users.find(user => user.username === username && user.password === password);
-
+  
   if (user) {
+    const sessionToken = generateSessionToken();
+    user.sessionToken = sessionToken;
+    saveUsers();
+
+    res.cookie('session_token', sessionToken);
     req.session.user = user.username; // Set the session variable
     res.redirect('/shopping');
   } else {
     res.send('Invalid username or password.');
     console.log('Invalid username or password.', password, username);
-  }
-});
-
-app.get('/shopping', (req, res) => {
-  // Check if user is authenticated
-  if (req.session && req.session.user) {
-    const username = req.session.user;
-    res.send(`Welcome, ${username}!`);
-  } else {
-    res.send('Please log in.');
   }
 });
 
@@ -238,22 +166,6 @@ function generateSessionToken() {
 }
 
 // Endpoint to handle login
-app.post('/login', (req, res) => {
-  const { username, password } = req.body;
-
-  const user = users1.find(u => u.username === username && u.password === password);
-
-  if (user) {
-    const sessionToken = generateSessionToken();
-    user.sessionToken = sessionToken;
-    saveUsers();
-
-    res.cookie('session_token', sessionToken);
-    res.json({ loggedIn: true });
-  } else {
-    res.json({ loggedIn: false });
-  }
-});
 
 // Endpoint to verify session token
 app.post('/verify-session', (req, res) => {
@@ -354,7 +266,7 @@ function renderProductPage(product) {
           </section>
           <section class="buy-container">
             <div class="buysection">
-            <div id="approved" style="border: ${product.approved ? '2px solid #005700; color: #005700;' : '2px solid red; color: red;'}">
+            <div id="approved" style="border: ${product.approved ? 'border: 1px solid #005700;' : '2px solid red'}">
               THIS SELLER IS <span>${product.approved ? 'APPROVED' : 'NOT APPROVED'}</span>
             </div>             
               <hr>
@@ -464,19 +376,107 @@ function renderProductPage(product) {
   </html>
   `;
 }
+const requireAuth = (req, res, next) => {
+  const sessionToken = req.cookies.session_token;
 
-function requireAuth(req, res, next) {
-  if (req.session && req.session.user) {
-    return next(); // User is authenticated, proceed to the next middleware or route handler
-  } else {
-    res.redirect('/login'); // Redirect to the login page if user is not authenticated
+  if (!sessionToken) {
+    return res.redirect('/login'); // Redirect to login page if session token is not present
   }
-}
 
-app.get('/shopping', requireAuth, (req, res) => {
-  const username = req.session.user;
-  res.send(`Welcome, ${username}!`);
+  // Check if the session token is valid (e.g., compare it with the tokens stored in your users array)
+  const user = users.find(user => user.sessionToken === sessionToken);
+
+  if (!user) {
+    return res.redirect('/login'); // Redirect to login page if session token is invalid
+  }
+
+  req.user = user; // Attach the user object to the request for later use in the route handler
+  next(); // Continue with the next middleware or route handler
+};
+
+
+app.post('/success',requireAuth, (_req, res) => {
+  res.sendFile(path.join(__dirname, 'assets/html', 'success.html'));
 });
+app.get('/success',requireAuth, (_req, res) => {
+  res.sendFile(path.join(__dirname, 'assets/html', 'success.html'));
+});
+app.get('/sell',requireAuth, (_req, res) => {
+  res.sendFile(path.join(__dirname, 'assets/html', 'sell.html'));
+});
+
+app.get('/shopping',requireAuth, (_req, res) => {
+  res.sendFile(path.join(__dirname, 'assets/html', 'shopping.html'));
+});
+app.post('/shopping',requireAuth, (_req, res) => {
+  res.sendFile(path.join(__dirname, 'assets/html', 'shopping.html'));
+});
+
+
+app.get('/allitems',requireAuth, (_req, res) => {
+  res.sendFile(path.join(__dirname, 'assets/html', 'allitems.html'));
+});
+
+app.post('/allitems',requireAuth, (_req, res) => {
+  res.sendFile(path.join(__dirname, 'assets/html', 'allitems.html'));
+});
+
+app.get('/getUsername', (req, res) => {
+  const username = req.session.user;
+  res.send({ username });
+});
+
+const upload = multer({ storage: storage });
+
+app.post('/submit', upload.single('image'), (req, res) => {
+  const productId = Date.now();
+
+  const productName = req.body.productName;
+  const category = req.body.category;
+  const condition = req.body.condition;
+  const price = req.body.price;
+  const description = req.body.description;
+  const delivery = req.body.delivery;
+  const reviews = req.body.reviews;
+  const seller = req.session.user;
+  const image = req.file;
+  const imageUrl = image ? `/uploads/${image.filename}` : '';
+
+  // Read sellers data from file
+  const sellerData = JSON.parse(fs.readFileSync('./users.json', 'utf8'));
+
+  // Find the seller in the data
+  const sellerInfo = sellerData.find(sellerInfo => sellerInfo.name === seller);
+
+  // Determine if the seller is approved
+  const approved = sellerInfo ? sellerInfo.approved : false;
+
+  const itemData = {
+    productId,
+    productName,
+    seller,
+    category,
+    condition,
+    price,
+    description,
+    imageUrl,
+    reviews,
+    delivery,
+    approved,
+    sold: 0,
+    totalCost: 0
+  };
+
+  const rawData = fs.readFileSync('./items.json');
+  let items = JSON.parse(rawData);
+
+  items.push(itemData);
+
+  fs.writeFileSync('./items.json', JSON.stringify(items));
+
+  res.redirect('/success');
+});
+
 
 // Start the server
 const PORT = process.env.PORT || 3000;
