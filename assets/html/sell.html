@@ -20,8 +20,8 @@
                 <button>Search</button>
             </div>
         </div>
-            <a href="" class="signup">Welcome <span id="username"></span></a>
-        </div>
+        <a href="" class="signup" id="username-display">Welcome, <span id="username"></span>!</a>
+    </div>
         <header class="header1">
             <nav>
                 <ul>
@@ -205,5 +205,14 @@ document.getElementById('previewBtn').addEventListener('click', function() {
 });
         </script>
             <script src="/backend/auth.js"></script>
+<script>
+    fetch('/getUsername')
+      .then(response => response.json())
+      .then(data => {
+        var usernameElement = document.getElementById("username");
+        usernameElement.innerHTML = data.username;
+      })
+      .catch(error => console.error('Error:', error));
+  </script>
 </body>
 </html>

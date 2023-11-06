@@ -7,8 +7,9 @@
     <link rel="icon" href="/assets/images/favicon.png">
     <link rel="stylesheet" href="/assets/css/header.css">
     <link rel="stylesheet" href="/assets/css/footer.css">
-    <link rel="stylesheet" href="/assets/css/success.css">
+    <link rel="stylesheet" href="/assets/css/user.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.4/purify.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <header>
@@ -19,7 +20,12 @@
                 <button>Search</button>
             </div>
         </div>
-        </div>
+        <div class="basket">
+            <img src="/assets/images/shoppingb.png" height="100px" alt="Basket">
+                <p>0</p>
+            </div>
+                <a href="" class="signup" id="username-display">Welcome, <span id="username1"></span>!</a>
+            </div>
         <header class="header1">
             <nav>
                 <ul>
@@ -36,11 +42,27 @@
     </header>
     <main>
         <section>
-            <h1 style="color: black;">Success! Sent the item.</h1>
-            <img src="/assets/images/success.gif" id="succ" alt="Success">
+            <div class="user">
+                <h1 id="username">
+                  ${username} 
+                  ${approved ? '<div class="dropdown"><img src="/assets/images/authorised.png" id="approved" width="50px" class="role-icon"><div class="dropdown-content">Verified Seller</div></div>' : ''}
+                  ${role === 'developer' ? '<div class="dropdown"><img src="/assets/images/developer.png" id="developer" width="50px" class="role-icon"><div class="dropdown-content">Site Developer</div></div>' : ''}
+                  ${role === 'moderator' ? '<div class="dropdown"><img src="/assets/images/moderator.png" id="moderator" width="50px" class="role-icon"><div class="dropdown-content">Verified Moderator</div></div>' : ''}
+                  ${role === 'support' ? '<div class="dropdown"><img src="/assets/images/support.png" id="support" width="50px" class="role-icon"><div class="dropdown-content">Verified Support</div></div>' : ''}
+                  ${role === 'owner' ? '<div class="dropdown"><img src="/assets/images/owner.png" id="theceo" width="50px" class="role-icon"><div class="dropdown-content">Owner</div></div>' : ''}
+              </h1>
+            </div>
+          </section>
+        <section class="aboutt">
+            <div class="about">
+                <h1>About</h1>
+                <p><span style="color: #CCCCCC">About Me:</span> ${aboutMe}</p>
+                <br>
+                <p><span style="color: #CCCCCC">Member since</span> ${dateJoined}</p>
+            </div>
         </section>
-
     </main>
+
     <footer>
         <div class="footer-container">
             <div class="footer-section">
@@ -72,9 +94,13 @@
         </div>
     </footer>
     <script>
-        setTimeout(function() {
-            window.location.href = "/allitems";
-        }, 3000);
-    </script>
+  fetch('/getUsername')
+    .then(response => response.json())
+    .then(data => {
+      var usernameElement1 = document.getElementById("username1");
+      usernameElement1.innerHTML = data.username;
+    })
+    .catch(error => console.error('Error:', error));
+</script>
 </body>
 </html>

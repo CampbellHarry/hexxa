@@ -43,7 +43,9 @@ app.use(bodyParser.json());
 
 app.post('/signup', (req, res) => {
   const { username, password, approved } = req.body;
-
+  const role = 'user';
+  const dateJoined = new Date().toLocaleDateString();
+  const aboutMe = 'This user has not set an about me yet.';
   console.log('Received signup request with username:', username, 'and password:', password); // Debug log
 
   fs.readFile('./users.json', 'utf8', (err, data) => {
@@ -53,7 +55,7 @@ app.post('/signup', (req, res) => {
       }
 
       let users = JSON.parse(data);
-      users.push({ username, password, approved });
+      users.push({ username, password, approved, role, dateJoined, aboutMe });
 
       console.log('Updated users array:', users); // Debug log
 
@@ -232,9 +234,9 @@ function renderProductPage(product) {
           <div class="basket">
               <img src="/assets/images/shoppingb.png" height="100px" alt="Basket">
                   <p>0</p>
-          </div>
-              <a href="" class="signup">Welcome <span id="username-display"></span></a>
-          </div>
+              </div>
+                  <a href="" class="signup" id="username-display">Welcome, <span id="username"></span>!</a>
+              </div>
           <header class="header1">
               <nav>
                   <ul>
@@ -257,7 +259,7 @@ function renderProductPage(product) {
             <div class="item">
               <h2 id="name">${product.productName}</h2>
               <div id="reviews">Reviews: ${product.reviews}</div>
-              <div id="seller">Seller: ${product.seller}</div>
+              <div id="seller">Seller: ${product.seller} </div>
               <hr>
               <p id="price1">£${product.price}</p>
               <hr>
@@ -372,6 +374,15 @@ function renderProductPage(product) {
               </p>
           </div>
       </footer>
+      <script>
+    fetch('/getUsername')
+      .then(response => response.json())
+      .then(data => {
+        var usernameElement = document.getElementById("username");
+        usernameElement.innerHTML = data.username;
+      })
+      .catch(error => console.error('Error:', error));
+  </script>
   </body>
   </html>
   `;
@@ -440,16 +451,20 @@ app.post('/submit', upload.single('image'), (req, res) => {
   const reviews = req.body.reviews;
   const seller = req.session.user;
   const image = req.file;
+  const inStock = true;
   const imageUrl = image ? `/uploads/${image.filename}` : '';
 
   // Read sellers data from file
   const sellerData = JSON.parse(fs.readFileSync('./users.json', 'utf8'));
 
   // Find the seller in the data
-  const sellerInfo = sellerData.find(sellerInfo => sellerInfo.name === seller);
+  const sellerInfo = sellerData.find(sellerInfo => sellerInfo.username === seller);
 
   // Determine if the seller is approved
-  const approved = sellerInfo ? sellerInfo.approved : false;
+  let approved = false;
+  if (sellerInfo && sellerInfo.approved) {
+    approved = true;
+  }
 
   const itemData = {
     productId,
@@ -458,6 +473,7 @@ app.post('/submit', upload.single('image'), (req, res) => {
     category,
     condition,
     price,
+    inStock,
     description,
     imageUrl,
     reviews,
@@ -476,6 +492,135 @@ app.post('/submit', upload.single('image'), (req, res) => {
 
   res.redirect('/success');
 });
+
+const userss = require('./users.json');
+
+app.get('/user/:username', (req, res) => {
+  const username = req.params.username; // Get the username from the route parameter
+
+  const user = userss.find(item => item.username === username);
+
+  if (!user) {
+    return res.status(404).send('User not found');
+  }
+
+  res.send(renderUserPage(user));
+});
+
+
+function renderUserPage(user) {
+  const { username, aboutMe, dateJoined, approved, role, } = user;
+  return `
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Hexxa</title>
+      <link rel="icon" href="/assets/images/favicon.png">
+      <link rel="stylesheet" href="/assets/css/header.css">
+      <link rel="stylesheet" href="/assets/css/footer.css">
+      <link rel="stylesheet" href="/assets/css/user.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.4/purify.min.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+      <header>
+          <img src="/assets/images/favicon.png" class="logo" alt="Hexxa Logo" height="100px">
+          <div class="search-container">
+              <div class="search-box">
+                  <input type="text" placeholder="Search for products, brands and more with Hexxa">
+                  <button>Search</button>
+              </div>
+          </div>
+          <div class="basket">
+              <img src="/assets/images/shoppingb.png" height="100px" alt="Basket">
+                  <p>0</p>
+              </div>
+                  <a href="" class="signup" id="username-display">Welcome, <span id="username1"></span>!</a>
+              </div>
+          <header class="header1">
+              <nav>
+                  <ul>
+                      <li class="box"><a class="text" href="/">Home</a></li>
+                      <li class="box"><a class="text" href="">Customer Service</a></li>
+                      <li class="box"><a class="text" href="">Contact</a></li>
+                      <li class="box"><a class="text" href="shopping">Shopping</a></li>
+                      <li class="box"><a class="text" href="">Todays Deals</a></li>
+                      <li class="box"><a class="text" href="allitems">All Items</a></li>
+                      <li class="box"><a class="text" href="sell">Sell a Item</a></li>
+                  </ul>
+              </nav>
+          </header>
+      </header>
+      <main>
+          <section>
+              <div class="user">
+                  <h1 id="username">
+                    ${username} 
+                    ${approved ? '<div class="dropdown"><img src="/assets/images/authorised.png" id="approved" width="50px" class="role-icon"><div class="dropdown-content">Verified Seller</div></div>' : ''}
+                    ${role === 'developer' ? '<div class="dropdown"><img src="/assets/images/developer.png" id="developer" width="50px" class="role-icon"><div class="dropdown-content">Site Developer</div></div>' : ''}
+                    ${role === 'moderator' ? '<div class="dropdown"><img src="/assets/images/moderator.png" id="moderator" width="50px" class="role-icon"><div class="dropdown-content">Verified Moderator</div></div>' : ''}
+                    ${role === 'support' ? '<div class="dropdown"><img src="/assets/images/support.png" id="support" width="50px" class="role-icon"><div class="dropdown-content">Verified Support</div></div>' : ''}
+                    ${role === 'owner' ? '<div class="dropdown"><img src="/assets/images/owner.png" id="theceo" width="50px" class="role-icon"><div class="dropdown-content">Owner</div></div>' : ''}
+                </h1>
+              </div>
+            </section>
+          <section class="aboutt">
+              <div class="about">
+                  <h1>About</h1>
+                  <p><span style="color: #CCCCCC">About Me:</span> ${aboutMe}</p>
+                  <br>
+                  
+                  <p><span style="color: #CCCCCC">Member since</span> ${dateJoined}</p>
+              </div>
+          </section>
+      </main>
+  
+      <footer>
+          <div class="footer-container">
+              <div class="footer-section">
+                  <h3>About Hexxa</h3>
+                  <p>Hexxa is an online marketplace that offers a wide range of products from electronics to clothing. We have a wide range of brands to choose from and we are committed to providing our customers with the best shopping experience possible.</p>
+              </div>
+              <div class="footer-section">
+                  <h3>Customer Service</h3>
+                  <ul>
+                      <li><a href="#">Contact Us</a></li>
+                      <li><a href="#">FAQs</a></li>
+                      <li><a href="#">Returns &amp; Refunds</a></li>
+                      <li><a href="#">Shipping &amp; Delivery</a></li>
+                  </ul>
+              </div>
+              <div class="footer-section">
+                  <h3>Connect with Us</h3>
+                  <ul>
+                      <li><a href="#">Facebook</a></li>
+                      <li><a href="#">Twitter</a></li>
+                      <li><a href="#">Instagram</a></li>
+                      <li><a href="#">Linkedin</a></li>
+                  </ul>
+              </div>
+          </div>
+          <div class="footer-bottom">
+              <p>&copy; 2023 Hexxa. All Rights Reserved.</p><p>Terms &amp; Conditions | Privacy Policy</p><p>Hexxa is apart of the hdev group</p>
+              </p>
+          </div>
+      </footer>
+      <script>
+    fetch('/getUsername')
+      .then(response => response.json())
+      .then(data => {
+        var usernameElement1 = document.getElementById("username1");
+        usernameElement1.innerHTML = data.username;
+      })
+      .catch(error => console.error('Error:', error));
+  </script>
+  </body>
+  </html>
+`;
+}
+
 
 
 // Start the server
