@@ -11,7 +11,7 @@
 </head>
 <body>
     <header>
-        <img src="/assets/images/favicon.png" class="logo" alt="Hexxa Logo" height="100px">
+        <img src="/assets/images/favicon.png" alt="Hexxa Logo" height="100px">
         <div class="search-container">
             <div class="search-box">
                 <input type="text" placeholder="Search for products, brands and more with Hexxa">
@@ -21,19 +21,23 @@
         <div class="basket">
             <img src="/assets/images/shoppingb.png" height="100px" alt="Basket">
                 <p>0</p>
-        </div>
-            <a href="" class="signup" id="username-display">Welcome, <span id="username"></span>!</a>
-        </div>
-        <header class="header1">
+        <header>
             <nav>
-                <ul>
-                    <li class="box"><a class="text" href="/">Home</a></li>
-                    <li class="box"><a class="text" href="">Customer Service</a></li>
-                    <li class="box"><a class="text" href="">Contact</a></li>
-                    <li class="box"><a class="text" href="shopping">Shopping</a></li>
-                    <li class="box"><a class="text" href="">Todays Deals</a></li>
-                    <li class="box"><a class="text" href="allitems">All Items</a></li>
-                    <li class="box"><a class="text" href="sell">Sell a Item</a></li>
+                <div class="burger-menu">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+                <ul class="nav-links">
+                    <li class="box"><a class="text" href="">Welcome <span id="username"></span>!</a></li>
+                    <li class="box"><a class="text" href="#home">Home</a></li>
+                    <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
+                    <li class="box"><a class="text" href="#contact">Contact</a></li>
+                    <li class="box"><a class="text" href="/shopping">Shopping</a></li>
+                    <li class="box"><a class="text" href="#deals">Today's Deals</a></li>
+                    <li class="box"><a class="text" href="/all-items">All Items</a></li>
+                    <li class="box"><a class="text" href="/sell">Sell an Item</a></li>
+                    
                 </ul>
             </nav>
         </header>
@@ -166,5 +170,27 @@ document.getElementById('logoutButton').addEventListener('click', function() {
       })
       .catch(error => console.error('Error:', error));
   </script>
+      <script>
+        const burgerMenu = document.querySelector('.burger-menu');
+        const navLinks = document.querySelector('.nav-links');
+        const links = document.querySelectorAll('.nav-links li');
+
+        burgerMenu.addEventListener('click', () => {
+            // Toggle Nav
+            navLinks.classList.toggle('nav-active');
+
+            // Animate Links
+            links.forEach((link, index) => {
+                if (link.style.animation) {
+                    link.style.animation = '';
+                } else {
+                    link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
+                }
+            });
+
+            // Burger Animation
+            burgerMenu.classList.toggle('toggle');
+        });
+    </script>
 </body>
 </html>
