@@ -23,9 +23,6 @@
         <div class="basket">
             <img src="/assets/images/shoppingb.png" height="100px" alt="Basket">
                 <p>0</p>
-            </div>
-                <a href="" class="signup" id="username-display">Welcome, <span id="username1"></span>!</a>
-            </div>
             <header>
                 <nav>
                     <div class="burger-menu">
@@ -35,14 +32,13 @@
                     </div>
                     <ul class="nav-links">
                         <li class="box"><a class="text" href="">Welcome <span id="username"></span>!</a></li>
-                        <li class="box"><a class="text" href="#home">Home</a></li>
+                        <li class="box"><a class="text" href="/">Home</a></li>
                         <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
                         <li class="box"><a class="text" href="#contact">Contact</a></li>
                         <li class="box"><a class="text" href="/shopping">Shopping</a></li>
                         <li class="box"><a class="text" href="#deals">Today's Deals</a></li>
-                        <li class="box"><a class="text" href="/all-items">All Items</a></li>
+                        <li class="box"><a class="text" href="/allitems">All Items</a></li>
                         <li class="box"><a class="text" href="/sell">Sell an Item</a></li>
-                        
                     </ul>
                 </nav>
             </header>
@@ -100,36 +96,15 @@
             </p>
         </div>
     </footer>
+    <script src="/backend/user.js"></script>
     <script>
-  fetch('/getUsername')
-    .then(response => response.json())
-    .then(data => {
-      var usernameElement1 = document.getElementById("username1");
-      usernameElement1.innerHTML = data.username;
-    })
-    .catch(error => console.error('Error:', error));
-</script>
-<script>
-    const burgerMenu = document.querySelector('.burger-menu');
-    const navLinks = document.querySelector('.nav-links');
-    const links = document.querySelectorAll('.nav-links li');
-
-    burgerMenu.addEventListener('click', () => {
-        // Toggle Nav
-        navLinks.classList.toggle('nav-active');
-
-        // Animate Links
-        links.forEach((link, index) => {
-            if (link.style.animation) {
-                link.style.animation = '';
-            } else {
-                link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
-            }
-        });
-
-        // Burger Animation
-        burgerMenu.classList.toggle('toggle');
-    });
-</script>
+            fetch('/getUsername')
+  .then(response => response.json())
+  .then(data => {
+    var usernameElement = document.getElementById("username");
+    usernameElement.innerHTML = data.username;
+  })
+  .catch(error => console.error('Error:', error));
+    </script>
 </body>
 </html>

@@ -105,3 +105,12 @@ section h2 {
     position: relative;
     display: none;
   }
+
+@media screen and (max-width: 1200px) {
+    .dropdown-content{
+        left: -160px;
+    }
+    .dropdown-content::after{
+        left: 95%;
+    }
+}

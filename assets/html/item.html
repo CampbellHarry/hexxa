@@ -14,7 +14,7 @@
 </head>
 <body>
     <header>
-        <img src="/assets/images/favicon.png" alt="Hexxa Logo" height="100px">
+        <img src="/assets/images/favicon.png" class="logo" alt="Hexxa Logo" height="100px">
         <div class="search-container">
             <div class="search-box">
                 <input type="text" placeholder="Search for products, brands and more with Hexxa">
@@ -24,23 +24,19 @@
         <div class="basket">
             <img src="/assets/images/shoppingb.png" height="100px" alt="Basket">
                 <p>0</p>
-        <header>
+            </div>
+                <a href="" class="signup" id="username-display">Welcome, <span id="username"></span>!</a>
+            </div>
+        <header class="header1">
             <nav>
-                <div class="burger-menu">
-                    <div class="line"></div>
-                    <div class="line"></div>
-                    <div class="line"></div>
-                </div>
-                <ul class="nav-links">
-                    <li class="box"><a class="text" href="">Welcome <span id="username"></span>!</a></li>
-                    <li class="box"><a class="text" href="#home">Home</a></li>
-                    <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
-                    <li class="box"><a class="text" href="#contact">Contact</a></li>
-                    <li class="box"><a class="text" href="/shopping">Shopping</a></li>
-                    <li class="box"><a class="text" href="#deals">Today's Deals</a></li>
-                    <li class="box"><a class="text" href="/all-items">All Items</a></li>
-                    <li class="box"><a class="text" href="/sell">Sell an Item</a></li>
-                    
+                <ul>
+                    <li class="box"><a class="text" href="/">Home</a></li>
+                    <li class="box"><a class="text" href="">Customer Service</a></li>
+                    <li class="box"><a class="text" href="">Contact</a></li>
+                    <li class="box"><a class="text" href="shopping">Shopping</a></li>
+                    <li class="box"><a class="text" href="">Todays Deals</a></li>
+                    <li class="box"><a class="text" href="allitems">All Items</a></li>
+                    <li class="box"><a class="text" href="sell">Sell a Item</a></li>
                 </ul>
             </nav>
         </header>
@@ -49,32 +45,35 @@
         <section class="product-image-container">
             <img src="/assets/images/hexxa.png" alt="Product Image">
         </section>
-            <section class="product-info-container">
-                <div class="item">
-                    <h2 id="name"></h2>
-                    <div id="reviews">1/5 stars</div>
-                    <div id="seller"></div>
-                    <hr>
-                    <p id="price1"></p>
-                    <hr>
-                    <p id="category"></p>
-                    <p id="condition"></p>
-                    <p id="description"></p>
-                </div>
-            </section>
-            <section class="buy-container">
-                <div class="buysection">
-                    <div id="approved">THIS SELLER IS <span>APPROVED / NOT</span></div>
-                    <hr>
-                    <div id="price">Price</div>
-                    <div id="delivery">Delivery</div>
-                    <hr>
-                    <div id="instock">In stock</div>
-                    <hr>
-                    <button id="addbasket">Add to Basket</button>
-                    <button id="buynow">Buy Now</button>
-                </div>
-            </section>
+        <section class="product-info-container">
+          <div class="item">
+            <h2 id="name">${product.productName}</h2>
+            <div id="reviews">Reviews: ${product.reviews}</div>
+            <div id="seller">Seller: ${product.seller}</div>
+            <hr>
+            <p id="price1">£${product.price}</p>
+            <hr>
+            <p id="description">${product.description}</p>
+          </div>
+        </section>
+        <section class="buy-container">
+          <div class="buysection">
+          <div id="approved" style="border: ${product.approved ? 'border: 1px solid #005700;' : '2px solid red'}">
+            THIS SELLER IS <span>${product.approved ? 'APPROVED' : 'NOT APPROVED'}</span>
+          </div>
+          <div id="role" style="border: ${product.sellerrole === 'owner' ? 'border: 1px solid #FFD700; color: #FFD700;' : product.sellerrole === 'developer' ? 'border: 1px solid #800080; color: #800080;' : product.sellerrole === 'moderator' ? 'border: 1px solid #008000; color: #008000;' : product.sellerrole === 'support' ? 'border: 1px solid #87CEEB; color: #87CEEB;' : product.sellerrole === 'user' ? 'border: 1px solid #008080; color: ;008080;' : '2px solid #008080; color: ;008080;'}">
+            THIS SELLER IS <span>${product.sellerrole === 'owner' ? 'AN OWNER' : product.sellerrole === 'developer' ? 'A DEVELOPER' : product.sellerrole === 'moderator' ? 'A MODERATOR' : product.sellerrole === 'support' ? 'A SUPPORT AGENT' : product.sellerrole === 'user' ? 'A USER' : 'USER'}</span>
+        </div>                 
+            <hr>
+            <div id="price">Price: £${product.price}</div>
+            <div id="delivery">Delivery: ${product.delivery}</div>
+            <hr>
+            <div id="instock">${product.inStock ? 'In stock' : 'Out of stock'}</div>
+            <hr>
+            <button id="addbasket">Add to Basket</button>
+            <button id="buynow">Buy Now</button>
+          </div>
+        </section>
         </main>
         <br>
         <br>
@@ -137,24 +136,6 @@
                 </div>
             </div>
         </section>
-
-        <script>
-            // Replace with actual product information
-            const productName = "Product Name";
-            const productPrice = "£9.99";
-            const productDescription = "Product description goes here.";
-            const seller = "Seller name";
-            const category = "Category";
-            const condition = "Condition";
-
-            // Update HTML with product information
-            document.getElementById("name").innerHTML = productName;
-            document.getElementById("price1").innerHTML = productPrice;
-            document.getElementById("description").innerHTML = productDescription;
-            document.getElementById("seller").innerHTML = seller;
-            document.getElementById("category").innerHTML = category;
-            document.getElementById("condition").innerHTML = condition;
-        </script>
     </main>
     <footer>
         <div class="footer-container">
@@ -187,26 +168,14 @@
         </div>
     </footer>
     <script>
-        const burgerMenu = document.querySelector('.burger-menu');
-        const navLinks = document.querySelector('.nav-links');
-        const links = document.querySelectorAll('.nav-links li');
-
-        burgerMenu.addEventListener('click', () => {
-            // Toggle Nav
-            navLinks.classList.toggle('nav-active');
-
-            // Animate Links
-            links.forEach((link, index) => {
-                if (link.style.animation) {
-                    link.style.animation = '';
-                } else {
-                    link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
-                }
-            });
-
-            // Burger Animation
-            burgerMenu.classList.toggle('toggle');
-        });
-    </script>
+    fetch('/getUsername')
+  .then(response => response.json())
+  .then(data => {
+    var usernameElement = document.getElementById("username");
+    usernameElement.innerHTML = data.username;
+  })
+  .catch(error => console.error('Error:', error));
+</script>
+</script>
 </body>
 </html>

@@ -91,6 +91,15 @@ main {
     color: white;
     margin-bottom: 15px;
 }
+
+#role{
+    border: 1px solid #005700;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    margin-bottom: 15px;
+}
+
 hr{
     border: 1px solid rgb(87, 85, 85);
 }

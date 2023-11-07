@@ -18,18 +18,6 @@
                 <input type="text" placeholder="Search for products, brands and more with Hexxa">
                 <button>Search</button>
             </div>
-        </div>
-            <a href="" class="signup">Welcome <span id="username"></span></a>
-        </div>
-        <body>
-            <header>
-                <img src="/assets/images/favicon.png" alt="Hexxa Logo" height="100px">
-                <div class="search-container">
-                    <div class="search-box">
-                        <input type="text" placeholder="Search for products, brands and more with Hexxa">
-                        <button>Search</button>
-                    </div>
-                </div>
                 <header>
                     <nav>
                         <div class="burger-menu">
@@ -39,25 +27,24 @@
                         </div>
                         <ul class="nav-links">
                             <li class="box"><a class="text" href="">Welcome <span id="username"></span>!</a></li>
-                            <li class="box"><a class="text" href="#home">Home</a></li>
+                            <li class="box"><a class="text" href="/">Home</a></li>
                             <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
                             <li class="box"><a class="text" href="#contact">Contact</a></li>
                             <li class="box"><a class="text" href="/shopping">Shopping</a></li>
                             <li class="box"><a class="text" href="#deals">Today's Deals</a></li>
-                            <li class="box"><a class="text" href="/all-items">All Items</a></li>
+                            <li class="box"><a class="text" href="/allitems">All Items</a></li>
                             <li class="box"><a class="text" href="/sell">Sell an Item</a></li>
-                            
                         </ul>
                     </nav>
                 </header>
             </header>
-        <main>
-        <section>
-            <div id="container">
-            </div>
-        </section>
-    </main>
-    <footer>
+            <main>
+                <section>
+                    <div id="container">
+                    </div>
+                </section>
+            </main>
+<footer>
         <div class="footer-container">
             <div class="footer-section">
                 <h3>About Hexxa</h3>
@@ -86,7 +73,7 @@
             <p>&copy; 2023 Hexxa. All Rights Reserved.</p><p>Terms &amp; Conditions | Privacy Policy</p><p>Hexxa is apart of the hdev group</p>
             </p>
         </div>
-    </footer>
+</footer>
     <script src="/backend/allitems.js"></script>
     <script src="/backend/auth.js"></script>
     <script>
@@ -110,6 +97,13 @@
             // Burger Animation
             burgerMenu.classList.toggle('toggle');
         });
+        fetch('/getUsername')
+  .then(response => response.json())
+  .then(data => {
+    var usernameElement = document.getElementById("username");
+    usernameElement.innerHTML = data.username;
+  })
+  .catch(error => console.error('Error:', error));
     </script>
 </body>
 </html>

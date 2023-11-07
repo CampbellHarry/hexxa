@@ -49,24 +49,30 @@ app.post('/signup', (req, res) => {
   console.log('Received signup request with username:', username, 'and password:', password); // Debug log
 
   fs.readFile('./users.json', 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error reading users.json:', err);
+      return res.json({ success: false });
+    }
+
+    let users = JSON.parse(data);
+    const userExists = users.some(user => user.username === username);
+    if (userExists) {
+      console.log('Username already exists:', username);
+      return res.json({ success: false, message: 'Username already exists' });
+    }
+
+    users.push({ username, password, approved, role, dateJoined, aboutMe });
+
+    console.log('Updated users array:', users); // Debug log
+
+    fs.writeFile('./users.json', JSON.stringify(users), (err) => {
       if (err) {
-          console.error('Error reading users.json:', err);
-          return res.json({ success: false });
+        console.error('Error writing to users.json:', err);
+        return res.json({ success: false });
       }
-
-      let users = JSON.parse(data);
-      users.push({ username, password, approved, role, dateJoined, aboutMe });
-
-      console.log('Updated users array:', users); // Debug log
-
-      fs.writeFile('./users.json', JSON.stringify(users), (err) => {
-          if (err) {
-              console.error('Error writing to users.json:', err);
-              return res.json({ success: false });
-          }
-          console.log('Data written to users.json');
-          res.json({ success: true });
-      });
+      console.log('Data written to users.json');
+      res.json({ success: true });
+    });
   });
 });
 
@@ -137,7 +143,6 @@ app.post('/login', (req, res) => {
   if (user) {
     const sessionToken = generateSessionToken();
     user.sessionToken = sessionToken;
-    saveUsers();
 
     res.cookie('session_token', sessionToken);
     req.session.user = user.username; // Set the session variable
@@ -189,7 +194,6 @@ const items = require('./items.json');
 
 app.get('/product/:id', (req, res) => {
   const id = parseInt(req.params.id); // Parse the id as a number
-
   if (isNaN(id)) {
     return res.status(400).send('Invalid ID');
   }
@@ -270,7 +274,10 @@ function renderProductPage(product) {
             <div class="buysection">
             <div id="approved" style="border: ${product.approved ? 'border: 1px solid #005700;' : '2px solid red'}">
               THIS SELLER IS <span>${product.approved ? 'APPROVED' : 'NOT APPROVED'}</span>
-            </div>             
+            </div>
+            <div id="role" style="border: ${product.sellerrole === 'owner' ? 'border: 1px solid #FFD700; color: #FFD700;' : product.sellerrole === 'developer' ? 'border: 1px solid #800080; color: #800080;' : product.sellerrole === 'moderator' ? 'border: 1px solid #008000; color: #008000;' : product.sellerrole === 'support' ? 'border: 1px solid #87CEEB; color: #87CEEB;' : product.sellerrole === 'user' ? 'border: 1px solid #008080; color: ;008080;' : '2px solid #008080; color: ;008080;'}">
+              THIS SELLER IS <span>${product.sellerrole === 'owner' ? 'AN OWNER' : product.sellerrole === 'developer' ? 'A DEVELOPER' : product.sellerrole === 'moderator' ? 'A MODERATOR' : product.sellerrole === 'support' ? 'A SUPPORT AGENT' : product.sellerrole === 'user' ? 'A USER' : 'USER'}</span>
+          </div>                 
               <hr>
               <div id="price">Price: £${product.price}</div>
               <div id="delivery">Delivery: ${product.delivery}</div>
@@ -375,13 +382,14 @@ function renderProductPage(product) {
           </div>
       </footer>
       <script>
-    fetch('/getUsername')
-      .then(response => response.json())
-      .then(data => {
-        var usernameElement = document.getElementById("username");
-        usernameElement.innerHTML = data.username;
-      })
-      .catch(error => console.error('Error:', error));
+      fetch('/getUsername')
+    .then(response => response.json())
+    .then(data => {
+      var usernameElement = document.getElementById("username");
+      usernameElement.innerHTML = data.username;
+    })
+    .catch(error => console.error('Error:', error));
+  </script>
   </script>
   </body>
   </html>
@@ -459,6 +467,7 @@ app.post('/submit', upload.single('image'), (req, res) => {
 
   // Find the seller in the data
   const sellerInfo = sellerData.find(sellerInfo => sellerInfo.username === seller);
+  const sellerrole = sellerInfo.role;
 
   // Determine if the seller is approved
   let approved = false;
@@ -479,6 +488,7 @@ app.post('/submit', upload.single('image'), (req, res) => {
     reviews,
     delivery,
     approved,
+    sellerrole,
     sold: 0,
     totalCost: 0
   };
@@ -536,24 +546,27 @@ function renderUserPage(user) {
           <div class="basket">
               <img src="/assets/images/shoppingb.png" height="100px" alt="Basket">
                   <p>0</p>
-              </div>
-                  <a href="" class="signup" id="username-display">Welcome, <span id="username1"></span>!</a>
-              </div>
-          <header class="header1">
-              <nav>
-                  <ul>
-                      <li class="box"><a class="text" href="../">Home</a></li>
-                      <li class="box"><a class="text" href="">Customer Service</a></li>
-                      <li class="box"><a class="text" href="">Contact</a></li>
-                      <li class="box"><a class="text" href="../shopping">Shopping</a></li>
-                      <li class="box"><a class="text" href="">Todays Deals</a></li>
-                      <li class="box"><a class="text" href="../allitems">All Items</a></li>
-                      <li class="box"><a class="text" href="../sell">Sell a Item</a></li>
-                  </ul>
-              </nav>
+              <header>
+                  <nav>
+                      <div class="burger-menu">
+                          <div class="line"></div>
+                          <div class="line"></div>
+                          <div class="line"></div>
+                      </div>
+                      <ul class="nav-links">
+                          <li class="box"><a class="text" href="">Welcome <span id="username"></span>!</a></li>
+                          <li class="box"><a class="text" href="/">Home</a></li>
+                          <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
+                          <li class="box"><a class="text" href="#contact">Contact</a></li>
+                          <li class="box"><a class="text" href="/shopping">Shopping</a></li>
+                          <li class="box"><a class="text" href="#deals">Today's Deals</a></li>
+                          <li class="box"><a class="text" href="/allitems">All Items</a></li>
+                          <li class="box"><a class="text" href="/sell">Sell an Item</a></li>
+                      </ul>
+                  </nav>
+              </header>
           </header>
-      </header>
-      <main>
+          <main>
           <section>
               <div class="user">
                   <h1 id="username">
@@ -606,21 +619,25 @@ function renderUserPage(user) {
               </p>
           </div>
       </footer>
+      <script src="/backend/user.js"></script>
       <script>
-    fetch('/getUsername')
-      .then(response => response.json())
-      .then(data => {
-        var usernameElement1 = document.getElementById("username1");
-        usernameElement1.innerHTML = data.username;
-      })
-      .catch(error => console.error('Error:', error));
-  </script>
+              fetch('/getUsername')
+    .then(response => response.json())
+    .then(data => {
+      var usernameElement = document.getElementById("username");
+      usernameElement.innerHTML = data.username;
+    })
+    .catch(error => console.error('Error:', error));
+      </script>
   </body>
   </html>
 `;
 }
-
-
+app.get('/logout', (req, res) => {
+  res.clearCookie('session_token');
+  req.session.destroy();
+  res.redirect('/');
+});
 
 // Start the server
 const PORT = process.env.PORT || 3000;

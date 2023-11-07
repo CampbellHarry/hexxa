@@ -1,56 +1,81 @@
 footer {
-    background-color: #333;
-    color: #fff;
-    padding: 50px 0;
+        background-color: #333;
+        color: #fff;
+        padding: 50px 0;
 }
 
 .footer-container {
-    display: flex;
-    justify-content: space-between;
-    max-width: 100%;
-    margin: 0 auto;
-    background-color: var(--tursh);
-    border-top: #000000 5px solid;
-    width: 500%;
+        display: flex;
+        flex-wrap: wrap; /* allow items to wrap to new line on smaller screens */
+        justify-content: space-between;
+        max-width: 100%;
+        margin: 0 auto;
+        background-color: var(--tursh);
+        border-top: #000000 5px solid;
+        width: 500%;
 }
 
 .footer-section {
-    flex-basis: 30%;
-    margin: 10px;
+        flex-basis: 30%;
+        margin: 10px;
 }
 
 .footer-section h3 {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
+        font-size: 1.5rem;
+        margin-bottom: 20px;
 }
 
 .footer-section ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+        list-style: none;
+        margin: 0;
+        padding: 0;
 }
 
 .footer-section li {
-    margin-bottom: 10px;
+        margin-bottom: 10px;
 }
 
 .footer-section a {
-    color: #fff;
-    text-decoration: none;
+        color: #fff;
+        text-decoration: none;
 }
 
 .footer-section a:hover {
-    text-decoration: underline;
+        text-decoration: underline;
 }
 
 .footer-bottom {
-    background-color: #222;
-    padding: 20px 0;
-    text-align: center;
-    position: relative;
+        background-color: #222;
+        padding: 20px 0;
+        text-align: center;
+        position: relative;
 }
 
 .footer-bottom p {
-    margin: 0;
-    font-size: 1.2rem;
+        margin: 0;
+        font-size: 1.2rem;
+}
+
+/* media queries for smaller screens */
+@media only screen and (max-width: 768px) {
+    .footer-container {
+        flex-direction: column; /* stack items vertically */
+        width: 100%;
+    }
+    
+    .footer-section {
+        flex-basis: 100%; /* make each section take up full width */
+    }
+    
+    .footer-section h3 {
+        font-size: 1.2rem; /* decrease font size */
+    }
+    
+    .footer-section ul {
+        margin-bottom: 20px; /* add more space between sections */
+    }
+    
+    .footer-bottom p {
+        font-size: 1rem; /* decrease font size */
+    }
 }
