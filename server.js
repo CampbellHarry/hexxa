@@ -259,7 +259,7 @@ function renderProductPage(product) {
             <div class="item">
               <h2 id="name">${product.productName}</h2>
               <div id="reviews">Reviews: ${product.reviews}</div>
-              <div id="seller">Seller: ${product.seller} </div>
+              <div id="seller">Seller: ${product.seller}</div>
               <hr>
               <p id="price1">£${product.price}</p>
               <hr>
@@ -542,13 +542,13 @@ function renderUserPage(user) {
           <header class="header1">
               <nav>
                   <ul>
-                      <li class="box"><a class="text" href="/">Home</a></li>
+                      <li class="box"><a class="text" href="../">Home</a></li>
                       <li class="box"><a class="text" href="">Customer Service</a></li>
                       <li class="box"><a class="text" href="">Contact</a></li>
-                      <li class="box"><a class="text" href="shopping">Shopping</a></li>
+                      <li class="box"><a class="text" href="../shopping">Shopping</a></li>
                       <li class="box"><a class="text" href="">Todays Deals</a></li>
-                      <li class="box"><a class="text" href="allitems">All Items</a></li>
-                      <li class="box"><a class="text" href="sell">Sell a Item</a></li>
+                      <li class="box"><a class="text" href="../allitems">All Items</a></li>
+                      <li class="box"><a class="text" href="../sell">Sell a Item</a></li>
                   </ul>
               </nav>
           </header>
@@ -560,9 +560,9 @@ function renderUserPage(user) {
                     ${username} 
                     ${approved ? '<div class="dropdown"><img src="/assets/images/authorised.png" id="approved" width="50px" class="role-icon"><div class="dropdown-content">Verified Seller</div></div>' : ''}
                     ${role === 'developer' ? '<div class="dropdown"><img src="/assets/images/developer.png" id="developer" width="50px" class="role-icon"><div class="dropdown-content">Site Developer</div></div>' : ''}
-                    ${role === 'moderator' ? '<div class="dropdown"><img src="/assets/images/moderator.png" id="moderator" width="50px" class="role-icon"><div class="dropdown-content">Verified Moderator</div></div>' : ''}
-                    ${role === 'support' ? '<div class="dropdown"><img src="/assets/images/support.png" id="support" width="50px" class="role-icon"><div class="dropdown-content">Verified Support</div></div>' : ''}
-                    ${role === 'owner' ? '<div class="dropdown"><img src="/assets/images/owner.png" id="theceo" width="50px" class="role-icon"><div class="dropdown-content">Owner</div></div>' : ''}
+                    ${role === 'moderator' ? '<div class="dropdown"><img src="/assets/images/moderator.png" id="moderator" width="50px" class="role-icon"><div class="dropdown-content">Moderation Team</div></div>' : ''}
+                    ${role === 'support' ? '<div class="dropdown"><img src="/assets/images/support.png" id="support" width="50px" class="role-icon"><div class="dropdown-content">Support Team</div></div>' : ''}
+                    ${role === 'owner' ? '<div class="dropdown"><img src="/assets/images/owner.png" id="theceo" width="50px" class="role-icon"><div class="dropdown-content">Site Owner</div></div>' : ''}
                 </h1>
               </div>
             </section>
@@ -571,7 +571,6 @@ function renderUserPage(user) {
                   <h1>About</h1>
                   <p><span style="color: #CCCCCC">About Me:</span> ${aboutMe}</p>
                   <br>
-                  
                   <p><span style="color: #CCCCCC">Member since</span> ${dateJoined}</p>
               </div>
           </section>

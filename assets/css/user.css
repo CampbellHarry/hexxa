@@ -47,12 +47,15 @@ section h2 {
     color: #ffffff;
     font-size: 18px;
 }
+/* Container for the dropdown */
 .dropdown {
     position: relative;
     display: inline-block;
-  }
+    font-family: Arial, sans-serif; /* Set a preferred font */
+}
 
-  .dropdown-content {
+/* Dropdown content */
+.dropdown-content {
     display: none;
     position: absolute;
     width: auto;
@@ -62,13 +65,43 @@ section h2 {
     z-index: 1;
     padding: 10px;
     border-radius: 5px;
-    font-size: 20px;
-  }
+    font-size: 16px; /* Slightly reduced font size for better readability */
+    border: 1px solid #ccc; /* Add a border for separation */
+}
 
-  .dropdown:hover .dropdown-content {
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-content {
     display: block;
-  }
+}
 
-  .role-icon {
+/* Point style on hover */
+.dropdown:hover .point {
+    background-color: #3e8e41;
+}
+
+/* Role icon style */
+.role-icon {
     cursor: pointer;
+    padding: 5px; /* Add some padding for better click area */
+}
+
+/* Add arrow indicator */
+.dropdown-content::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 15%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #fff transparent;
+}
+
+  .point{
+    rotate: 45deg;
+    width: 10px;
+    background-color: black;
+    height: 10px;
+    position: relative;
+    display: none;
   }
