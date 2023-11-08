@@ -46,7 +46,6 @@ app.post('/signup', (req, res) => {
   const role = 'user';
   const dateJoined = new Date().toLocaleDateString();
   const aboutMe = 'This user has not set an about me yet.';
-  console.log('Received signup request with username:', username, 'and password:', password); // Debug log
 
   fs.readFile('./users.json', 'utf8', (err, data) => {
     if (err) {
@@ -57,13 +56,10 @@ app.post('/signup', (req, res) => {
     let users = JSON.parse(data);
     const userExists = users.some(user => user.username === username);
     if (userExists) {
-      console.log('Username already exists:', username);
       return res.json({ success: false, message: 'Username already exists' });
     }
 
     users.push({ username, password, approved, role, dateJoined, aboutMe,  });
-
-    console.log('Updated users array:', users); // Debug log
 
     fs.writeFile('./users.json', JSON.stringify(users), (err) => {
       if (err) {
