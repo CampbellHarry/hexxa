@@ -138,7 +138,12 @@ const bcrypt = require('bcrypt');
 
 const session = require('express-session');
 
+csrf = require('lusca').csrf;
 
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(session({ secret: process.env['SECRET'], cookie: { maxAge: 60000 } }));
+app.use(csrf());
 // Load user data from users.json
 const users = JSON.parse(fs.readFileSync('./users.json', 'utf-8'));
 
