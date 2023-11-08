@@ -6,30 +6,6 @@ const multer = require('multer');
 
 const app = express();
 
-const http = require('http');
-
-const server = http.createServer((req, res) => {
-    res.setHeader("Set-Cookie", `authKey=${makeAuthkey()}; secure; httpOnly`);
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.end('<h2>Hello world</h2>');
-});
-
-
-var RateLimit = require('express-rate-limit');
-var limiter = RateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // max 100 requests per windowMs
-});
-
-// apply rate limiter to all requests
-app.use(limiter);
-
-app.get('/:path', function(req, res) {
-  let path = req.params.path;
-  if (isValidPath(path))
-    res.sendFile(path);
-});
-
 // Serve static files (CSS, images, JavaScript, etc.)
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use('/backend', express.static(path.join(__dirname, 'backend')));
@@ -80,10 +56,10 @@ app.post('/signup', (req, res) => {
     let users = JSON.parse(data);
     const userExists = users.some(user => user.username === username);
     if (userExists) {
-      return res.json({ success: false, message: 'Username already exists' });
+      return res.json({ success: false, message: 'User already exists' });
     }
 
-    users.push({ username, password, approved, role, dateJoined, aboutMe,  });
+    users.push({ username, password, approved, role, dateJoined, aboutMe });
 
     fs.writeFile('./users.json', JSON.stringify(users), (err) => {
       if (err) {
@@ -138,12 +114,7 @@ const bcrypt = require('bcrypt');
 
 const session = require('express-session');
 
-csrf = require('lusca').csrf;
 
-app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(session({ secret: process.env['SECRET'], cookie: { maxAge: 60000 } }));
-app.use(csrf());
 // Load user data from users.json
 const users = JSON.parse(fs.readFileSync('./users.json', 'utf-8'));
 
@@ -173,8 +144,7 @@ app.post('/login', (req, res) => {
     req.session.user = user.username; // Set the session variable
     res.redirect('/shopping');
   } else {
-    res.send('Invalid username or password.');
-    alert('Invalid Username or Password')
+    alert('Invalid username or password');
   }
 });
 
@@ -530,6 +500,7 @@ app.post('/submit', upload.single('image'), (req, res) => {
 });
 
 const userss = require('./users.json');
+const { availableParallelism } = require('os');
 
 app.get('/user/:username', (req, res) => {
   const username = req.params.username; // Get the username from the route parameter
@@ -658,6 +629,34 @@ function renderUserPage(user) {
   </html>
 `;
 }
+
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+
+app.post('/check-username', (req, res) => {
+    const username = req.body.username;
+
+    fs.readFile('users.json', 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Error reading user data');
+            return;
+        }
+
+        const users = JSON.parse(data);
+        const isUsernameTaken = users.some(user => user.username === username);
+
+        if (isUsernameTaken) {
+            res.send({ available: false });
+        } else {
+            res.send({ available: true });
+        }
+    });
+});
+
+
+
 app.get('/logout', (req, res) => {
   res.clearCookie('session_token');
   req.session.destroy();
