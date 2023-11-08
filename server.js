@@ -6,6 +6,22 @@ const multer = require('multer');
 
 const app = express();
 
+
+var RateLimit = require('express-rate-limit');
+var limiter = RateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // max 100 requests per windowMs
+});
+
+// apply rate limiter to all requests
+app.use(limiter);
+
+app.get('/:path', function(req, res) {
+  let path = req.params.path;
+  if (isValidPath(path))
+    res.sendFile(path);
+});
+
 // Serve static files (CSS, images, JavaScript, etc.)
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use('/backend', express.static(path.join(__dirname, 'backend')));
