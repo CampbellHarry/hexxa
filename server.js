@@ -5,6 +5,17 @@ const fs = require('fs');
 const multer = require('multer');
 
 const app = express();
+const rateLimit = require('express-rate-limit');
+
+
+// set up rate limiter: maximum of five requests per minute
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // max 100 requests per windowMs
+});
+
+app.use(limiter);
 
 // Serve static files (CSS, images, JavaScript, etc.)
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
