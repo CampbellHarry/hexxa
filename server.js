@@ -13,7 +13,7 @@ const rateLimit = require('express-rate-limit');
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // max 100 requests per windowMs
+  max: 1000, // max 100 requests per windowMs
 });
 
 app.use(limiter);
@@ -58,6 +58,8 @@ app.post('/signup', (req, res) => {
   const role = 'user';
   const dateJoined = new Date().toLocaleDateString();
   const aboutMe = 'This user has not set an about me yet.';
+  const totalOrders = 0;
+  const currentBadge = null;
 
   fs.readFile('./users.json', 'utf8', (err, data) => {
     if (err) {
@@ -71,7 +73,7 @@ app.post('/signup', (req, res) => {
       return res.json({ success: false, message: 'User already exists' });
     }
 
-    users.push({ username, password, approved, role, dateJoined, aboutMe });
+    users.push({ username, password, approved, role, dateJoined, aboutMe, totalOrders, currentBadge, earlyuser: true});
 
     fs.writeFile('./users.json', JSON.stringify(users), (err) => {
       if (err) {
@@ -156,7 +158,7 @@ app.post('/login', (req, res) => {
     req.session.user = user.username; // Set the session variable
     res.redirect('/shopping');
   } else {
-    alert('Invalid username or password');
+    res.redirect('/login');
   }
 });
 
@@ -527,8 +529,77 @@ app.get('/user/:username', (req, res) => {
 });
 
 
+
+
+fs.readFile('users.json', 'utf8', (err, data) => {
+  if (err) {
+    console.error('Error reading the file:', err);
+    return;
+  }
+
+  const users = JSON.parse(data);
+
+  for (const user of users) {
+    if (user.totalOrders) {
+      const totalOrders = user.totalOrders;
+      const badgeNumber = Math.floor((totalOrders - 1) / 5) * 5 + 5;
+      user.currentBadge = badgeNumber;
+    }
+  }
+
+  // Save the updated data back to the file
+  fs.writeFile('users.json', JSON.stringify(users), 'utf8', (err) => {
+    if (err) {
+      console.error('Error writing the file:', err);
+    } else {
+      console.log('Badge numbers updated successfully!');
+    }
+  });
+});
+
+function getUserData(username) {
+  const usersData = fs.readFileSync('users.json');
+  const users = JSON.parse(usersData);
+  return users.find(user => user.username === username);
+}
+
+function renderUserPage(username) {
+  const user = getUserData(username);
+
+  if (!user) {
+    return 'User not found';
+  }
+
+
+  let updatedBadgeNumber;
+  if (totalOrders >= 25) {
+    updatedBadgeNumber = 25;
+  } else if (totalOrders >= 20) {
+    updatedBadgeNumber = 20;
+  } else if (totalOrders >= 15) {
+    updatedBadgeNumber = 15;
+  } else if (totalOrders >= 10) {
+    updatedBadgeNumber = 10;
+  } else {
+    updatedBadgeNumber = 5;
+  }
+}
+
 function renderUserPage(user) {
-  const { username, aboutMe, dateJoined, approved, role, } = user;
+  const { username, aboutMe, dateJoined, approved, role, badgeNumber, totalOrders, earlyuser} = user;
+
+  let updatedBadgeNumber;
+  if (totalOrders >= 25) {
+    updatedBadgeNumber = 25;
+  } else if (totalOrders >= 20) {
+    updatedBadgeNumber = 20;
+  } else if (totalOrders >= 15) {
+    updatedBadgeNumber = 15;
+  } else if (totalOrders >= 10) {
+    updatedBadgeNumber = 10;
+  } else {
+    updatedBadgeNumber = 5;
+  }
   return `
   <!DOCTYPE html>
   <html lang="en">
@@ -554,7 +625,8 @@ function renderUserPage(user) {
           </div>
           <div class="basket">
               <img src="/assets/images/shoppingb.png" height="100px" alt="Basket">
-                  <p>0</p>
+                  <p id="basketcount">0</p>
+          </div>
               <nav>
                   <div class="burger-menu">
                       <div class="line"></div>
@@ -572,29 +644,41 @@ function renderUserPage(user) {
                   </ul>
               </nav>
       </header>
-          <main>
-          <section>
-              <div class="user">
-                  <h1 id="username">
-                    ${username} 
-                    ${approved ? '<div class="dropdown"><img src="/assets/images/authorised.png" id="approved" width="50px" class="role-icon"><div class="dropdown-content">Verified Seller</div></div>' : ''}
-                    ${role === 'developer' ? '<div class="dropdown"><img src="/assets/images/developer.png" id="developer" width="50px" class="role-icon"><div class="dropdown-content">Site Developer</div></div>' : ''}
-                    ${role === 'moderator' ? '<div class="dropdown"><img src="/assets/images/moderator.png" id="moderator" width="50px" class="role-icon"><div class="dropdown-content">Moderation Team</div></div>' : ''}
-                    ${role === 'support' ? '<div class="dropdown"><img src="/assets/images/support.png" id="support" width="50px" class="role-icon"><div class="dropdown-content">Support Team</div></div>' : ''}
-                    ${role === 'owner' ? '<div class="dropdown"><img src="/assets/images/owner.png" id="theceo" width="50px" class="role-icon"><div class="dropdown-content">Site Owner</div></div>' : ''}
-                </h1>
-              </div>
-            </section>
+      <main>
+          <div class="user">
+              <h1 id="username">
+                  ${username} 
+                  ${approved ? '<div class="dropdown"><img src="/assets/images/authorised.png" id="approved" width="50px" class="role-icon"><div class="dropdown-content">Verified Seller</div></div>' : ''}
+                  ${role === 'developer' ? '<div class="dropdown"><img src="/assets/images/developer.png" id="developer" width="50px" class="role-icon"><div class="dropdown-content">Site Developer</div></div>' : ''}
+                  ${role === 'moderator' ? '<div class="dropdown"><img src="/assets/images/moderator.png" id="moderator" width="50px" class="role-icon"><div class="dropdown-content">Moderation Team</div></div>' : ''}
+                  ${role === 'support' ? '<div class="dropdown"><img src="/assets/images/support.png" id="support" width="50px" class="role-icon"><div class="dropdown-content">Support Team</div></div>' : ''}
+                  ${role === 'owner' ? '<div class="dropdown"><img src="/assets/images/owner.png" id="theceo" width="50px" class="role-icon"><div class="dropdown-content">Site Owner</div></div>' : ''}
+              </h1>
+              <hr>
+          </div>
           <section class="aboutt">
               <div class="about">
                   <h1>About</h1>
                   <p><span style="color: #CCCCCC">About Me:</span> ${aboutMe}</p>
                   <br>
+                  <p><span style="color: #CCCCCC">Location:</span> $}</p>
+                  <br>
                   <p><span style="color: #CCCCCC">Member since</span> ${dateJoined}</p>
               </div>
-          </section>
+              <section class="badge-container">
+                  <section class="badges">
+                        ${approved ? '<div class="badge"><div class="badge-icon"><img src="/assets/images/authorised.png" style="top:-5px; position: relative;" width="90px"></div><div class="badge-label"><h2>Verified Seller</h2></div></div>' : ''}
+                      <div class="badge">
+                        <div class="badge-icon"><img src="/assets/images/badges/${updatedBadgeNumber}.png" width="90px" style="top:-10px; position: relative;" alt="Badge ${updatedBadgeNumber}"></div>
+                        <div class="badge-label"><h2>Badge ${updatedBadgeNumber}</h2></div>
+                      </div>
+                      <div class="badge">
+                      ${earlyuser ? '<div class="badge"><div class="badge-icon"><img src="/assets/images/badges/earlyadop.png" width="80px" style="top:-17px; position: relative;"></div><div class="badge-label"><h2>Early Adopter</h2></div></div>' : ''}
+                      </div>
+                  </section>
+              </section>
+          
       </main>
-  
       <footer>
           <div class="footer-container">
               <div class="footer-section">
@@ -637,6 +721,7 @@ function renderUserPage(user) {
     })
     .catch(error => console.error('Error:', error));
       </script>
+      <script src="/backend/basca.js"></script>
   </body>
   </html>
 `;
@@ -707,7 +792,7 @@ app.post('/add-to-basket', (req, res) => {
   });
 });
 
-app.get('/basket', (_req, res) => {
+app.get('/basket',requireAuth, (_req, res) => {
   res.sendFile(path.join(__dirname, 'assets/html', 'basket.html'));
 });
 

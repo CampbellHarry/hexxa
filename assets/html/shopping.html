@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="basket">
-            <img src="/assets/images/shoppingb.png" height="100px" alt="Basket">
+            <img src="/assets/images/shoppingb.png" height="100px" alt="Basket" class="basket">
                 <p id="basketcount">0</p>
             <nav>
                 <div class="burger-menu">
@@ -190,5 +190,11 @@ document.getElementById('logoutButton').addEventListener('click', function() {
         });
     </script>
     <script src="/backend/basca.js"></script>
+    <script>
+        const basket = document.querySelector('.basket');
+        basket.addEventListener('click', () => {
+            window.location.href = '/basket';
+        });
+    </script>
 </body>
 </html>

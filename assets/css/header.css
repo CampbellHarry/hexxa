@@ -121,12 +121,12 @@ li a{
         text-decoration: none;
         font-weight: bold;
         border: white 2px solid;
-        background-color: black;
+        background-image: linear-gradient(to top right, #424040, #999999);
 }
 
 .box a:hover {
         color: black !important;
-        background-color: transparent;
+        background-image: linear-gradient(to top right, transparent, transparent);
 }
 
 nav {

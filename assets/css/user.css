@@ -1,116 +1,151 @@
-
-/* Style the main section */
+/* Style the main container */
 main {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 50px;
-}
-
-/* Style the user section */
-.user {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    height: 900px;
+    flex-direction: row;
+  }
+  
+  /* Style the user section */
+  .user {
+    text-align: center;
+  }
+  
+  /* Style the username and role icons */
+  #username {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    margin-bottom: 30px;
-}
-
-/* Style the username */
-#username {
-    font-size: 48px;
-    margin-bottom: 20px;
-    text-align: left;
-    color: #ffffff;
-    text-shadow: 1px 1px 1px #ccc;
-    font-weight: bold;
-}
-
-/* Style the headings */
-section h2 {
-    font-size: 36px;
-    margin-bottom: 20px;
+    font-size: 2em;
     text-align: center;
-    color: #ffffff;
-    text-shadow: 1px 1px 1px #ccc;
-    font-weight: bold;
-}
-.about h1{
-    text-align: left;
-    color: #ffffff;
-    font-size: 36px;
-}
-.about{
-    text-align: left;
-}
-.about p{
-    text-align: left;
-    color: #ffffff;
-    font-size: 18px;
-}
-/* Container for the dropdown */
-.dropdown {
     position: relative;
-    display: inline-block;
-    font-family: Arial, sans-serif; /* Set a preferred font */
-}
-
-/* Dropdown content */
-.dropdown-content {
-    display: none;
-    position: absolute;
-    width: auto;
-    text-align: center;
-    min-width: 180px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 16px; /* Slightly reduced font size for better readability */
-    border: 1px solid #ccc; /* Add a border for separation */
-}
-
-/* Show dropdown on hover */
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-/* Point style on hover */
-.dropdown:hover .point {
-    background-color: #3e8e41;
-}
-
-/* Role icon style */
-.role-icon {
-    cursor: pointer;
-    padding: 5px; /* Add some padding for better click area */
-}
-
-/* Add arrow indicator */
-.dropdown-content::after {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: 15%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent #fff transparent;
-}
-
-  .point{
-    rotate: 45deg;
-    width: 10px;
-    background-color: black;
-    height: 10px;
+    left: 70%;
+    color: white;
+  }
+  
+  .role-icon {
+    margin-left: 10px;
+  }
+  
+  hr{
     position: relative;
-    display: none;
+    left: 70%;
+    width: 100%;
+    border: 1px solid white;
   }
 
-@media screen and (max-width: 1200px) {
-    .dropdown-content{
-        left: -160px;
-    }
-    .dropdown-content::after{
-        left: 95%;
-    }
+  /* Style the dropdown content */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    color: black;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    text-align: left;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  /* Style the about section */
+  .aboutt {
+    top: 200px;
+    position: relative;
+    align-items: center;
+  }
+  
+  .about {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    width: 400px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    left: -35%;
+  }
+  
+  /* Style the about heading and paragraphs */
+  .about h1 {
+    font-size: 1.5em;
+    color: #333333;
+    margin-bottom: 10px;
+  }
+  
+  .about p {
+    color: #666666;
+    margin-bottom: 10px;
+  }
+  
+  /* Style the date since joined */
+  .about p span {
+    font-weight: bold;
+  }
+  
+  /* Add border radius to images */
+  .role-icon img {
+    border-radius: 50%;
+  }
+  
+  /* Add hover effect to role icons */
+  .role-icon img:hover {
+    transform: scale(1.1);
+  }
+  
+/* Badges section */
+/* Badge container */
+.badge-container {
+    margin-top: 20px;
+    top: 0px; /* Change this value to position it further down */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: -37%; /* Adjust this value to align it more to the left */
+}
+
+/* Badges section */
+.badges {
+    display: flex;
+}
+
+.badge {
+    text-align: center;
+    margin: 0 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.badge-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.badge-label {
+    display: block;
+    margin-top: 5px;
+    font-size: 14px;
+    color: #333333;
+}
+
+/* Media queries for mobile and tablet devices */
+@media only screen and (max-width: 768px) {
+  main {
+    min-height: 800px;
+  }
+  #username {
+    display: flex;
+    align-items: center;
+    font-size: 2em;
+    text-align: center;
+    position: relative;
+    right: 70%;
+    color: white;
+  }
 }

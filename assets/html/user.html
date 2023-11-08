@@ -31,7 +31,6 @@
                     <div class="line"></div>
                 </div>
                 <ul class="nav-links">
-                    <li class="box"><a class="text" href="">Welcome <span id="username"></span>!</a></li>
                     <li class="box"><a class="text" href="/">Home</a></li>
                     <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
                     <li class="box"><a class="text" href="#contact">Contact</a></li>
@@ -42,29 +41,41 @@
                 </ul>
             </nav>
     </header>
-        <main>
-        <section>
-            <div class="user">
-                <h1 id="username">
-                  ${username} 
-                  ${approved ? '<div class="dropdown"><img src="/assets/images/authorised.png" id="approved" width="50px" class="role-icon"><div class="dropdown-content">Verified Seller</div></div>' : ''}
-                  ${role === 'developer' ? '<div class="dropdown"><img src="/assets/images/developer.png" id="developer" width="50px" class="role-icon"><div class="dropdown-content">Site Developer</div></div>' : ''}
-                  ${role === 'moderator' ? '<div class="dropdown"><img src="/assets/images/moderator.png" id="moderator" width="50px" class="role-icon"><div class="dropdown-content">Moderation Team</div></div>' : ''}
-                  ${role === 'support' ? '<div class="dropdown"><img src="/assets/images/support.png" id="support" width="50px" class="role-icon"><div class="dropdown-content">Support Team</div></div>' : ''}
-                  ${role === 'owner' ? '<div class="dropdown"><img src="/assets/images/owner.png" id="theceo" width="50px" class="role-icon"><div class="dropdown-content">Site Owner</div></div>' : ''}
-              </h1>
-            </div>
-          </section>
+    <main>
+        <div class="user">
+            <h1 id="username">
+                ${username} 
+                ${approved ? '<div class="dropdown"><img src="/assets/images/authorised.png" id="approved" width="50px" class="role-icon"><div class="dropdown-content">Verified Seller</div></div>' : ''}
+                ${role === 'developer' ? '<div class="dropdown"><img src="/assets/images/developer.png" id="developer" width="50px" class="role-icon"><div class="dropdown-content">Site Developer</div></div>' : ''}
+                ${role === 'moderator' ? '<div class="dropdown"><img src="/assets/images/moderator.png" id="moderator" width="50px" class="role-icon"><div class="dropdown-content">Moderation Team</div></div>' : ''}
+                ${role === 'support' ? '<div class="dropdown"><img src="/assets/images/support.png" id="support" width="50px" class="role-icon"><div class="dropdown-content">Support Team</div></div>' : ''}
+                ${role === 'owner' ? '<div class="dropdown"><img src="/assets/images/owner.png" id="theceo" width="50px" class="role-icon"><div class="dropdown-content">Site Owner</div></div>' : ''}
+            </h1>
+            <hr>
+        </div>
         <section class="aboutt">
             <div class="about">
                 <h1>About</h1>
                 <p><span style="color: #CCCCCC">About Me:</span> ${aboutMe}</p>
                 <br>
+                <p><span style="color: #CCCCCC">Location:</span> $}</p>
+                <br>
                 <p><span style="color: #CCCCCC">Member since</span> ${dateJoined}</p>
             </div>
-        </section>
+            <section class="badge-container">
+                <section class="badges">
+                      ${approved ? '<div class="badge"><div class="badge-icon"><img src="/assets/images/authorised.png" style="top:-5px; position: relative;" width="90px"></div><div class="badge-label"><h2>Verified Seller</h2></div></div>' : ''}
+                    <div class="badge">
+                      <div class="badge-icon"><img src="/assets/images/badges/${updatedBadgeNumber}.png" width="90px" style="top:-10px; position: relative;" alt="Badge ${updatedBadgeNumber}"></div>
+                      <div class="badge-label"><h2>Badge ${updatedBadgeNumber}</h2></div>
+                    </div>
+                    <div class="badge">
+                    ${earlyuser ? '<div class="badge"><div class="badge-icon"><img src="/assets/images/badges/earlyadop.png" width="80px" style="top:-17px; position: relative;"></div><div class="badge-label"><h2>Early Adopter</h2></div></div>' : ''}
+                    </div>
+                </section>
+            </section>
+        
     </main>
-
     <footer>
         <div class="footer-container">
             <div class="footer-section">

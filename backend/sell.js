@@ -17,7 +17,7 @@ app.post('/submit', (req, res) => {
     const itemData = req.body;
     itemData.sold = 0;
     itemData.totalCost = 0;
-    idemData.reviews = null;
+    itemData.reviews = null;
   
     // Read the existing data from the JSON file
     const rawData = fs.readFileSync('items.json');
