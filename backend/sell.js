@@ -6,7 +6,12 @@ const app = express();
 // set up rate limiter: maximum of five requests per minute
 var express = require('express');
 
-// set up rate limiter: maximum of five requests per minute);
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // max 100 requests per windowMs
+});
+
+app.use(limiter);
 
 app.post('/submit', (req, res) => {
     const itemData = req.body;

@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const multer = require('multer');
 
+
 const app = express();
 const rateLimit = require('express-rate-limit');
 
@@ -270,7 +271,7 @@ function renderProductPage(product) {
             <div class="item">
               <h2 id="name">${product.productName}</h2>
               <div id="reviews">Reviews: ${product.reviews}</div>
-              <div id="seller">Seller: ${product.seller}</div>
+              <div id="seller">Seller: <a href="/user/${product.seller}">${product.seller}</a></div>
               <hr>
               <p id="price1">£${product.price}</p>
               <hr>
