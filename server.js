@@ -145,7 +145,7 @@ app.post('/login', (req, res) => {
     res.redirect('/shopping');
   } else {
     res.send('Invalid username or password.');
-    console.log('Invalid username or password.', password, username);
+    alert('Invalid Username or Password')
   }
 });
 
