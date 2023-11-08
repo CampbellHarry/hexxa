@@ -7,14 +7,14 @@
 }
 
 body{
-        background-image: linear-gradient(to top right, #424040, #999999);
+        background-image: linear-gradient(to right, #424040, #999999);
         margin: 0;
         padding: 0;
         overflow-x: hidden;
 }
 
 header{
-        background-color: var(--primary);
+        background-image: linear-gradient(to top left, #00A5FF , #DDEBFF);
         margin: 0;
         padding: 0;
         display: flex;
@@ -36,6 +36,8 @@ header{
         display: flex;
         align-items: center;
         margin-right: 20px;
+        max-width: 290px;
+        width: auto;
 }
 
 .search-box {
@@ -93,12 +95,6 @@ header{
         font-weight: bold;
 }
 
-.header1 {
-        background-color: var(--primary);
-        margin: 0;
-        padding: 0;
-}
-
 nav {
         display: flex;
         justify-content: center;
@@ -124,17 +120,19 @@ li a{
         color: var(--secondary);
         text-decoration: none;
         font-weight: bold;
+        border: white 2px solid;
+        background-color: black;
 }
 
 .box a:hover {
-        color: var(--contrast);
+        color: black !important;
+        background-color: transparent;
 }
 
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--primary);
     padding: 10px;
 }
 
@@ -178,8 +176,9 @@ nav {
     .nav-links {
         position: absolute;
         right: 0;
-        height: 50vh;
-        top: 13vh;
+        height: auto;
+        top: 15vh;
+        padding: 10px;
         background-color: var(--primary);
         display: flex;
         flex-direction: column;
@@ -188,7 +187,7 @@ nav {
         transform: translateX(100%);
         transition: transform 0.5s ease-in;
         color: white;
-        gap: 5px;
+        gap: 15px;
         z-index: 100000;
         border: black 5px solid;
     }

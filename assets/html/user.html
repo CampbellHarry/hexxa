@@ -13,7 +13,7 @@
 </head>
 <body>
     <header>
-        <img src="/assets/images/favicon.png" class="logo" alt="Hexxa Logo" height="100px">
+        <img src="/assets/images/favicon.png" alt="Hexxa Logo" height="100px">
         <div class="search-container">
             <div class="search-box">
                 <input type="text" placeholder="Search for products, brands and more with Hexxa">
@@ -22,27 +22,26 @@
         </div>
         <div class="basket">
             <img src="/assets/images/shoppingb.png" height="100px" alt="Basket">
-                <p>0</p>
-            <header>
-                <nav>
-                    <div class="burger-menu">
-                        <div class="line"></div>
-                        <div class="line"></div>
-                        <div class="line"></div>
-                    </div>
-                    <ul class="nav-links">
-                        <li class="box"><a class="text" href="">Welcome <span id="username"></span>!</a></li>
-                        <li class="box"><a class="text" href="/">Home</a></li>
-                        <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
-                        <li class="box"><a class="text" href="#contact">Contact</a></li>
-                        <li class="box"><a class="text" href="/shopping">Shopping</a></li>
-                        <li class="box"><a class="text" href="#deals">Today's Deals</a></li>
-                        <li class="box"><a class="text" href="/allitems">All Items</a></li>
-                        <li class="box"><a class="text" href="/sell">Sell an Item</a></li>
-                    </ul>
-                </nav>
-            </header>
-        </header>
+                <p id="basketcount">0</p>
+        </div>
+            <nav>
+                <div class="burger-menu">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+                <ul class="nav-links">
+                    <li class="box"><a class="text" href="">Welcome <span id="username"></span>!</a></li>
+                    <li class="box"><a class="text" href="/">Home</a></li>
+                    <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
+                    <li class="box"><a class="text" href="#contact">Contact</a></li>
+                    <li class="box"><a class="text" href="/shopping">Shopping</a></li>
+                    <li class="box"><a class="text" href="#deals">Today's Deals</a></li>
+                    <li class="box"><a class="text" href="/allitems">All Items</a></li>
+                    <li class="box"><a class="text" href="/sell">Sell an Item</a></li>
+                </ul>
+            </nav>
+    </header>
         <main>
         <section>
             <div class="user">
@@ -101,10 +100,13 @@
             fetch('/getUsername')
   .then(response => response.json())
   .then(data => {
-    var usernameElement = document.getElementById("username");
+    var usernameElement = document.getElementById("username1");
+    var usernameElement1 = document.getElementById("username");
     usernameElement.innerHTML = data.username;
+    usernameElement1.innerHTML = data.username;
   })
   .catch(error => console.error('Error:', error));
     </script>
+    <script src="/backend/basca.js"></script>
 </body>
 </html>

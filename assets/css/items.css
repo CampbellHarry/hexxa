@@ -36,7 +36,7 @@ main {
     margin-bottom: 1rem;
 }
 
-#addbasket {
+.add-to-basket {
     padding: 1rem 2rem;
     background-color: #007bff;
     color: rgb(0, 0, 0);
@@ -50,7 +50,7 @@ main {
     width: 300px;
 }
 
-#addbasket:hover {
+.add-to-basket:hover {
     background-color: #0069d9;
 }
 
@@ -136,10 +136,11 @@ hr{
 }
 #seller{
     color: white;
-    font-size: 12px;
+    font-size: 17px;
     margin-bottom: 15px;
     margin-top: 15px;
     max-width: 400px;
+    text-decoration: none;
 }
 #name{
     color: white;
@@ -150,6 +151,17 @@ hr{
     word-wrap: break-word;
     max-width: 400px;
 }
+
+#texter{
+    text-decoration: none;
+    color: white;
+}
+
+#texter:hover{
+    color: #0069d9;
+}
+
+
 #reviews{
     color: white;
     font-size: 15px;

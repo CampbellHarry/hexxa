@@ -61,7 +61,7 @@ app.post('/signup', (req, res) => {
       return res.json({ success: false, message: 'Username already exists' });
     }
 
-    users.push({ username, password, approved, role, dateJoined, aboutMe });
+    users.push({ username, password, approved, role, dateJoined, aboutMe,  });
 
     console.log('Updated users array:', users); // Debug log
 
@@ -228,7 +228,7 @@ function renderProductPage(product) {
   </head>
   <body>
       <header>
-          <img src="/assets/images/favicon.png" class="logo" alt="Hexxa Logo" height="100px">
+          <img src="/assets/images/favicon.png" alt="Hexxa Logo" height="100px">
           <div class="search-container">
               <div class="search-box">
                   <input type="text" placeholder="Search for products, brands and more with Hexxa">
@@ -237,23 +237,24 @@ function renderProductPage(product) {
           </div>
           <div class="basket">
               <img src="/assets/images/shoppingb.png" height="100px" alt="Basket">
-                  <p>0</p>
-              </div>
-                  <a href="" class="signup" id="username-display">Welcome, <span id="username"></span>!</a>
-              </div>
-          <header class="header1">
+                  <p id="basketcount">0</p>
               <nav>
-                  <ul>
+                  <div class="burger-menu">
+                      <div class="line"></div>
+                      <div class="line"></div>
+                      <div class="line"></div>
+                  </div>
+                  <ul class="nav-links">
+                      <li class="box"><a class="text" href="">Welcome <span id="username"></span>!</a></li>
                       <li class="box"><a class="text" href="/">Home</a></li>
-                      <li class="box"><a class="text" href="">Customer Service</a></li>
-                      <li class="box"><a class="text" href="">Contact</a></li>
-                      <li class="box"><a class="text" href="shopping">Shopping</a></li>
-                      <li class="box"><a class="text" href="">Todays Deals</a></li>
-                      <li class="box"><a class="text" href="allitems">All Items</a></li>
-                      <li class="box"><a class="text" href="sell">Sell a Item</a></li>
+                      <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
+                      <li class="box"><a class="text" href="#contact">Contact</a></li>
+                      <li class="box"><a class="text" href="/shopping">Shopping</a></li>
+                      <li class="box"><a class="text" href="#deals">Today's Deals</a></li>
+                      <li class="box"><a class="text" href="/allitems">All Items</a></li>
+                      <li class="box"><a class="text" href="/sell">Sell an Item</a></li>
                   </ul>
               </nav>
-          </header>
       </header>
       <main>
           <section class="product-image-container">
@@ -284,7 +285,7 @@ function renderProductPage(product) {
               <hr>
               <div id="instock">${product.inStock ? 'In stock' : 'Out of stock'}</div>
               <hr>
-              <button id="addbasket">Add to Basket</button>
+              <button class="add-to-basket" data-product-id="${product.productId}">Add to Basket</button>
               <button id="buynow">Buy Now</button>
             </div>
           </section>
@@ -390,7 +391,7 @@ function renderProductPage(product) {
     })
     .catch(error => console.error('Error:', error));
   </script>
-  </script>
+  <script src="/backend/basca.js"></script>
   </body>
   </html>
   `;
@@ -536,7 +537,7 @@ function renderUserPage(user) {
   </head>
   <body>
       <header>
-          <img src="/assets/images/favicon.png" class="logo" alt="Hexxa Logo" height="100px">
+          <img src="/assets/images/favicon.png" alt="Hexxa Logo" height="100px">
           <div class="search-container">
               <div class="search-box">
                   <input type="text" placeholder="Search for products, brands and more with Hexxa">
@@ -546,26 +547,23 @@ function renderUserPage(user) {
           <div class="basket">
               <img src="/assets/images/shoppingb.png" height="100px" alt="Basket">
                   <p>0</p>
-              <header>
-                  <nav>
-                      <div class="burger-menu">
-                          <div class="line"></div>
-                          <div class="line"></div>
-                          <div class="line"></div>
-                      </div>
-                      <ul class="nav-links">
-                          <li class="box"><a class="text" href="">Welcome <span id="username"></span>!</a></li>
-                          <li class="box"><a class="text" href="/">Home</a></li>
-                          <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
-                          <li class="box"><a class="text" href="#contact">Contact</a></li>
-                          <li class="box"><a class="text" href="/shopping">Shopping</a></li>
-                          <li class="box"><a class="text" href="#deals">Today's Deals</a></li>
-                          <li class="box"><a class="text" href="/allitems">All Items</a></li>
-                          <li class="box"><a class="text" href="/sell">Sell an Item</a></li>
-                      </ul>
-                  </nav>
-              </header>
-          </header>
+              <nav>
+                  <div class="burger-menu">
+                      <div class="line"></div>
+                      <div class="line"></div>
+                      <div class="line"></div>
+                  </div>
+                  <ul class="nav-links">
+                      <li class="box"><a class="text" href="/">Home</a></li>
+                      <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
+                      <li class="box"><a class="text" href="#contact">Contact</a></li>
+                      <li class="box"><a class="text" href="/shopping">Shopping</a></li>
+                      <li class="box"><a class="text" href="#deals">Today's Deals</a></li>
+                      <li class="box"><a class="text" href="/allitems">All Items</a></li>
+                      <li class="box"><a class="text" href="/sell">Sell an Item</a></li>
+                  </ul>
+              </nav>
+      </header>
           <main>
           <section>
               <div class="user">
@@ -624,8 +622,10 @@ function renderUserPage(user) {
               fetch('/getUsername')
     .then(response => response.json())
     .then(data => {
-      var usernameElement = document.getElementById("username");
+      var usernameElement = document.getElementById("username1");
+      var usernameElement1 = document.getElementById("username");
       usernameElement.innerHTML = data.username;
+      usernameElement1.innerHTML = data.username;
     })
     .catch(error => console.error('Error:', error));
       </script>
@@ -638,6 +638,83 @@ app.get('/logout', (req, res) => {
   req.session.destroy();
   res.redirect('/');
 });
+
+app.post('/add-to-basket', (req, res) => {
+  const { productID, username } = req.body;
+
+  fs.readFile('basket.json', 'utf8', (err, data) => {
+      if (err) {
+          console.error(err);
+          res.status(500).json({ success: false, message: 'Error reading basket data' });
+          return;
+      }
+
+      let basket = JSON.parse(data);
+
+      const existingProduct = basket.find(item => item.id === productID);
+
+      if (existingProduct) {
+          existingProduct.quantity++;
+      } else {
+          basket.push({ id: productID, quantity: 1, username: username,});
+      }
+
+      fs.writeFile('basket.json', JSON.stringify(basket), 'utf8', (err) => {
+          if (err) {
+              console.error(err);
+              res.status(500).json({ success: false, message: 'Error updating basket data' });
+          } else {
+              console.log('Product added to basket successfully!');
+              res.json({ success: true, message: 'Product added to basket successfully' });
+          }
+      });
+  });
+});
+
+app.get('/basket', (_req, res) => {
+  res.sendFile(path.join(__dirname, 'assets/html', 'basket.html'));
+});
+
+
+// Helper function to read and write basket data
+function readBasketData() {
+  try {
+      const rawData = fs.readFileSync('basket.json');
+      return JSON.parse(rawData);
+  } catch (error) {
+      return [];
+  }
+}
+
+function writeBasketData(data) {
+  fs.writeFileSync('basket.json', JSON.stringify(data));
+}
+
+app.get('/getBasket/:username', (req, res) => {
+  const { username } = req.params;
+  const basket = readBasketData();
+  const userBasket = basket.filter(item => item.username === username);
+
+  res.json({ success: true, basket: userBasket });
+});
+
+app.post('/add-to-basket', (req, res) => {
+  const { productID, username } = req.body;
+  const basket = readBasketData();
+
+  const existingProduct = basket.find(item => item.id === productID && item.username === username);
+
+  if (existingProduct) {
+      existingProduct.quantity++;
+  } else {
+      basket.push({ id: productID, quantity: 1, username });
+  }
+
+  writeBasketData(basket);
+
+  res.json({ success: true, message: 'Product added to basket successfully' });
+});
+
 
 // Start the server
 const PORT = process.env.PORT || 3000;
