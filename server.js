@@ -60,6 +60,7 @@ app.post('/signup', (req, res) => {
   const aboutMe = 'This user has not set an about me yet.';
   const totalOrders = 0;
   const currentBadge = null;
+  const location = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   fs.readFile('./users.json', 'utf8', (err, data) => {
     if (err) {
@@ -73,7 +74,7 @@ app.post('/signup', (req, res) => {
       return res.json({ success: false, message: 'User already exists' });
     }
 
-    users.push({ username, password, approved, role, dateJoined, aboutMe, totalOrders, currentBadge, earlyuser: true});
+    users.push({ username, password, approved, role, dateJoined, location, aboutMe, totalOrders, currentBadge, earlyuser: true});
 
     fs.writeFile('./users.json', JSON.stringify(users), (err) => {
       if (err) {
@@ -236,36 +237,36 @@ function renderProductPage(product) {
   
   </head>
   <body>
-      <header>
-          <img src="/assets/images/favicon.png" alt="Hexxa Logo" height="100px">
-          <div class="search-container">
-              <div class="search-box">
-                  <input type="text" placeholder="Search for products, brands and more with Hexxa">
-                  <button>Search</button>
-              </div>
+  <header>
+      <img src="/assets/images/favicon.png" alt="Hexxa Logo" height="100px">
+      <div class="search-container">
+          <div class="search-box">
+              <input type="text" placeholder="Search for products, brands and more with Hexxa">
+              <button>Search</button>
           </div>
-          <div class="basket">
+      </div>
+      <div class="basket">
           <img src="/assets/images/shoppingb.png" height="50px" alt="Basket" class="basket">
               <p id="basketcount">0</p>
-      </div>
-      <nav>
-          <div class="burger-menu">
-              <div class="line"></div>
-              <div class="line"></div>
-              <div class="line"></div>
-          </div>
-          <ul class="nav-links">
-              <li class="box"><a class="text" href="">Welcome <span id="username"></span>!</a></li>
-              <li class="box"><a class="text" href="/">Home</a></li>
-              <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
-              <li class="box"><a class="text" href="#contact">Contact</a></li>
-              <li class="box"><a class="text" href="/shopping">Shopping</a></li>
-              <li class="box"><a class="text" href="#deals">Today's Deals</a></li>
-              <li class="box"><a class="text" href="/allitems">All Items</a></li>
-              <li class="box"><a class="text" href="/sell">Sell an Item</a></li>
-          </ul>
-      </nav>
-  </header>
+              </div>
+              <nav>
+                  <div class="burger-menu">
+                      <div class="line"></div>
+                      <div class="line"></div>
+                      <div class="line"></div>
+                  </div>
+                  <ul class="nav-links">
+                      <li class="box"><a class="text" href="/signup">Sign-up</a></li>
+                      <li class="box"><a class="text" href="#home">Home</a></li>
+                      <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
+                      <li class="box"><a class="text" href="#contact">Contact</a></li>
+                      <li class="box"><a class="text" href="/shopping">Shopping</a></li>
+                      <li class="box"><a class="text" href="#deals">Today's Deals</a></li>
+                      <li class="box"><a class="text" href="/allitems">All Items</a></li>
+                      <li class="box"><a class="text" href="/sell">Sell an Item</a></li>
+                  </ul>
+              </nav>
+      </header>
       <main>
           <section class="product-image-container">
               <img src="/assets/images/hexxa.png" alt="Product Image">
@@ -402,6 +403,27 @@ function renderProductPage(product) {
     .catch(error => console.error('Error:', error));
   </script>
   <script src="/backend/basca.js"></script>
+  <script>
+  <script hidden>
+  const burgerMenu = document.querySelector('.burger-menu');
+  const navLinks = document.querySelector('.nav-links');
+  const links = document.querySelectorAll('.nav-links li');
+
+  burgerMenu.addEventListener('click', () => {
+      // Toggle Nav
+      navLinks.classList.toggle('nav-active');
+
+      // Burger Animation
+      burgerMenu.classList.toggle('toggle');
+
+      // Hide navLinks when it's not active
+      if (!navLinks.classList.contains('nav-active')) {
+          navLinks.style.display = 'none';
+      } else {
+          navLinks.style.display = 'block';
+      }
+  });
+</script>
   </body>
   </html>
   `;
@@ -587,7 +609,7 @@ function renderUserPage(username) {
 }
 
 function renderUserPage(user) {
-  const { username, aboutMe, dateJoined, approved, role, badgeNumber, totalOrders, earlyuser} = user;
+  const { username, aboutMe, dateJoined,location, approved, role, badgeNumber, totalOrders, earlyuser} = user;
 
   let updatedBadgeNumber;
   if (totalOrders >= 25) {
@@ -598,8 +620,11 @@ function renderUserPage(user) {
     updatedBadgeNumber = 15;
   } else if (totalOrders >= 10) {
     updatedBadgeNumber = 10;
-  } else {
+  } else if (totalOrders >= 5) {
     updatedBadgeNumber = 5;
+  }
+  else{
+    updatedBadgeNumber = 0;
   }
   return `
   <!DOCTYPE html>
@@ -662,7 +687,7 @@ function renderUserPage(user) {
                   <h1>About</h1>
                   <p><span style="color: #CCCCCC">About Me:</span> ${aboutMe}</p>
                   <br>
-                  <p><span style="color: #CCCCCC">Location:</span> $}</p>
+                  <p><span style="color: #CCCCCC">Location:</span> ${location}</p>
                   <br>
                   <p><span style="color: #CCCCCC">Member since</span> ${dateJoined}</p>
               </div>
@@ -673,7 +698,7 @@ function renderUserPage(user) {
                         <div class="badge-icon"><img src="/assets/images/badges/${updatedBadgeNumber}.png" alt="Badge ${updatedBadgeNumber}"></div>
                         <div class="badge-label"><h2>Badge ${updatedBadgeNumber}</h2></div>
                       </div>
-                      ${earlyuser ? '<div class="badge"><div class="badge-icon"><img src="/assets/images/badges/earlyadop.png"></div><div class="badge-label"><h2>Early Adopter</h2></div></div>' : ''}
+                      ${earlyuser ? '<div class="badge"><div class="badge-icon"><img src="/assets/images/badges/earlyadop.png"></div><div class="badge-label"><h2>Early Supporter</h2></div></div>' : ''}
                       </div>
                   </section>
               </section>
@@ -836,10 +861,211 @@ app.post('/add-to-basket', (req, res) => {
   res.json({ success: true, message: 'Product added to basket successfully' });
 });
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+
+const userDatabase = 'users.json';
+const itemsDatabase = 'items.json';
+
+// Helper function to read and write JSON files
+function readJSONFile(filename) {
+  return JSON.parse(fs.readFileSync(filename));
+}
+
+function writeJSONFile(filename, data) {
+  fs.writeFileSync(filename, JSON.stringify(data, null, 2));
+}
+
+app.get('/dashboard', requireAuth, (req, res) => {
+  res.sendFile(path.join(__dirname, 'assets/html', 'dashboard.html'));
+},
+
+// Route to serve the dashboard (requires authentication)
+app.get('/dashboard', requireAuth, (req, res) => {
+  const username = req.session.user;
+  const items = readJSONFile(itemsDatabase);
+  const userItems = items.filter(item => item.seller === username);
+  const itemnumbers = userItems.length;
+
+  if (itemnumbers === 0) {
+    // If the user has no items listed, render a message or redirect to a different page
+    res.send("You have no items listed for sale.");
+  } else {
+    // If the user has items listed, proceed with rendering the dashboard
+    const fs = require('fs');
+    const htmlContent = fs.readFileSync('assets/html/dashboard.html', 'utf8');
+
+    const htmlItems = userItems.map(item => `
+    <div class="item">
+      <div class="itemt">
+        <h3>${item.productName}</h3>
+      </div>
+      <div class="itemd">
+        <p>${item.description}</p>
+      </div>
+      <div class="itemp">
+        <p>£${item.price}</p>
+      </div>
+      <div class="options">
+        <button class="instock" onclick="togglePopup('stockPopup')">Is the item in stock?</button>
+        <button class="price" onclick="togglePopup('pricePopup')">Change Price</button>
+        <button class="title" onclick="togglePopup('titlePopup')">Change Title</button>
+        <button class="description" onclick="togglePopup('descriptionPopup')">Change Description</button>
+        <button class="delete" onclick="togglePopup('deletePopup')">Delete Item</button>
+      </div>
+    </div>
+    </div>
+    </section>
+    <div id="stockPopup" class="popup">
+      <h2>Stock Popup</h2>
+      <h3>Is the item in stock?</h3>
+      <p>Currently it is ${item.inStock}</p>
+      <div class="buttonholder">
+        <button class="outofstock">Out of Stock</button>
+        <button class="instock1">In Stock</button>
+      </div>
+      <button class="closebtn" onclick="closePopup('stockPopup')">Close</button>
+    </div>
+
+    <!-- Price Popup -->
+    <div id="pricePopup" class="popup">
+      <h2>Price Popup</h2>
+      <h3>Rase or lower your prices</h3>
+      <p>Currently it is £${item.price}</p>
+      <input type="number" id="price" name="price" placeholder="Price" step="any" required maxlength="6">
+      <button class="closebtn" onclick="closePopup('pricePopup')">Close</button>
+    </div>
+
+    <!-- Title Popup -->
+    <div id="titlePopup" class="popup">
+      <h2>Title Popup</h2>
+      <h3>Change the title of your item</h3>
+      <p>Currently it is ${item.productName}</p>
+      <input type="text" id="productName" name="productName" placeholder="Product Name" maxlength="40" required>
+      <button class="closebtn" onclick="closePopup('titlePopup')">Close</button>
+    </div>
+
+    <!-- Description Popup -->
+    <div id="descriptionPopup" class="popup">
+      <h2>Description Popup</h2>
+      <h3>Change the description of your item</h3>
+      <p>Currently it is ${item.description}</p>
+      <input type="text" id="description" name="description" placeholder="Description" maxlength="100" required>
+      <button class="closebtn" onclick="closePopup('descriptionPopup')">Close</button>
+    </div>
+
+    <!-- Delete Popup -->
+    <div id="deletePopup" class="popup">
+      <h2>Delete Popup</h2>
+      <h3>Are you sure you want to delete this item?</h3>
+      <button class="delete1">Delete</button>
+      <button class="closebtn" onclick="closePopup('deletePopup')">Close</button>
+    </div>
+    <!-- Overlay -->
+    <div id="overlay" class="overlay"></div>
+  `).join('');
+
+  const modifiedHtmlContent = htmlContent.replace('<div class="containerr">', `<div class="containerr">${htmlItems}`);
+  res.send(modifiedHtmlContent);
+}
+}));
+
+// Route to handle changing price
+app.post('/changePrice', (req, res) => {
+  const itemId = req.body.itemId; // Assuming you have an input field with name="itemId"
+  const newPrice = req.body.newPrice; // Assuming you have an input field with name="newPrice"
+
+  let items = readJSONFile(itemsDatabase);
+
+  // Find the item by its ID and update the price
+  const updatedItems = items.map(item => {
+    if (item.id === itemId) {
+      item.price = newPrice;
+    }
+    return item;
+  });
+
+  writeJSONFile(itemsDatabase, updatedItems);
+
+  res.json({ success: true });
+});
+
+// Route to handle changing title
+app.post('/changeTitle', (req, res) => {
+  const itemId = req.body.itemId; // Assuming you have an input field with name="itemId"
+  const newTitle = req.body.newTitle; // Assuming you have an input field with name="newTitle"
+
+  let items = readJSONFile(itemsDatabase);
+
+  // Find the item by its ID and update the title
+  const updatedItems = items.map(item => {
+    if (item.id === itemId) {
+      item.productName = newTitle;
+    }
+    return item;
+  });
+
+  writeJSONFile(itemsDatabase, updatedItems);
+
+  res.json({ success: true });
+});
+
+// Route to handle changing description
+app.post('/changeDescription', (req, res) => {
+  const itemId = req.body.itemId; // Assuming you have an input field with name="itemId"
+  const newDescription = req.body.newDescription; // Assuming you have an input field with name="newDescription"
+
+  let items = readJSONFile(itemsDatabase);
+
+  // Find the item by its ID and update the description
+  const updatedItems = items.map(item => {
+    if (item.id === itemId) {
+      item.description = newDescription;
+    }
+    return item;
+  });
+
+  writeJSONFile(itemsDatabase, updatedItems);
+
+  res.json({ success: true });
+});
+
+// Route to handle deleting an item
+app.post('/deleteItem', (req, res) => {
+  const itemId = req.body.itemId; // Assuming you have an input field with name="itemId"
+
+  let items = readJSONFile(itemsDatabase);
+
+  // Filter out the item to be deleted
+  const updatedItems = items.filter(item => item.id !== itemId);
+
+  writeJSONFile(itemsDatabase, updatedItems);
+
+  res.json({ success: true });
+});
+
+app.set('view engine', 'ejs');
+
+
+app.get('/dashboardData', (req, res) => {
+  const username = req.session.user;
+  const users = readJSONFile('users.json');
+  const items = readJSONFile('items.json');
+  const userItems = items.filter(item => {
+    return item.seller === username;
+  });
+  const itemnumbers = userItems.length;
+
+  // Send the data back to the client as JSON
+  res.json({ username, itemnumbers });
+});
 
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
-

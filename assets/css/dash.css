@@ -1,0 +1,232 @@
+.welcome1{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    color: white;
+    text-align: center;
+}
+.items{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    color: white;
+    text-align: center;
+}
+.seeitems{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.containerr{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    color: black;
+    background-color: white;
+    width: 70%;
+    padding: 10px;
+    border-radius: 10px;
+    overflow-x: scroll;
+    ::-webkit-scrollbar {
+        width: 5px;
+        margin-right: 2px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: gold;
+        border-end-start-radius: 5px;
+      }
+    ::-webkit-scrollbar-thumb:hover {
+        background: #ffffff;
+      }
+}
+.item{
+    height: 400px;
+    width: 300px;
+    background-color: black;
+    border: 4px solid rgb(82, 79, 79);
+    border-radius: 10px;
+    color: white;
+}
+.itemt{
+    text-align: center;
+    border-bottom: 2px solid white;
+}
+.itemd{
+    text-align: center;
+    border-bottom: 2px solid white;
+}
+.itemp{
+    text-align: center;
+    border-bottom: 2px solid white;
+}
+.options {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.options button {
+    margin: 0 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.instock {
+    background-color: green;
+    border: 2px solid gray;
+    color: white;
+    cursor: pointer;
+}
+
+.instock:hover {
+    background-color: #00ff00;
+    color: black;
+    cursor: pointer;
+}
+
+.instock1 {
+    background-color: green;
+    border: 2px solid gray;
+    color: white;
+    cursor: pointer;
+    height: 40px;
+    width: 60px;
+    margin-right: 20px;
+}
+
+.instock1:hover {
+    background-color: #00ff00;
+    border: 2px solid gray;
+    color: black;
+    cursor: pointer;
+}
+
+.outofstock{
+    background-color: red;
+    border: 2px solid gray;
+    color: white;
+    cursor: pointer;
+    height: 40px;
+    width: 60px;
+    margin-right: 10px;
+}
+
+.outofstock:hover {
+    background-color: #ff0000;
+    border: 2px solid gray;
+    color: black;
+    cursor: pointer;
+}
+
+.price {
+    background-color: blue;
+    cursor: pointer;
+}
+
+.price:hover {
+    background-color: #0404a8;
+    cursor: pointer;
+}
+
+.title {
+    background-color: purple;
+    cursor: pointer;
+}
+
+.title:hover {
+    background-color: #6a006a;
+    cursor: pointer;
+}
+
+.description {
+    background-color: orange;
+    cursor: pointer;
+}
+
+.description:hover {
+    background-color: #ff8000;
+    cursor: pointer;
+}
+
+.delete {
+    background-color: red;
+    cursor: pointer;
+}
+
+.delete:hover {
+    background-color: #9c0101;
+    cursor: pointer;
+}
+
+.delete1{
+    background-color: red;
+    border: 2px solid gray;
+    color: white;
+    cursor: pointer;
+    height: 40px;
+    width: 60px;
+    margin-right: 10px;
+}
+
+.delete1:hover {
+    background-color: #ff0000;
+    border: 2px solid gray;
+    color: black;
+    cursor: pointer;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border: 3px solid #ccc;
+    max-width: 300px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgb(53, 52, 52);
+    z-index: 19325235;
+}
+
+.popup .closebtn{
+    background-color: gray;
+    color: white;
+    padding: 5px;
+    border: 5px solid black;
+    cursor: pointer;
+}
+
+.popup .closebtn:hover{
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border: 5px solid gray;
+    cursor: pointer;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+.buttonholder{
+    padding: 10px;
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+}

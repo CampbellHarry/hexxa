@@ -1,12 +1,5 @@
-/* This is the start of the main css */
-.homecontainer{
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
-    margin-bottom: 30px;
-}
 .hero {
-    background-image: url('path/to/hero-image.jpg');
+    background-image: url('/assets/images/hero.jpg');
     background-size: cover;
     background-position: center;
     height: 500px;
@@ -20,86 +13,128 @@
     color: white;
 }
 
-.hero-content h1 {
-    font-size: 4rem;
-    margin-bottom: 20px;
-}
-
-.hero-content p {
-    font-size: 1.5rem;
-    margin-bottom: 30px;
+.logo {
+    color: #191970;
+    -webkit-text-stroke: 2px black;
 }
 
 .cta-button {
-    background-color: var(--primary);
+    background-color: #191970;
     color: white;
     border: none;
-    border-radius: 5px;
     padding: 10px 20px;
+    border-radius: 5px;
     font-size: 1.2rem;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
+    margin-top: 20px;
 }
 
 .cta-button:hover {
-    background-color: var(--secondary);
+    cursor: pointer;
+    background-color: #06063f;
+}
+
+/* Featured products section */
+.featured-products {
+    background-color: #3d3d3d;
+    padding: 50px 0;
+}
+
+.container1 {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    color: white;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    color: white;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    margin-top: 30px;
     color: black;
 }
 
-.home-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
-    margin-bottom: 30px;
-}
-
-.home-box {
-    background-color: var(--primary);
-    color: white;
+.product {
+    background-color: white;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 0 10px var(--contrast);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
-.home-box h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
+.product img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    margin-bottom: 10px;
 }
 
-.home-box p {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
+/* Why us section */
+.why-us {
+    padding: 50px 0;
 }
-.whyus{
+
+.reasons {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 50px;
-    margin-bottom: 30px;
-    opacity: 0;
-    animation: slide-up 1s ease-in-out forwards;
+    justify-content: space-between;
+    margin-top: 30px;
+    color: black;
+    gap: 10px;
 }
 
-@keyframes slide-up {
-    from {
-        transform: translateY(50px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-.boxonwhy{
-    background-color: var(--primary);
-    color: white;
+.reason {
+    width: 30%;
+    background-color: white;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 0 10px var(--contrast);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 400px;
-    margin: 10px;
-    height: auto;
 }
-/* This is the end of the main css */
+
+.reason img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+/* Reviews section */
+.reviews {
+    padding: 50px 0;
+    background-color: #3d3d3d;
+}
+
+.review-grid {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    color: black;
+}
+
+.review {
+    width: 45%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.review img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
