@@ -1,137 +1,142 @@
 /* Style the main container */
 main {
-    display: flex;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    height: 900px;
-    flex-direction: row;
-  }
-  
-  /* Style the user section */
-  .user {
-    text-align: center;
-  }
-  
-  /* Style the username and role icons */
-  #username {
-    display: flex;
-    align-items: center;
-    font-size: 2em;
-    text-align: center;
-    position: relative;
-    left: 70%;
-    color: white;
-  }
-  
-  .role-icon {
-    margin-left: 10px;
-  }
-  
-  hr{
-    position: relative;
-    left: 70%;
-    width: 100%;
-    border: 1px solid white;
-  }
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  height: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
 
-  /* Style the dropdown content */
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    color: black;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    text-align: left;
-  }
-  
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
-  
-  /* Style the about section */
-  .aboutt {
-    top: 200px;
-    position: relative;
-    align-items: center;
-  }
-  
-  .about {
-    background-color: #ffffff;
-    border-radius: 8px;
-    padding: 20px;
-    width: 400px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    position: relative;
-    left: -35%;
-  }
-  
-  /* Style the about heading and paragraphs */
-  .about h1 {
-    font-size: 1.5em;
-    color: #333333;
-    margin-bottom: 10px;
-  }
-  
-  .about p {
-    color: #666666;
-    margin-bottom: 10px;
-  }
-  
-  /* Style the date since joined */
-  .about p span {
-    font-weight: bold;
-  }
-  
-  /* Add border radius to images */
-  .role-icon img {
-    border-radius: 50%;
-  }
-  
-  /* Add hover effect to role icons */
-  .role-icon img:hover {
-    transform: scale(1.1);
-  }
-  
+/* Style the user section */
+.user {
+  text-align: center;
+}
+
+/* Style the username and role icons */
+#username {
+  display: flex;
+  align-items: center;
+  font-size: 2em;
+  color: white;
+  white-space: nowrap; /* Prevent line breaks */
+  overflow: hidden; /* Hide overflow */
+  max-width: auto; /* Prevent text from overflowing */
+}
+
+.role-icon {
+  margin-left: 10px;
+}
+
+hr {
+  width: 100%;
+  border: 1px solid white;
+}
+
+/* Style the dropdown content */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  color: black;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  text-align: left;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Style the about section */
+.aboutt {
+  top: 0px;
+  position: relative;
+  margin-top: 10px;
+  align-items: center;
+}
+
+.about {
+  background-color: transparent;
+  border-radius: 8px;
+  padding: 20px;
+  width: 500px; /* Increase the width to accommodate larger text */
+  white-space: normal; /* Allow wrapping of text */
+  word-wrap: break-word; /* Allow long words to break */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  border: 3px solid white;
+  overflow: auto; /* Add this line */
+}
+
+/* Style the about heading and paragraphs */
+.about h1 {
+  font-size: 1.5em;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.about p {
+  color: white;
+  margin-bottom: 10px;
+}
+
+/* Style the date since joined */
+.about p span {
+  font-weight: bold;
+}
+
+/* Add border radius to images */
+.role-icon img {
+  border-radius: 50%;
+}
+
+/* Add hover effect to role icons */
+.role-icon img:hover {
+  transform: scale(1.1);
+}
+
 /* Badges section */
 /* Badge container */
 .badge-container {
-    margin-top: 20px;
-    top: 0px; /* Change this value to position it further down */
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    left: -37%; /* Adjust this value to align it more to the left */
+  margin-top: 20px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Badges section */
 .badges {
-    display: flex;
+  display: flex;
+  justify-content: center;
 }
 
 .badge {
-    text-align: center;
-    margin: 0 10px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    padding: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin: 0 10px;
+  border: 3px solid white;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  height: auto;
+  width: 100px;
 }
 
-.badge-icon {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
+.badge-icon img {
+  width: 80px;
+  border-radius: 50%;
+  align-items: center;
 }
 
 .badge-label {
-    display: block;
-    margin-top: 5px;
-    font-size: 14px;
-    color: #333333;
+  display: block;
+  margin-top: 5px;
+  font-size: 14px;
+  color: white;
 }
 
 /* Media queries for mobile and tablet devices */
@@ -139,13 +144,8 @@ main {
   main {
     min-height: 800px;
   }
+  
   #username {
-    display: flex;
-    align-items: center;
-    font-size: 2em;
-    text-align: center;
-    position: relative;
-    right: 70%;
-    color: white;
+    right: auto;
   }
 }

@@ -245,26 +245,27 @@ function renderProductPage(product) {
               </div>
           </div>
           <div class="basket">
-              <img src="/assets/images/shoppingb.png" height="100px" alt="Basket">
-                  <p id="basketcount">0</p>
-              <nav>
-                  <div class="burger-menu">
-                      <div class="line"></div>
-                      <div class="line"></div>
-                      <div class="line"></div>
-                  </div>
-                  <ul class="nav-links">
-                      <li class="box"><a class="text" href="">Welcome <span id="username"></span>!</a></li>
-                      <li class="box"><a class="text" href="/">Home</a></li>
-                      <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
-                      <li class="box"><a class="text" href="#contact">Contact</a></li>
-                      <li class="box"><a class="text" href="/shopping">Shopping</a></li>
-                      <li class="box"><a class="text" href="#deals">Today's Deals</a></li>
-                      <li class="box"><a class="text" href="/allitems">All Items</a></li>
-                      <li class="box"><a class="text" href="/sell">Sell an Item</a></li>
-                  </ul>
-              </nav>
-      </header>
+          <img src="/assets/images/shoppingb.png" height="50px" alt="Basket" class="basket">
+              <p id="basketcount">0</p>
+      </div>
+      <nav>
+          <div class="burger-menu">
+              <div class="line"></div>
+              <div class="line"></div>
+              <div class="line"></div>
+          </div>
+          <ul class="nav-links">
+              <li class="box"><a class="text" href="">Welcome <span id="username"></span>!</a></li>
+              <li class="box"><a class="text" href="/">Home</a></li>
+              <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
+              <li class="box"><a class="text" href="#contact">Contact</a></li>
+              <li class="box"><a class="text" href="/shopping">Shopping</a></li>
+              <li class="box"><a class="text" href="#deals">Today's Deals</a></li>
+              <li class="box"><a class="text" href="/allitems">All Items</a></li>
+              <li class="box"><a class="text" href="/sell">Sell an Item</a></li>
+          </ul>
+      </nav>
+  </header>
       <main>
           <section class="product-image-container">
               <img src="/assets/images/hexxa.png" alt="Product Image">
@@ -624,30 +625,30 @@ function renderUserPage(user) {
               </div>
           </div>
           <div class="basket">
-              <img src="/assets/images/shoppingb.png" height="100px" alt="Basket">
+              <img src="/assets/images/shoppingb.png" height="50px" alt="Basket" class="basket">
                   <p id="basketcount">0</p>
           </div>
-              <nav>
-                  <div class="burger-menu">
-                      <div class="line"></div>
-                      <div class="line"></div>
-                      <div class="line"></div>
-                  </div>
-                  <ul class="nav-links">
-                      <li class="box"><a class="text" href="/">Home</a></li>
-                      <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
-                      <li class="box"><a class="text" href="#contact">Contact</a></li>
-                      <li class="box"><a class="text" href="/shopping">Shopping</a></li>
-                      <li class="box"><a class="text" href="#deals">Today's Deals</a></li>
-                      <li class="box"><a class="text" href="/allitems">All Items</a></li>
-                      <li class="box"><a class="text" href="/sell">Sell an Item</a></li>
-                  </ul>
-              </nav>
+          <nav>
+              <div class="burger-menu">
+                  <div class="line"></div>
+                  <div class="line"></div>
+                  <div class="line"></div>
+              </div>
+              <ul class="nav-links">
+                  <li class="box"><a class="text" href="/">Home</a></li>
+                  <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
+                  <li class="box"><a class="text" href="#contact">Contact</a></li>
+                  <li class="box"><a class="text" href="/shopping">Shopping</a></li>
+                  <li class="box"><a class="text" href="#deals">Today's Deals</a></li>
+                  <li class="box"><a class="text" href="/allitems">All Items</a></li>
+                  <li class="box"><a class="text" href="/sell">Sell an Item</a></li>
+              </ul>
+          </nav>
       </header>
       <main>
           <div class="user">
               <h1 id="username">
-                  ${username} 
+                  @${username}
                   ${approved ? '<div class="dropdown"><img src="/assets/images/authorised.png" id="approved" width="50px" class="role-icon"><div class="dropdown-content">Verified Seller</div></div>' : ''}
                   ${role === 'developer' ? '<div class="dropdown"><img src="/assets/images/developer.png" id="developer" width="50px" class="role-icon"><div class="dropdown-content">Site Developer</div></div>' : ''}
                   ${role === 'moderator' ? '<div class="dropdown"><img src="/assets/images/moderator.png" id="moderator" width="50px" class="role-icon"><div class="dropdown-content">Moderation Team</div></div>' : ''}
@@ -667,13 +668,12 @@ function renderUserPage(user) {
               </div>
               <section class="badge-container">
                   <section class="badges">
-                        ${approved ? '<div class="badge"><div class="badge-icon"><img src="/assets/images/authorised.png" style="top:-5px; position: relative;" width="90px"></div><div class="badge-label"><h2>Verified Seller</h2></div></div>' : ''}
+                        ${approved ? '<div class="badge"><div class="badge-icon"><img src="/assets/images/authorised.png"></div><div class="badge-label"><h2>Verified Seller</h2></div></div>' : ''}
                       <div class="badge">
-                        <div class="badge-icon"><img src="/assets/images/badges/${updatedBadgeNumber}.png" width="90px" style="top:-10px; position: relative;" alt="Badge ${updatedBadgeNumber}"></div>
+                        <div class="badge-icon"><img src="/assets/images/badges/${updatedBadgeNumber}.png" alt="Badge ${updatedBadgeNumber}"></div>
                         <div class="badge-label"><h2>Badge ${updatedBadgeNumber}</h2></div>
                       </div>
-                      <div class="badge">
-                      ${earlyuser ? '<div class="badge"><div class="badge-icon"><img src="/assets/images/badges/earlyadop.png" width="80px" style="top:-17px; position: relative;"></div><div class="badge-label"><h2>Early Adopter</h2></div></div>' : ''}
+                      ${earlyuser ? '<div class="badge"><div class="badge-icon"><img src="/assets/images/badges/earlyadop.png"></div><div class="badge-label"><h2>Early Adopter</h2></div></div>' : ''}
                       </div>
                   </section>
               </section>

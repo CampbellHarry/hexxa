@@ -41,7 +41,7 @@
             <div class="hero-content">
                 <h1>Welcome to <span style="color: #191970; -webkit-text-stroke: 2px black;">H</span><span style="color: #00FFFF;-webkit-text-stroke: 2px black;">e</span><span style="color: #00A5FF;-webkit-text-stroke: 2px black;">xx</span><span style="color: #00FFFF;-webkit-text-stroke: 2px black;">a</span></h1>
                 <p></p>
-                <button class="cta-button">Shop Now</button>
+                <button class="cta-button"><a href="/shopping" style="text-decoration: none; color: white;">Shop Now</a></button>
             </div>
         </section>
         <section class="home">
@@ -123,7 +123,7 @@
 });
     </script>
     <script src="/backend/signup.js"></script>
-    <script>
+    <script hidden>
         const burgerMenu = document.querySelector('.burger-menu');
         const navLinks = document.querySelector('.nav-links');
         const links = document.querySelectorAll('.nav-links li');
@@ -132,18 +132,16 @@
             // Toggle Nav
             navLinks.classList.toggle('nav-active');
 
-            // Animate Links
-            links.forEach((link, index) => {
-                if (link.style.animation) {
-                    link.style.animation = '';
-                } else {
-                    link.style.animation = `display: block; navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s;`;
-                }
-            });
-
             // Burger Animation
             burgerMenu.classList.toggle('toggle');
+
+            // Hide navLinks when it's not active
+            if (!navLinks.classList.contains('nav-active')) {
+                navLinks.style.display = 'none';
+            } else {
+                navLinks.style.display = 'block';
+            }
         });
     </script>
-</body>
+    </body>
 </html>
