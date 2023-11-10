@@ -608,6 +608,10 @@ function renderUserPage(username) {
   }
 }
 
+// user profile bit
+
+// customise it more make cool styles for it that each badge can unlock
+
 function renderUserPage(user) {
   const { username, aboutMe, dateJoined,location, approved, role, badgeNumber, totalOrders, earlyuser} = user;
 
@@ -777,13 +781,15 @@ app.post('/check-username', (req, res) => {
     });
 });
 
-
+// in progress log out
 
 app.get('/logout', (req, res) => {
   res.clearCookie('session_token');
   req.session.destroy();
   res.redirect('/');
 });
+
+// function to add to basket
 
 app.post('/add-to-basket', (req, res) => {
   const { productID, username } = req.body;
@@ -835,6 +841,8 @@ function readBasketData() {
 function writeBasketData(data) {
   fs.writeFileSync('basket.json', JSON.stringify(data));
 }
+
+// basket code
 
 app.get('/getBasket/:username', (req, res) => {
   const { username } = req.params;
@@ -976,8 +984,8 @@ app.get('/dashboard', requireAuth, (req, res) => {
 
 // Route to handle changing price
 app.post('/changePrice', (req, res) => {
-  const itemId = req.body.itemId; // Assuming you have an input field with name="itemId"
-  const newPrice = req.body.newPrice; // Assuming you have an input field with name="newPrice"
+  const itemId = req.body.itemId;
+  const newPrice = req.body.newPrice;
 
   let items = readJSONFile(itemsDatabase);
 
@@ -996,8 +1004,8 @@ app.post('/changePrice', (req, res) => {
 
 // Route to handle changing title
 app.post('/changeTitle', (req, res) => {
-  const itemId = req.body.itemId; // Assuming you have an input field with name="itemId"
-  const newTitle = req.body.newTitle; // Assuming you have an input field with name="newTitle"
+  const itemId = req.body.itemId;
+  const newTitle = req.body.newTitle;
 
   let items = readJSONFile(itemsDatabase);
 
@@ -1016,8 +1024,8 @@ app.post('/changeTitle', (req, res) => {
 
 // Route to handle changing description
 app.post('/changeDescription', (req, res) => {
-  const itemId = req.body.itemId; // Assuming you have an input field with name="itemId"
-  const newDescription = req.body.newDescription; // Assuming you have an input field with name="newDescription"
+  const itemId = req.body.itemId;
+  const newDescription = req.body.newDescription; 
 
   let items = readJSONFile(itemsDatabase);
 
@@ -1036,7 +1044,7 @@ app.post('/changeDescription', (req, res) => {
 
 // Route to handle deleting an item
 app.post('/deleteItem', (req, res) => {
-  const itemId = req.body.itemId; // Assuming you have an input field with name="itemId"
+  const itemId = req.body.itemId
 
   let items = readJSONFile(itemsDatabase);
 
