@@ -36,7 +36,16 @@
                 </ul>
             </nav>
     </header>
+    <div id="overlay" class="overlay"></div>
+    <div class="popupblock" id="harryc">
+        <img src="/assets/images/hexxa.png" alt="CEO">
+        <h1 style="text-align: center;">Hexxa is a portfolio test</h1>
+        <h2 style="text-align: center;">You are unable to purchase real items from this website.</h2>
+        <h3 style="text-align: center;">Please click the button below to continue to the website.</h3>
+        <button onclick="closePopup('harryc')" class="cta-button" style="text-decoration: none; color: white;">Continue</a></button>
+      </div>
     <main>
+        </div>
         <section class="hero">
             <div class="hero-content">
                 <h1>Welcome to <span style="color: #191970; -webkit-text-stroke: 2px black;">H</span><span style="color: #00FFFF;-webkit-text-stroke: 2px black;">e</span><span style="color: #00A5FF;-webkit-text-stroke: 2px black;">xx</span><span style="color: #00FFFF;-webkit-text-stroke: 2px black;">a</span></h1>
@@ -152,6 +161,23 @@
         submitButton.classList.add('disabled');
     }
 });
+    </script>
+    <script>
+            function togglePopup(popupId) {
+            var popup = document.getElementById(popupId);
+            var overlay = document.getElementById('overlay');
+
+            popup.style.display = 'block';
+            overlay.style.display = 'block';
+        }
+
+        function closePopup(popupId) {
+            var popup = document.getElementById(popupId);
+            var overlay = document.getElementById('overlay');
+
+            popup.style.display = 'none';
+            overlay.style.display = 'none';
+        }
     </script>
     <script src="/backend/signup.js"></script>
     <script hidden>

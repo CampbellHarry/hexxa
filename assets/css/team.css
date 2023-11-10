@@ -5,16 +5,17 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
 }
 .exec{
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 30px;
     border: 2px solid white;
     padding: 25px;
     border-radius: 10px;
     margin-left: 15px;
+    margin-bottom: 15px;
 }
 
 .exec:hover{
@@ -43,6 +44,7 @@ main{
     z-index: 19325235;
     min-width: 40%;
     text-align: left;
+    color: white;
 }
 
 .popup .closebtn{
