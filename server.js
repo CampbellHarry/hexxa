@@ -608,15 +608,13 @@ function renderUserPage(username) {
   }
 }
 
-// user profile bit
-
-// customise it more make cool styles for it that each badge can unlock
-
 function renderUserPage(user) {
   const { username, aboutMe, dateJoined,location, approved, role, badgeNumber, totalOrders, earlyuser} = user;
 
   let updatedBadgeNumber;
-  if (totalOrders >= 25) {
+  if (totalOrders >= 30) {
+    updatedBadgeNumber = 30;
+  } else if (totalOrders >= 25) {
     updatedBadgeNumber = 25;
   } else if (totalOrders >= 20) {
     updatedBadgeNumber = 20;
@@ -781,15 +779,13 @@ app.post('/check-username', (req, res) => {
     });
 });
 
-// in progress log out
+
 
 app.get('/logout', (req, res) => {
   res.clearCookie('session_token');
   req.session.destroy();
   res.redirect('/');
 });
-
-// function to add to basket
 
 app.post('/add-to-basket', (req, res) => {
   const { productID, username } = req.body;
@@ -841,8 +837,6 @@ function readBasketData() {
 function writeBasketData(data) {
   fs.writeFileSync('basket.json', JSON.stringify(data));
 }
-
-// basket code
 
 app.get('/getBasket/:username', (req, res) => {
   const { username } = req.params;
@@ -931,7 +925,7 @@ app.get('/dashboard', requireAuth, (req, res) => {
     <div id="stockPopup" class="popup">
       <h2>Stock Popup</h2>
       <h3>Is the item in stock?</h3>
-      <p>Currently it is ${item.inStock}</p>
+      <p>Currently it is ${item.inStock ? 'in stock' : 'out of stock'}</p>
       <div class="buttonholder">
         <button class="outofstock">Out of Stock</button>
         <button class="instock1">In Stock</button>
@@ -984,8 +978,8 @@ app.get('/dashboard', requireAuth, (req, res) => {
 
 // Route to handle changing price
 app.post('/changePrice', (req, res) => {
-  const itemId = req.body.itemId;
-  const newPrice = req.body.newPrice;
+  const itemId = req.body.itemId; // Assuming you have an input field with name="itemId"
+  const newPrice = req.body.newPrice; // Assuming you have an input field with name="newPrice"
 
   let items = readJSONFile(itemsDatabase);
 
@@ -1004,8 +998,8 @@ app.post('/changePrice', (req, res) => {
 
 // Route to handle changing title
 app.post('/changeTitle', (req, res) => {
-  const itemId = req.body.itemId;
-  const newTitle = req.body.newTitle;
+  const itemId = req.body.itemId; // Assuming you have an input field with name="itemId"
+  const newTitle = req.body.newTitle; // Assuming you have an input field with name="newTitle"
 
   let items = readJSONFile(itemsDatabase);
 
@@ -1024,8 +1018,8 @@ app.post('/changeTitle', (req, res) => {
 
 // Route to handle changing description
 app.post('/changeDescription', (req, res) => {
-  const itemId = req.body.itemId;
-  const newDescription = req.body.newDescription; 
+  const itemId = req.body.itemId; // Assuming you have an input field with name="itemId"
+  const newDescription = req.body.newDescription; // Assuming you have an input field with name="newDescription"
 
   let items = readJSONFile(itemsDatabase);
 
@@ -1044,7 +1038,7 @@ app.post('/changeDescription', (req, res) => {
 
 // Route to handle deleting an item
 app.post('/deleteItem', (req, res) => {
-  const itemId = req.body.itemId
+  const itemId = req.body.itemId; // Assuming you have an input field with name="itemId"
 
   let items = readJSONFile(itemsDatabase);
 
@@ -1070,6 +1064,10 @@ app.get('/dashboardData', (req, res) => {
 
   // Send the data back to the client as JSON
   res.json({ username, itemnumbers });
+});
+
+app.get('/team', (req, res) => {
+  res.sendFile(path.join(__dirname, 'assets/html', 'team.html'));
 });
 
 // Start the server

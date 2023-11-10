@@ -39,29 +39,44 @@
     <main>
         <h1>Meet the Team</h1>
         <br>
+        <h1>Project Manager</h1>
         <section class="executives">
             <div class="exec" onclick="togglePopup('harryc')">
-                <img src="/assets/images/team/ceo.jpg" alt="CEO">
-                <h3>CEO</h3>
-                <h2>Harry Campbell</h2>
-            </div>
-            <div class="exec" onclick="togglePopup('harryc')">
-                <img src="/assets/images/team/ceo.jpg" alt="CEO">
-                <h3>CEO</h3>
+                <img src="/assets/images/owner.png" alt="CEO">
+                <h3>Technical Project Lead</h3>
                 <h2>Harry Campbell</h2>
             </div>
         </section>
+        <h1>Developers</h1>
         <div id="harryc" class="popup">
             <button class="closebtn" onclick="closePopup('harryc')"><h4>X</h4></button>
-            <h2>Harry Campbell</h2>
-            <h3>Harry is the founder and lead developer of Hexxa</h3>
+            <h2>Harry Campbell         <img src="/assets/images/owner.png" width="40px" alt="CEO"></h2>
+            <h3>Harry is the project manager and lead developer of Hexxa. He specialises in Front-end and Back-end Development</h3>
             <div class="socials">
                 <a href="https://www.linkedin.com/in/harry-campbell-75ab83250/"><img src="/assets/images/indexphotos/LinkedIn_icon.svg.png" width="50px" alt="LinkedIn"></a>
                 <a href="github.com/campbellharry"><img src="/assets/images/indexphotos/github-icon-2048x1999-d37ckpm6-removebg-preview.png" width="50px" alt="GitHub"></a>
             </div>
             </div>
           </div>
-          <div id="overlay" class="overlay"></div>
+          <div id="overlay" onclick="closePopup('harryc')" class="overlay"></div>
+          <section class="developers">
+            <div class="exec" onclick="togglePopup('Finley')">
+                <img src="/assets/images/developer.png" alt="Developer">
+                <h3>Icon Designer</h3>
+                <h2>Finley Martin</h2>
+            </div>
+        </section>
+        <div id="Finley" class="popup">
+            <button class="closebtn" onclick="closePopup('Finley')"><h4>X</h4></button>
+            <h2>Finley Martin         <img src="/assets/images/developer.png" width="40px" alt="developer"></h2>
+            <h3>Finley created and designed most of the images and logos you see on Hexxa</h3>
+            <div class="socials">
+                <a href="https://www.linkedin.com/in/finleymartin/"><img src="/assets/images/indexphotos/LinkedIn_icon.svg.png" width="50px" alt="LinkedIn"></a>
+                <a href="https://github.com/3zia"><img src="/assets/images/indexphotos/github-icon-2048x1999-d37ckpm6-removebg-preview.png" width="50px" alt="GitHub"></a>
+            </div>
+            </div>
+          </div>
+          <div id="overlay" class="overlay" onclick="closePopup('Finley')"></div>
     </main>
     <script>
         function togglePopup(popupId) {
