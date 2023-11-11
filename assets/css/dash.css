@@ -41,9 +41,9 @@
 }
 .item{
     height: 400px;
-    width: 300px;
+    width: 500px;
     background-color: black;
-    border: 4px solid rgb(82, 79, 79);
+    border: 4px solid white;
     border-radius: 10px;
     color: white;
 }
@@ -74,7 +74,6 @@
     padding: 10px;
     border-radius: 5px;
     border: none;
-    color: white;
     font-size: 16px;
     cursor: pointer;
 }
@@ -122,48 +121,56 @@
 .outofstock:hover {
     background-color: #ff0000;
     border: 2px solid gray;
-    color: black;
+    color: white;
     cursor: pointer;
 }
 
 .price {
     background-color: blue;
     cursor: pointer;
+    color: white;
 }
 
 .price:hover {
     background-color: #0404a8;
     cursor: pointer;
+    color: white;
 }
 
 .title {
     background-color: purple;
     cursor: pointer;
+    color: white;
 }
 
 .title:hover {
     background-color: #6a006a;
     cursor: pointer;
+    color: white;
 }
 
 .description {
     background-color: orange;
     cursor: pointer;
+    color: black;
 }
 
 .description:hover {
     background-color: #ff8000;
     cursor: pointer;
+    color: black;
 }
 
 .delete {
     background-color: red;
     cursor: pointer;
+    color: white;
 }
 
 .delete:hover {
     background-color: #9c0101;
     cursor: pointer;
+    color: white;
 }
 
 .delete1{

@@ -56,7 +56,23 @@
         </div>
     </footer>
     <script>
-        function validateRecaptcha() {
+    let pollingInterval;
+
+function pollServer() {
+  // Make an Ajax request to the server
+  fetch('/checkUpdates')
+    .then(response => response.json())
+    .then(data => {
+      // Process the data or trigger actions based on updates
+      processUpdates(data);
+    })
+    .catch(error => {
+      console.error('Error during polling:', error);
+    });
+}
+
+function processUpdates(data) {
+    function validateRecaptcha() {
             var response = grecaptcha.getResponse();
             if (response.length === 0) {
                 alert('Please verify that you are not a robot.');
@@ -101,6 +117,23 @@
             })
             .catch(error => console.error('Error:', error));
         });
+}
+
+function startPolling() {
+  // Start polling every 5 seconds
+  pollingInterval = setInterval(pollServer, 500);
+}
+
+function stopPolling() {
+  // Stop polling
+  clearInterval(pollingInterval);
+}
+
+// Start polling when the page loads
+window.onload = startPolling;
+
+// Stop polling when the user navigates away from the page
+window.onbeforeunload = stopPolling;
 </script>
   </body>
 </html>

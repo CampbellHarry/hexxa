@@ -6,6 +6,13 @@ const multer = require('multer');
 
 
 const app = express();
+
+const http = require('http');
+const WebSocket = require('ws');
+
+const server = http.createServer(app);
+const wss = new WebSocket.Server({ server });
+
 const rateLimit = require('express-rate-limit');
 
 
@@ -1070,8 +1077,15 @@ app.get('/team', (req, res) => {
   res.sendFile(path.join(__dirname, 'assets/html', 'team.html'));
 });
 
+app.get('/checkUpdates', (req, res) => {
+  // Simulate server data
+  const updates = { message: 'New updates available!', timestamp: Date.now() };
+  res.json(updates);
+});
+
+
 // Start the server
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+app.listen(3000, () => {
+  console.log('Server is running on port http://localhost:3000');
 });
