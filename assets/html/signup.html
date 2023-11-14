@@ -120,8 +120,8 @@ function processUpdates(data) {
 }
 
 function startPolling() {
-  // Start polling every 5 seconds
-  pollingInterval = setInterval(pollServer, 500);
+  // Start polling every 5 ms
+  pollingInterval = setInterval(pollServer, 5);
 }
 
 function stopPolling() {

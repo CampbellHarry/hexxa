@@ -18,6 +18,7 @@
     justify-content: center;
     gap: 50px;
     flex-wrap: wrap;
+    top: -100px;
 }
 
 .product {
@@ -167,6 +168,12 @@
     margin-bottom: -400px;
     overflow: hidden;
     z-index: -10101001010101010101010101;
+    background:
+    linear-gradient(
+        to bottom,
+        rgba(0, 0, 0 / 0.5),
+        rgba(0, 0, 0 / 0.5)
+    );  
 }
 
 .photosphere img {
@@ -177,6 +184,12 @@
     width: 100%;
     opacity: 0;
     transition: opacity 4s ease-in-out;
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0, 0, 0 / 0.5),
+            rgba(0, 0, 0 / 0.5)
+        );   
 }
 
 .photosphere img {
@@ -187,19 +200,43 @@
     height: 100%;
     width: 100%;
     animation: imageAnimation 20s linear infinite;
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0, 0, 0 / 0.5),
+            rgba(0, 0, 0 / 0.5)
+        );  
 }
 
 .photosphere img:first-child {
     opacity: 1;
     animation-delay: 0s;
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0, 0, 0 / 0.5),
+            rgba(0, 0, 0 / 0.5)
+        );  
 }
 
 .photosphere img:nth-child(2) {
     animation-delay: 7.5s;
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0, 0, 0 / 0.5),
+            rgba(0, 0, 0 / 0.5)
+        );   
 }
 
 .photosphere img:nth-child(3) {
     animation-delay: 15s;
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0, 0, 0 / 0.5),
+            rgba(0, 0, 0 / 0.5)
+        );   
 }
 
 

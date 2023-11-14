@@ -8,9 +8,14 @@
     align-items: center;
 }
 
+.hero h1{
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
 .hero-content {
     text-align: center;
-    color: white;
+    color: rgb(255, 234, 234);
 }
 
 .logo {
@@ -35,7 +40,7 @@
 
 /* Featured products section */
 .featured-products {
-    background-color: #3d3d3d;
+    background-color: rgb(19, 17, 17);
     padding: 50px 0;
 }
 
@@ -50,7 +55,7 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
-    color: white;
+    color: black;
 }
 
 .product-grid {
@@ -108,7 +113,7 @@
 /* Reviews section */
 .reviews {
     padding: 50px 0;
-    background-color: #3d3d3d;
+    background-color: rgb(19, 17, 17);
 }
 
 .review-grid {

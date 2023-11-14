@@ -49,7 +49,58 @@
             <div><h2 class="itemnumbers"></h2></div>
         </section>
         <section class="seeitems">
-            <div class="containerr"></div>
+            <div class="containerr">
+                <div class="item">
+                    <div class="itemt">
+                      <h3>${item.productName}</h3>
+                    </div>
+                    <div class="itemd">
+                      <p>${item.description}</p>
+                    </div>
+                    <div class="itemp">
+                      <p>£${item.price}</p>
+                    </div>
+                    <div class="options">
+                      <button class="instock" onclick="togglePopup('stockPopup')">Is the item in stock?</button>
+                      <button class="price" onclick="togglePopup('pricePopup')">Change Price</button>
+                      <button class="title" onclick="togglePopup('titlePopup')">Change Title</button>
+                      <button class="description" onclick="togglePopup('descriptionPopup')">Change Description</button>
+                      <button class="delete" onclick="togglePopup('deletePopup')">Delete Item</button>
+                    </div>
+                  </div>
+                  </div>
+                  </section>
+                  <!-- Title Popup -->
+                  <div id="titlePopup" class="popup">
+                    <h2>Title Popup</h2>
+                    <h3>Change the title of your item</h3>
+                    <p>Currently it is ${item.productName}</p>
+                    <form action="/changeTitle" method="POST">
+                      <input type="hidden" name="itemId" value="your_item_id_here">
+                      <input type="text" name="newTitle" placeholder="Product Name" maxlength="40" required>
+                      <button type="submit" class="closebtn">Close</button>
+                    </form>
+                  </div>
+              
+                  <!-- Description Popup -->
+                  <div id="descriptionPopup" class="popup">
+                    <h2>Description Popup</h2>
+                    <h3>Change the description of your item</h3>
+                    <p>Currently it is ${item.description}</p>
+                    <input type="text" id="description" name="description" placeholder="Description" maxlength="100" required>
+                    <button class="closebtn" onclick="closePopup('descriptionPopup')">Close</button>
+                  </div>
+              
+                  <!-- Delete Popup -->
+                  <div id="deletePopup" class="popup">
+                    <h2>Delete Popup</h2>
+                    <h3>Are you sure you want to delete this item?</h3>
+                    <button class="delete1">Delete</button>
+                    <button class="closebtn" onclick="closePopup('deletePopup')">Close</button>
+                  </div>
+                  <!-- Overlay -->
+                  <div id="overlay" class="overlay"></div>
+            </div>
         </section>
         
         <script>
@@ -69,6 +120,7 @@
                 overlay.style.display = 'none';
             }
         </script>
+        
     </main>
 </main>
 <footer>
@@ -131,6 +183,9 @@
             // Burger Animation
             burgerMenu.classList.toggle('toggle');
         });
+    </script>
+    <script>
+        
     </script>
     <script src="/backend/basca.js"></script>
     <script>

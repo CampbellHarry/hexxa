@@ -1,1 +1,34 @@
-[{"productId":1699550251920,"productName":"Test","seller":"testaccount","category":"Electronics","condition":"new","price":"21","inStock":true,"description":"Test","imageUrl":"","delivery":"1 day","approved":true,"sellerrole":"developer","sold":0,"totalCost":0},{"productId":1699567399758,"productName":"test2","seller":"harrycampbell","category":"Electronics","condition":"new","price":"123","inStock":true,"description":"sadasfasgasgha","imageUrl":"","delivery":"12","approved":true,"sellerrole":"owner","sold":0,"totalCost":0}]
+[
+  {
+    "productId": 1699550251920,
+    "productName": "Test",
+    "seller": "testaccount",
+    "category": "Electronics",
+    "condition": "new",
+    "inStock": true,
+    "description": "Test",
+    "imageUrl": "",
+    "delivery": "1 day",
+    "approved": true,
+    "sellerrole": "developer",
+    "sold": 0,
+    "totalCost": 0,
+    "price": "213"
+  },
+  {
+    "productId": 1699567399758,
+    "productName": "test2",
+    "seller": "harrycampbell",
+    "category": "Electronics",
+    "condition": "new",
+    "inStock": false,
+    "description": "sadasfasgasgha",
+    "imageUrl": "",
+    "delivery": "12",
+    "approved": true,
+    "sellerrole": "owner",
+    "sold": 0,
+    "totalCost": 0,
+    "price": "213"
+  }
+]

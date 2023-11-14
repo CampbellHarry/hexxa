@@ -7,7 +7,7 @@
 }
 
 body{
-                background-image: linear-gradient(to right, #424040, #999999);
+                background-image: linear-gradient(to right, #3498DB, #85C1E9);
                 margin: 0;
                 padding: 0;
                 overflow-x: hidden;
@@ -143,8 +143,8 @@ nav {
 }
 
 .line {
-        width: 25px;
-        height: 3px;
+        width: 35px;
+        height: 4px;
         background-color: var(--secondary);
         margin: 5px;
 }
@@ -156,7 +156,7 @@ nav {
         margin: 0;
         padding: 0;
         position: absolute;
-        top: 100px;
+        top: 900px;
         left: 0;
         display: none;
         width: 100%;
@@ -187,9 +187,7 @@ nav {
 }
 
         header {
-                height: auto;
-                flex-direction: column;
-                justify-content: center;
+                justify-content: space-between;
                 align-items: center;
                 padding: 20px;
         }
@@ -211,9 +209,11 @@ nav {
 
         .search-box {
                 max-width: 100%;
+                height: 50px;
         }
         .search-box input[type="text"] {
                 width: 100%;
+                height: 100%;
         }
 
         .basket p {
@@ -231,7 +231,7 @@ nav {
                 flex-direction: column;
                 align-items: center;
                 gap: 10px;
-                margin-top: 20px;
+                margin-top: 200px;
                 width: 100%;
         }
 
@@ -246,6 +246,7 @@ nav {
                 display: block;
                 cursor: pointer;
                 color: white;
+
         }
         
         .nav-active {
@@ -256,4 +257,3 @@ nav {
         .burger-menu.hidden {
                 display: none;
         }
-

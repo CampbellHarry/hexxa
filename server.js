@@ -204,6 +204,8 @@ app.post('/verify-session', (req, res) => {
   }
 });
 
+
+
 // Serve static files (HTML, CSS, etc.)
 app.use(express.static('public'));
 
@@ -301,7 +303,7 @@ function renderProductPage(product) {
               <div id="price">Price: £${product.price}</div>
               <div id="delivery">Delivery: ${product.delivery}</div>
               <hr>
-              <div id="instock">${product.inStock ? 'In stock' : 'Out of stock'}</div>
+                <div id="instock" style="color: ${product.inStock ? 'green' : 'red'}">${product.inStock ? 'In stock' : 'Out of stock'}</div>
               <hr>
               <button class="add-to-basket" data-product-id="${product.productId}">Add to Basket</button>
               <button id="buynow">Buy Now</button>
@@ -431,10 +433,56 @@ function renderProductPage(product) {
       }
   });
 </script>
+<script src="backend/product.js">
   </body>
   </html>
   `;
 }
+
+// Function to read items.json file
+function readItemsFile() {
+  const filePath = path.join(__dirname, 'items.json');
+  const fileContent = fs.readFileSync(filePath, 'utf-8');
+  return JSON.parse(fileContent);
+}
+
+// Function to check if items.json file has changed
+function hasItemsFileChanged(lastModifiedTime) {
+  const filePath = path.join(__dirname, 'items.json');
+  const stats = fs.statSync(filePath);
+  return stats.mtimeMs > lastModifiedTime;
+}
+
+// Endpoint to handle product page
+app.get('/product/:id', (req, res) => {
+  const id = parseInt(req.params.id); // Parse the id as a number
+  if (isNaN(id)) {
+    return res.status(400).send('Invalid ID');
+  }
+
+  let items = readItemsFile();
+  let lastModifiedTime = Date.now();
+
+  const product = items.find(item => item.productId === id);
+
+  if (!product) {
+    return res.status(404).send('Product not found');
+  }
+
+  res.send(renderProductPage(product));
+
+  // Poll items.json file every 5 seconds and update product page if data has changed
+  setInterval(() => {
+    if (hasItemsFileChanged(lastModifiedTime)) {
+      items = readItemsFile();
+      lastModifiedTime = Date.now();
+      const updatedProduct = items.find(item => item.productId === id);
+      if (updatedProduct) {
+        res.send(renderProductPage(updatedProduct));
+      }
+    }
+  }, 5000);
+});
 const requireAuth = (req, res, next) => {
   const sessionToken = req.cookies.session_token;
 
@@ -905,7 +953,6 @@ app.get('/dashboard', requireAuth, (req, res) => {
     res.send("You have no items listed for sale.");
   } else {
     // If the user has items listed, proceed with rendering the dashboard
-    const fs = require('fs');
     const htmlContent = fs.readFileSync('assets/html/dashboard.html', 'utf8');
 
     const htmlItems = userItems.map(item => `
@@ -930,45 +977,58 @@ app.get('/dashboard', requireAuth, (req, res) => {
     </div>
     </section>
     <div id="stockPopup" class="popup">
-      <h2>Stock Popup</h2>
-      <h3>Is the item in stock?</h3>
-      <p>Currently it is ${item.inStock ? 'in stock' : 'out of stock'}</p>
-      <div class="buttonholder">
+    <button class="closebtn">Close</button>
+    <h2>Stock Popup</h2>
+    <h3>Is the item in stock?</h3>
+    <p>Currently it is ${item.inStock ? 'in stock' : 'out of stock'}</p>
+    <div class="buttonholder">
+      <form action="/changeStock" method="post">
+        <input type="hidden" name="itemId" value="${item.productId}">
+        <input type="hidden" name="newStock" value="${item.inStock ? 'false' : 'true'}">
         <button class="outofstock">Out of Stock</button>
         <button class="instock1">In Stock</button>
-      </div>
-      <button class="closebtn" onclick="closePopup('stockPopup')">Close</button>
+      </form>
     </div>
+    <button class="closebtn" onclick="closePopup('stockPopup')">Save</button>
+  </div>
 
     <!-- Price Popup -->
+    <form id="priceForm" action="/changePrice" method="POST">
     <div id="pricePopup" class="popup">
       <h2>Price Popup</h2>
-      <h3>Rase or lower your prices</h3>
+      <h3>Raise or lower your prices</h3>
       <p>Currently it is £${item.price}</p>
-      <input type="number" id="price" name="price" placeholder="Price" step="any" required maxlength="6">
-      <button class="closebtn" onclick="closePopup('pricePopup')">Close</button>
+      <input type="number" id="newPrice" name="newPrice" placeholder="New Price" step="any" required maxlength="6">
+      <button type="submit" class="closebtn">Save</button>
     </div>
+  </form>
 
     <!-- Title Popup -->
     <div id="titlePopup" class="popup">
-      <h2>Title Popup</h2>
-      <h3>Change the title of your item</h3>
-      <p>Currently it is ${item.productName}</p>
-      <input type="text" id="productName" name="productName" placeholder="Product Name" maxlength="40" required>
-      <button class="closebtn" onclick="closePopup('titlePopup')">Close</button>
-    </div>
+    <button class="closebtn" onclick="closePopup('deletePopup')>Close</button>
+    <h2>Title Popup</h2>
+    <h3>Change the title of your item</h3>
+    <p>Currently it is ${item.productName}</p>
+    <form action="/changeTitle" method="POST">
+      <input type="hidden" name="itemId" value="${item.productId}">
+      <input type="text" name="productName" placeholder="Product Name" maxlength="40" required>
+      <button type="submit" class="closebtn">Close</button>
+    </form>
+  </div>
 
     <!-- Description Popup -->
     <div id="descriptionPopup" class="popup">
+    <button class="closebtn" onclick="closePopup('deletePopup')>Close</button>
       <h2>Description Popup</h2>
       <h3>Change the description of your item</h3>
       <p>Currently it is ${item.description}</p>
       <input type="text" id="description" name="description" placeholder="Description" maxlength="100" required>
-      <button class="closebtn" onclick="closePopup('descriptionPopup')">Close</button>
+      <button class="closebtn" onclick="closePopup('descriptionPopup')">Save</button>
     </div>
 
     <!-- Delete Popup -->
     <div id="deletePopup" class="popup">
+    <button class="closebtn" onclick="closePopup('deletePopup')>Close</button>
       <h2>Delete Popup</h2>
       <h3>Are you sure you want to delete this item?</h3>
       <button class="delete1">Delete</button>
@@ -982,46 +1042,61 @@ app.get('/dashboard', requireAuth, (req, res) => {
   res.send(modifiedHtmlContent);
 }
 }));
+app.post('/changeStock', (req, res) => {
+  try {
+    const itemId = parseInt(req.body.itemId); // Convert itemId to a number
+    const newStock = req.body.newStock === 'true';
 
-// Route to handle changing price
-app.post('/changePrice', (req, res) => {
-  const itemId = req.body.itemId; // Assuming you have an input field with name="itemId"
-  const newPrice = req.body.newPrice; // Assuming you have an input field with name="newPrice"
+    let items = readJSONFile(itemsDatabase);
 
-  let items = readJSONFile(itemsDatabase);
+    // Find the item by its ID and update the inStock property
+    const updatedItems = items.map(item => {
+      if (item.productId === itemId) {
+        item.inStock = newStock;
+      }
+      return item;
+    });
 
-  // Find the item by its ID and update the price
-  const updatedItems = items.map(item => {
-    if (item.id === itemId) {
-      item.price = newPrice;
-    }
-    return item;
-  });
+    writeJSONFile(itemsDatabase, updatedItems);
 
-  writeJSONFile(itemsDatabase, updatedItems);
-
-  res.json({ success: true });
+    res.redirect('/success');
+    console.log('Stock changed successfully!');
+  } catch (error) {
+    console.error('Error:', error.message);
+    res.status(500).json({ success: false, error: error.message });
+  }
 });
 
-// Route to handle changing title
-app.post('/changeTitle', (req, res) => {
-  const itemId = req.body.itemId; // Assuming you have an input field with name="itemId"
-  const newTitle = req.body.newTitle; // Assuming you have an input field with name="newTitle"
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-  let items = readJSONFile(itemsDatabase);
+const itemsDatabase1 = 'items.json';
+
+app.post('/changeTitle', (req, res) => {
+  const itemId = req.body.itemId;
+  const newTitle = req.body.productName;
+
+  // Read the existing items from the JSON file
+  let items = readJSONFile(itemsDatabase1);
 
   // Find the item by its ID and update the title
   const updatedItems = items.map(item => {
-    if (item.id === itemId) {
+    if (item.productId === itemId) {
       item.productName = newTitle;
     }
     return item;
   });
 
-  writeJSONFile(itemsDatabase, updatedItems);
+  // Write the updated items back to the JSON file
+  writeJSONFile(itemsDatabase1, updatedItems);
 
+  // Respond with success
   res.json({ success: true });
+
+  // Log the change to the console
+  console.log('Title changed successfully! New Title:', newTitle);
 });
+
 
 // Route to handle changing description
 app.post('/changeDescription', (req, res) => {
@@ -1032,7 +1107,7 @@ app.post('/changeDescription', (req, res) => {
 
   // Find the item by its ID and update the description
   const updatedItems = items.map(item => {
-    if (item.id === itemId) {
+    if (item.productId === itemId) {
       item.description = newDescription;
     }
     return item;
@@ -1055,6 +1130,30 @@ app.post('/deleteItem', (req, res) => {
   writeJSONFile(itemsDatabase, updatedItems);
 
   res.json({ success: true });
+});
+app.post('/changePrice', (req, res) => {
+  try {
+    const itemId = req.body.itemId; // Assuming you have an input field with name="itemId"
+    const newPrice = req.body.newPrice; // Assuming you have an input field with name="newPrice"
+
+    let items = readJSONFile(itemsDatabase);
+
+    // Find the item by its ID and update the price
+    const updatedItems = items.map(item => {
+      if (item.id === itemId) { // Update this line to match your actual property name (e.g., productId)
+        item.price = newPrice;
+      }
+      return item;
+    });
+
+    writeJSONFile(itemsDatabase, updatedItems);
+
+    res.json({ success: true });
+    console.log('Price changed successfully!');
+  } catch (error) {
+    console.error('Error:', error.message);
+    res.status(500).json({ success: false, error: error.message });
+  }
 });
 
 app.set('view engine', 'ejs');
