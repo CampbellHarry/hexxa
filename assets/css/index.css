@@ -13,6 +13,12 @@
     margin-bottom: 20px;
 }
 
+.hero h2{
+    font-size: 2rem;
+    margin-bottom: 20px;
+
+}
+
 .hero-content {
     text-align: center;
     color: rgb(255, 234, 234);

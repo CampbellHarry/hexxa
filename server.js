@@ -7,12 +7,6 @@ const multer = require('multer');
 
 const app = express();
 
-const http = require('http');
-const WebSocket = require('ws');
-
-const server = http.createServer(app);
-const wss = new WebSocket.Server({ server });
-
 const rateLimit = require('express-rate-limit');
 
 
@@ -20,7 +14,7 @@ const rateLimit = require('express-rate-limit');
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 1000, // max 100 requests per windowMs
+  max: 10000, // max 100 requests per windowMs
 });
 
 app.use(limiter);
@@ -68,6 +62,8 @@ app.post('/signup', (req, res) => {
   const totalOrders = 0;
   const currentBadge = null;
   const location = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const passwordhashed = bcrypt.hashSync(password, 10);
+
 
   fs.readFile('./users.json', 'utf8', (err, data) => {
     if (err) {
@@ -81,7 +77,7 @@ app.post('/signup', (req, res) => {
       return res.json({ success: false, message: 'User already exists' });
     }
 
-    users.push({ username, password, approved, role, dateJoined, location, aboutMe, totalOrders, currentBadge, earlyuser: true});
+    users.push({ username, passwordhashed, approved, role, dateJoined, location, aboutMe, totalOrders, currentBadge, earlyuser: true});
 
     fs.writeFile('./users.json', JSON.stringify(users), (err) => {
       if (err) {
@@ -89,7 +85,7 @@ app.post('/signup', (req, res) => {
         return res.json({ success: false });
       }
       console.log('Data written to users.json');
-      res.json({ success: true });
+      res.redirect('/shopping');
     });
   });
 });
@@ -156,7 +152,7 @@ app.post('/login', (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 
-  const user = users.find(user => user.username === username && user.password === password);
+  const user = users.find(user => user.username === username && bcrypt.compareSync(password, user.passwordhashed));
   
   if (user) {
     const sessionToken = generateSessionToken();
@@ -259,23 +255,23 @@ function renderProductPage(product) {
               <p id="basketcount">0</p>
               </div>
               <nav>
-                  <div class="burger-menu">
-                      <div class="line"></div>
-                      <div class="line"></div>
-                      <div class="line"></div>
-                  </div>
-                  <ul class="nav-links">
-                      <li class="box"><a class="text" href="/signup">Sign-up</a></li>
-                      <li class="box"><a class="text" href="#home">Home</a></li>
-                      <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
-                      <li class="box"><a class="text" href="#contact">Contact</a></li>
-                      <li class="box"><a class="text" href="/shopping">Shopping</a></li>
-                      <li class="box"><a class="text" href="#deals">Today's Deals</a></li>
-                      <li class="box"><a class="text" href="/allitems">All Items</a></li>
-                      <li class="box"><a class="text" href="/sell">Sell an Item</a></li>
-                  </ul>
-              </nav>
-      </header>
+              <ul class="nav-links">
+              <li class="box"><a class="text" href="/signup">Sign-up</a></li>
+              <li class="box"><a class="text" href="/">Home</a></li>
+              <li class="box"><a class="text" href="/shopping">Shopping</a></li>
+              <li class="box"><a class="text" href="/allitems">All Items</a></li>
+              <li class="box"><a class="text" href="/sell">Sell an Item</a></li>
+              <li class="box"><a class="text" href="/dashboard">Manage Your Items</a></li>
+              <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
+              <li class="box"><a class="text" href="#contact">Contact</a></li>
+          </ul>
+              <div class="burger-menu">
+                  <div class="line"></div>
+                  <div class="line"></div>
+                  <div class="line"></div>
+              </div>
+          </nav>
+  </header>
       <main>
           <section class="product-image-container">
               <img src="/assets/images/hexxa.png" alt="Product Image">
@@ -711,22 +707,23 @@ function renderUserPage(user) {
                   <p id="basketcount">0</p>
           </div>
           <nav>
-              <div class="burger-menu">
-                  <div class="line"></div>
-                  <div class="line"></div>
-                  <div class="line"></div>
-              </div>
-              <ul class="nav-links">
-                  <li class="box"><a class="text" href="/">Home</a></li>
-                  <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
-                  <li class="box"><a class="text" href="#contact">Contact</a></li>
-                  <li class="box"><a class="text" href="/shopping">Shopping</a></li>
-                  <li class="box"><a class="text" href="#deals">Today's Deals</a></li>
-                  <li class="box"><a class="text" href="/allitems">All Items</a></li>
-                  <li class="box"><a class="text" href="/sell">Sell an Item</a></li>
-              </ul>
-          </nav>
-      </header>
+          <ul class="nav-links">
+          <li class="box"><a class="text" href="/signup">Sign-up</a></li>
+          <li class="box"><a class="text" href="/">Home</a></li>
+          <li class="box"><a class="text" href="/shopping">Shopping</a></li>
+          <li class="box"><a class="text" href="/allitems">All Items</a></li>
+          <li class="box"><a class="text" href="/sell">Sell an Item</a></li>
+          <li class="box"><a class="text" href="/dashboard">Manage Your Items</a></li>
+          <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
+          <li class="box"><a class="text" href="#contact">Contact</a></li>
+      </ul>
+          <div class="burger-menu">
+              <div class="line"></div>
+              <div class="line"></div>
+              <div class="line"></div>
+          </div>
+      </nav>
+</header>
       <main>
           <div class="user">
               <h1 id="username">
@@ -1174,12 +1171,6 @@ app.get('/dashboardData', (req, res) => {
 
 app.get('/team', (req, res) => {
   res.sendFile(path.join(__dirname, 'assets/html', 'team.html'));
-});
-
-app.get('/checkUpdates', (req, res) => {
-  // Simulate server data
-  const updates = { message: 'New updates available!', timestamp: Date.now() };
-  res.json(updates);
 });
 
 

@@ -1,18 +1,3 @@
-let pollingInterval;
-
-function pollServer() {
-  // Make an Ajax request to the server
-  fetch('/checkUpdates')
-    .then(response => response.json())
-    .then(data => {
-      // Process the data or trigger actions based on updates
-      processUpdates(data);
-    })
-    .catch(error => {
-      console.error('Error during polling:', error);
-    });
-}
-
 function processUpdates(data) {
     document.addEventListener('DOMContentLoaded', function() {
         const addToBasketButtons = document.querySelectorAll('.add-to-basket');
@@ -79,19 +64,3 @@ function processUpdates(data) {
     });
     
 }
-
-function startPolling() {
-  // Start polling every 5 seconds
-  pollingInterval = setInterval(pollServer, 500);
-}
-
-function stopPolling() {
-  // Stop polling
-  clearInterval(pollingInterval);
-}
-
-// Start polling when the page loads
-window.onload = startPolling;
-
-// Stop polling when the user navigates away from the page
-window.onbeforeunload = stopPolling;

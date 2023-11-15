@@ -25,26 +25,27 @@
                 <p id="basketcount">0</p>
         </div>
         <nav>
-            <div class="burger-menu">
-                <div class="line"></div>
-                <div class="line"></div>
-                <div class="line"></div>
-            </div>
-            <ul class="nav-links">
-                <li class="box"><a class="text" href="/">Home</a></li>
-                <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
-                <li class="box"><a class="text" href="#contact">Contact</a></li>
-                <li class="box"><a class="text" href="/shopping">Shopping</a></li>
-                <li class="box"><a class="text" href="#deals">Today's Deals</a></li>
-                <li class="box"><a class="text" href="/allitems">All Items</a></li>
-                <li class="box"><a class="text" href="/sell">Sell an Item</a></li>
-            </ul>
-        </nav>
-    </header>
+        <ul class="nav-links">
+        <li class="box"><a class="text" href="/signup">Sign-up</a></li>
+        <li class="box"><a class="text" href="/">Home</a></li>
+        <li class="box"><a class="text" href="/shopping">Shopping</a></li>
+        <li class="box"><a class="text" href="/allitems">All Items</a></li>
+        <li class="box"><a class="text" href="/sell">Sell an Item</a></li>
+        <li class="box"><a class="text" href="/dashboard">Manage Your Items</a></li>
+        <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
+        <li class="box"><a class="text" href="#contact">Contact</a></li>
+    </ul>
+        <div class="burger-menu">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+    </nav>
+</header>
     <main>
         <div class="user">
             <h1 id="username">
-                ${username} 
+                @${username}
                 ${approved ? '<div class="dropdown"><img src="/assets/images/authorised.png" id="approved" width="50px" class="role-icon"><div class="dropdown-content">Verified Seller</div></div>' : ''}
                 ${role === 'developer' ? '<div class="dropdown"><img src="/assets/images/developer.png" id="developer" width="50px" class="role-icon"><div class="dropdown-content">Site Developer</div></div>' : ''}
                 ${role === 'moderator' ? '<div class="dropdown"><img src="/assets/images/moderator.png" id="moderator" width="50px" class="role-icon"><div class="dropdown-content">Moderation Team</div></div>' : ''}
@@ -58,18 +59,18 @@
                 <h1>About</h1>
                 <p><span style="color: #CCCCCC">About Me:</span> ${aboutMe}</p>
                 <br>
-                <p><span style="color: #CCCCCC">Location:</span> $}</p>
+                <p><span style="color: #CCCCCC">Location:</span> ${location}</p>
                 <br>
                 <p><span style="color: #CCCCCC">Member since</span> ${dateJoined}</p>
             </div>
             <section class="badge-container">
                 <section class="badges">
-                      ${approved ? '<div class="badge"><div class="badge-icon"><img src="/assets/images/authorised.png" style="top:-5px; position: relative;" width="90px"></div><div class="badge-label"><h2>Verified Seller</h2></div></div>' : ''}
+                      ${approved ? '<div class="badge"><div class="badge-icon"><img src="/assets/images/authorised.png"></div><div class="badge-label"><h2>Verified Seller</h2></div></div>' : ''}
                     <div class="badge">
-                      <div class="badge-icon"><img src="/assets/images/badges/${updatedBadgeNumber}.png" width="90px" style="top:-10px; position: relative;" alt="Badge ${updatedBadgeNumber}"></div>
+                      <div class="badge-icon"><img src="/assets/images/badges/${updatedBadgeNumber}.png" alt="Badge ${updatedBadgeNumber}"></div>
                       <div class="badge-label"><h2>Badge ${updatedBadgeNumber}</h2></div>
                     </div>
-                    ${earlyuser ? '<div class="badge"><div class="badge-icon"><img src="/assets/images/badges/earlyadop.png" width="80px" style="top:-17px; position: relative;"></div><div class="badge-label"><h2>Early Adopter</h2></div></div>' : ''}
+                    ${earlyuser ? '<div class="badge"><div class="badge-icon"><img src="/assets/images/badges/earlyadop.png"></div><div class="badge-label"><h2>Early Supporter</h2></div></div>' : ''}
                     </div>
                 </section>
             </section>

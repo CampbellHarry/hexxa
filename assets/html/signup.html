@@ -15,7 +15,7 @@
 <body>
     <img src="/assets/images/hexxa.png" class="img1" alt="Hexxa Logo" height="200px">
     <h1>Signup to <span style="color: #191970;">H</span><span style="color: #00FFFF;">e</span><span style="color: #00A5FF;">xx</span><span style="color: #00FFFF;">a</span></h1></h1>
-    <form onsubmit="return validateRecaptcha();" id="signupForm" action="shopping" method="post">
+    <form onsubmit="return validateRecaptcha();" id="signupForm" action="signup" method="post">
         <label for="username" maxlength="38">Username:</label>
         <input type="text" id="username" name="username" required><br><br>
         <label for="password" maxlength="70">Password:</label>
@@ -56,21 +56,6 @@
         </div>
     </footer>
     <script>
-    let pollingInterval;
-
-function pollServer() {
-  // Make an Ajax request to the server
-  fetch('/checkUpdates')
-    .then(response => response.json())
-    .then(data => {
-      // Process the data or trigger actions based on updates
-      processUpdates(data);
-    })
-    .catch(error => {
-      console.error('Error during polling:', error);
-    });
-}
-
 function processUpdates(data) {
     function validateRecaptcha() {
             var response = grecaptcha.getResponse();
@@ -116,24 +101,7 @@ function processUpdates(data) {
                 }
             })
             .catch(error => console.error('Error:', error));
-        });
-}
-
-function startPolling() {
-  // Start polling every 5 ms
-  pollingInterval = setInterval(pollServer, 5);
-}
-
-function stopPolling() {
-  // Stop polling
-  clearInterval(pollingInterval);
-}
-
-// Start polling when the page loads
-window.onload = startPolling;
-
-// Stop polling when the user navigates away from the page
-window.onbeforeunload = stopPolling;
+        })};
 </script>
   </body>
 </html>
