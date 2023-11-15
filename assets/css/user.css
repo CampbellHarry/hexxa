@@ -1,3 +1,8 @@
+/* Add Jost font family */
+body {
+  font-family: 'Nunito', sans-serif !important;
+}
+
 /* Style the main container */
 main {
   max-width: 800px;
@@ -45,6 +50,8 @@ hr {
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
   text-align: left;
+  border-radius: 10px;
+  padding: 5px;
 }
 
 .dropdown:hover .dropdown-content {
@@ -60,23 +67,26 @@ hr {
 }
 
 .about {
-  background-color: transparent;
   border-radius: 8px;
   padding: 20px;
   width: 500px; /* Increase the width to accommodate larger text */
   white-space: normal; /* Allow wrapping of text */
   word-wrap: break-word; /* Allow long words to break */
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   position: relative;
   border: 3px solid white;
-  overflow: auto; /* Add this line */
+  overflow: auto;
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
 }
 
 /* Style the about heading and paragraphs */
 .about h1 {
-  font-size: 1.5em;
+  font-size: 2.5em;
   color: white;
-  margin-bottom: 10px;
+  margin-bottom: 25px;
+  margin-top: -5px;
+  font-family: Jost;
 }
 
 .about p {
@@ -118,12 +128,15 @@ hr {
 .badge {
   text-align: center;
   margin: 0 10px;
-  border: 3px solid white;
+  border: none;
   border-radius: 8px;
   padding: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   height: auto;
+  border: 3px solid white;
   width: 100px;
+  backdrop-filter: blur(10px);
 }
 
 .badge-icon img {

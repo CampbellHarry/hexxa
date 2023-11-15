@@ -1,3 +1,8 @@
+@import url(https://fonts.googleapis.com/css2?family=Nunito&display=swap);
+body {
+        font-family: 'Nunito', sans-serif !important;
+      }
+
 :root{
                 --background: #333333;
                 --primary: #00A5FF;
@@ -49,6 +54,7 @@ header{
                 border: none;
                 background-color: var(--secondary);
                 margin-right: 10px;
+                font-family: Nunito;
 }
 
 .search-box button {
@@ -58,6 +64,7 @@ header{
                 border-radius: 20px;
                 padding: 5px 10px;
                 cursor: pointer;
+                font-family: Nunito;
 }
 
 .basket {
@@ -129,6 +136,7 @@ li a{
 .box a:hover {
                 color: black !important;
                 background-image: linear-gradient(to top right, transparent, transparent);
+                background-color: white;
 }
 
 nav {

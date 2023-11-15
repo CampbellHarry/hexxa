@@ -47,10 +47,10 @@
             <div class="container">
                 <div class="cart">
                     <div class="cart-title">
-                        <h1>Your Cart</h1>
+                        <h1>Your Items <span id="username2"></span>.</h1>
                     </div>
-                    <div class="cart-item">
-                        <div class="cart-item-info">
+                    <script type="text/template" id="cartItemTemplate">
+                        <div class="cart-item">
                             <div class="cart-item-name">
                                 <h2>${productName}</h2>
                             </div>
@@ -71,10 +71,11 @@
                                 <p>Total: ${Cost}</p>
                             </div>
                         </div>
-                    </div>    
+                    </div>
+                </script>    
                     <!-- Subtotal -->
                     <div class="cart-subtotal">
-                        <p>Subtotal: £0.00</p>
+                        <p>Subtotal: £<span id="subtotal">0.00</span></p>
                     </div>
     
                     <!-- Shipping information (if applicable) -->
@@ -84,7 +85,7 @@
     
                     <!-- Total -->
                     <div class="cart-total">
-                        <h2>Total: £0.00</h2>
+                        <h2>Total: £<span id="total">0.00</span></h2>
                     </div>
     
                     <!-- Proceed to checkout button -->
@@ -153,7 +154,9 @@
   .then(response => response.json())
   .then(data => {
     var usernameElement = document.getElementById("username");
+    var usernameElement2 = document.getElementById("username2");
     usernameElement.innerHTML = data.username;
+    usernameElement2.innerHTML = data.username;
   })
   .catch(error => console.error('Error:', error));
     </script>

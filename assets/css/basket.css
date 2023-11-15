@@ -1,3 +1,6 @@
+body {
+    font-family: 'Nunito', sans-serif !important;
+  }
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -6,7 +9,7 @@
 
 .cart {
     color: white;
-    border: 1px solid #ccc;
+    border: 4px solid #ffffff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -18,8 +21,11 @@
 }
 
 .cart-item {
-    border-bottom: 1px solid #ccc;
-    padding: 20px 0;
+    border: white 2px solid;
+    padding: 20px 10px;
+    backdrop-filter: blur(10px);
+    background-color: rgba(30, 212, 30, 0.2);
+    margin-bottom: 10px;
 }
 
 .cart-item-info {

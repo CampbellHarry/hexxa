@@ -289,8 +289,8 @@ function renderProductPage(product) {
           </section>
           <section class="buy-container">
             <div class="buysection">
-            <div id="approved" style="border: ${product.approved ? 'border: 1px solid #005700;' : '2px solid red'}">
-              THIS SELLER IS <span>${product.approved ? 'APPROVED' : 'NOT APPROVED'}</span>
+            <div id="approved" style="border: ${product.approved ? 'border: 1px solid #005700; color: green;' : '2px solid red'}">
+              THIS SELLER IS <span>${product.approved ? 'APPROVED              <img src="/assets/images/authorised.png" width="40px;">' : 'NOT APPROVED'}</span>
             </div>
             <div id="role" style="border: ${product.sellerrole === 'owner' ? 'border: 1px solid #FFD700; color: #FFD700;' : product.sellerrole === 'developer' ? 'border: 1px solid #800080; color: #800080;' : product.sellerrole === 'moderator' ? 'border: 1px solid #008000; color: #008000;' : product.sellerrole === 'support' ? 'border: 1px solid #87CEEB; color: #87CEEB;' : product.sellerrole === 'user' ? 'border: 1px solid #008080; color: ;008080;' : '2px solid #008080; color: ;008080;'}">
               THIS SELLER IS <span>${product.sellerrole === 'owner' ? 'AN OWNER' : product.sellerrole === 'developer' ? 'A DEVELOPER' : product.sellerrole === 'moderator' ? 'A MODERATOR' : product.sellerrole === 'support' ? 'A SUPPORT AGENT' : product.sellerrole === 'user' ? 'A USER' : 'USER'}</span>
@@ -690,6 +690,8 @@ function renderUserPage(user) {
       <link rel="stylesheet" href="/assets/css/header.css">
       <link rel="stylesheet" href="/assets/css/footer.css">
       <link rel="stylesheet" href="/assets/css/user.css">
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
       <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.4/purify.min.js"></script>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
@@ -728,7 +730,8 @@ function renderUserPage(user) {
           <div class="user">
               <h1 id="username">
                   @${username}
-                  ${approved ? '<div class="dropdown"><img src="/assets/images/authorised.png" id="approved" width="50px" class="role-icon"><div class="dropdown-content">Verified Seller</div></div>' : ''}
+                  ${approved ? '<div class="dropdown"><img src="/assets/images/authorised.png" id="approved" width="50px" class="role-icon"><div class="dropdown-content">Verified Seller</div></div> ' : ''}
+                  ${approved ? '<body style="background-image: url(/backend/verified.webp); background-repeat: repeat; background-size: cover; background-color: #3498DB;">' : ''}
                   ${role === 'developer' ? '<div class="dropdown"><img src="/assets/images/developer.png" id="developer" width="50px" class="role-icon"><div class="dropdown-content">Site Developer</div></div>' : ''}
                   ${role === 'moderator' ? '<div class="dropdown"><img src="/assets/images/moderator.png" id="moderator" width="50px" class="role-icon"><div class="dropdown-content">Moderation Team</div></div>' : ''}
                   ${role === 'support' ? '<div class="dropdown"><img src="/assets/images/support.png" id="support" width="50px" class="role-icon"><div class="dropdown-content">Support Team</div></div>' : ''}
@@ -739,11 +742,11 @@ function renderUserPage(user) {
           <section class="aboutt">
               <div class="about">
                   <h1>About</h1>
-                  <p><span style="color: #CCCCCC">About Me:</span> ${aboutMe}</p>
+                  <p><span style="color: black">About Me:</span> ${aboutMe}</p>
                   <br>
-                  <p><span style="color: #CCCCCC">Location:</span> ${location}</p>
+                  <p><span style="color: black">Location:</span> ${location}</p>
                   <br>
-                  <p><span style="color: #CCCCCC">Member since</span> ${dateJoined}</p>
+                  <p><span style="color: black">Member since</span> ${dateJoined}</p>
               </div>
               <section class="badge-container">
                   <section class="badges">
@@ -890,12 +893,11 @@ function writeBasketData(data) {
   fs.writeFileSync('basket.json', JSON.stringify(data));
 }
 
-app.get('/getBasket/:username', (req, res) => {
-  const { username } = req.params;
+app.get('/getBasket', requireAuth, (req, res) => {
+  const { username } = req.user; // Assuming req.user contains the authenticated user's information
   const basket = readBasketData();
   const userBasket = basket.filter(item => item.username === username);
-
-  res.json({ success: true, basket: userBasket });
+  res.json(userBasket);
 });
 
 app.post('/add-to-basket', (req, res) => {
@@ -1173,7 +1175,51 @@ app.get('/team', (req, res) => {
   res.sendFile(path.join(__dirname, 'assets/html', 'team.html'));
 });
 
+app.get('/basket',requireAuth, (_req, res) => {
+  res.sendFile(path.join(__dirname, 'assets/html', 'basket.html'));
+});
+const basketDatabase = 'basket.json';
 
+// Route to add items to the basket
+app.post('/addToBasket', (req, res) => {
+  try {
+    const { productName, inStock, seller, cost } = req.body;
+
+    let basket = readJSONFile(basketDatabase);
+
+    // Check if the item already exists in the basket
+    const existingItem = basket.items.find(item => item.productName === productName);
+
+    if (existingItem) {
+      existingItem.quantity++;
+    } else {
+      basket.items.push({ productName, inStock, seller, cost, quantity: 1 });
+    }
+
+    writeJSONFile(basketDatabase, basket);
+
+    res.json({ success: true });
+    console.log('Item added to basket successfully!');
+  } catch (error) {
+    console.error('Error:', error.message);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+// Function to read JSON file
+function readJSONFile(file) {
+    try {
+      const data = fs.readFileSync(file, 'utf8');
+      return JSON.parse(data);
+    } catch (error) {
+      console.error('Error reading JSON file:', error.message);
+      return { items: [] };
+}
+}
+
+// Serve static files from the 'public' directory
+app.use(express.static('public'));
+
+// Route to get the basket items
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(3000, () => {
