@@ -10,16 +10,14 @@ const app = express();
 const rateLimit = require('express-rate-limit');
 
 
-// rate limiter
+// set up rate limiter: maximum of five requests per minute
 
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // per 15 minutes
-  max: 1000, // max 1000 requests per windowMs
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 10000, // max 100 requests per windowMs
 });
 
 app.use(limiter);
-
-// rate limiter midware ends
 
 // Serve static files (CSS, images, JavaScript, etc.)
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
@@ -56,8 +54,6 @@ app.get('/', (req, res) => {
 
 app.use(bodyParser.json());
 
-// signup begins
-
 app.post('/signup', (req, res) => {
   const { username, password, approved } = req.body;
   const role = 'user';
@@ -66,7 +62,7 @@ app.post('/signup', (req, res) => {
   const totalOrders = 0;
   const currentBadge = null;
   const location = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  const passwordhashed = bcrypt.hashSync(password, 10); // password hashing with bcrypt
+  const passwordhashed = bcrypt.hashSync(password, 10);
 
 
   fs.readFile('./users.json', 'utf8', (err, data) => {
@@ -93,7 +89,7 @@ app.post('/signup', (req, res) => {
     });
   });
 });
-// signup code ends
+
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => {
     cb(null, 'uploads/');
@@ -260,7 +256,7 @@ function renderProductPage(product) {
               </div>
               <nav>
               <ul class="nav-links">
-              <li class="box"><a class="text" href="/signup">Sign-up</a></li>
+              <li class="box"><a class="text" href="">Welcome <span id="username"></span>!</a></li>
               <li class="box"><a class="text" href="/">Home</a></li>
               <li class="box"><a class="text" href="/shopping">Shopping</a></li>
               <li class="box"><a class="text" href="/allitems">All Items</a></li>
@@ -712,7 +708,7 @@ function renderUserPage(user) {
           </div>
           <nav>
           <ul class="nav-links">
-          <li class="box"><a class="text" href="/signup">Sign-up</a></li>
+          <li class="box"><a class="text" href="">Welcome <span id="username"></span>!</a></li>
           <li class="box"><a class="text" href="/">Home</a></li>
           <li class="box"><a class="text" href="/shopping">Shopping</a></li>
           <li class="box"><a class="text" href="/allitems">All Items</a></li>
