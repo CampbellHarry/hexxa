@@ -13,18 +13,29 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.4/purify.min.js"></script>
 </head>
 <body>
-    <img src="/assets/images/hexxa.png" class="img1" alt="Hexxa Logo" height="200px">
-    <h1>Signup to <span style="color: #191970;">H</span><span style="color: #00FFFF;">e</span><span style="color: #00A5FF;">xx</span><span style="color: #00FFFF;">a</span></h1></h1>
-    <form onsubmit="return validateRecaptcha();" id="signupForm" action="signup" method="post">
-        <label for="username" maxlength="38">Username:</label>
-        <input type="text" id="username" name="username" required><br><br>
-        <label for="password" maxlength="70">Password:</label>
-        <input type="password" id="password" name="password" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required title="Password must be at least 8 characters long and contain at least one digit, one uppercase letter, and one lowercase letter"><br>
-        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-<div class="g-recaptcha" data-sitekey="6LcgYfIoAAAAAJCnv3pUKcA-2cJSklJ146mlV2y_" aria-required="false"></div>
-        <a href="/assets/html/login.html">Already have an account?</a><br><br>
-        <input type="submit" id="submitBtn" value="Sign up">
-    </form>
+    <section>
+        <img src="/assets/images/hexxa.png" alt="Hexxa Logo" class="logo">
+        <div class="container">
+                <form>
+                    <img src="/assets/images/hexxa.png" alt="Hexxa Logo" width="150px" class="logo">
+                    <h1 style="color: black;">Sign up</h1>
+                    <form onsubmit="return validateRecaptcha();" id="signupForm" action="signup" method="post">
+                        <input type="text" id="username" name="username" placeholder="Username" required maxlength="38" minlength="4" title="Usernames must be over 4 characters and must not be offensive"><br><br>
+
+                        <input type="password" id="password" name="password" minlength="8" maxlength="70" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required title="Password must be at least 8 characters long and contain at least one digit, one uppercase letter, and one lowercase letter"><br>
+                        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                <div class="g-recaptcha" data-sitekey="6LcgYfIoAAAAAJCnv3pUKcA-2cJSklJ146mlV2y_" aria-required="false"></div>
+                        <b><input type="submit" id="submitBtn" style="font-weight: bold;" value="SIGN UP"></b>
+                </form>
+                <div class="text">
+                    <h1>Hello there,</h1>
+                    <h2>Let's get your Hexxa journey started today.</h2>
+                    <br>
+                    <p>Already have an account?</p>
+                    <button href="/login"><b>SIGN IN</b></button>
+                </div>
+        </div>
+    </section>
     <footer>
         <div class="footer-container">
             <div class="footer-section">

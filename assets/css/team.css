@@ -45,6 +45,7 @@ main{
     min-width: 40%;
     text-align: left;
     color: white;
+    transition: 0.5s ease-in-out;
 }
 
 .popup .closebtn{

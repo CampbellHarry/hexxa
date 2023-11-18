@@ -19,7 +19,10 @@
     flex-wrap: wrap;
     top: -100px;
 }
-
+.cat{
+    margin-top: 6%;
+    backdrop-filter: blur(10px);
+}
 .product {
     width: 250px;
     background-color: #fff;

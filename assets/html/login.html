@@ -10,47 +10,57 @@
     <link rel="stylesheet" href="/assets/css/footer.css">
 </head>
 <body>
-    <img src="/assets/images/hexxa.png" class="img1" alt="Hexxa Logo" height="200px">
-    <h1>Login to <span style="color: #191970;">H</span><span style="color: #00FFFF;">e</span><span style="color: #00A5FF;">xx</span><span style="color: #00FFFF;">a</span></h1></h1>
+    <section>
+    <div class="container">
     <form action="/login" method="post">
+        <img src="/assets/images/hexxa.png" alt="Hexxa Logo" width="150px" class="logo">
+        <h1 style="color: black;">Sign In</h1>
         <label for="username">Username:</label>
         <input type="text" id="username" maxlength="38" name="username" required><br><br>
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" maxlength="70" required><br>
         <a href="forgotpassword.html"></a><br><br>
-        <a href="/signup">Dont have an account?</a><br><br>
-        <input type="submit" value="Login">
+        <input type="submit" value="SIGN IN">
     </form>
-    <footer>
-        <div class="footer-container">
-            <div class="footer-section">
-                <h3>About Hexxa</h3>
-                <p>Hexxa is an online marketplace that offers a wide range of products from electronics to clothing. We have a wide range of brands to choose from and we are committed to providing our customers with the best shopping experience possible.</p>
-            </div>
-            <div class="footer-section">
-                <h3>Customer Service</h3>
-                <ul>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">FAQs</a></li>
-                    <li><a href="#">Returns &amp; Refunds</a></li>
-                    <li><a href="#">Shipping &amp; Delivery</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Connect with Us</h3>
-                <ul>
-                    <li><a href="#">Facebook</a></li>
-                    <li><a href="#">Twitter</a></li>
-                    <li><a href="#">Instagram</a></li>
-                    <li><a href="#">Linkedin</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2023 Hexxa. All Rights Reserved.</p><p>Terms &amp; Conditions | Privacy Policy</p><p>Hexxa is apart of the hdev group</p>
-            </p>
-        </div>
-    </footer>
+    <div class="text">
+        <h1>Welcome Back,</h1>
+        <h2>Let's continue your Hexxa journey.</h2>
+        <br>
+        <p>New to Hexxa?</p>
+        <button href="/signup"><b>SIGN UP</b></button>
+    </div>
+</div>
+</section>
+<footer>
+<div class="footer-container">
+<div class="footer-section">
+    <h3>About Hexxa</h3>
+    <p>Hexxa is an online marketplace that offers a wide range of products from electronics to clothing. We have a wide range of brands to choose from and we are committed to providing our customers with the best shopping experience possible.</p>
+</div>
+<div class="footer-section">
+    <h3>Customer Service</h3>
+    <ul>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">FAQs</a></li>
+        <li><a href="#">Returns &amp; Refunds</a></li>
+        <li><a href="#">Shipping &amp; Delivery</a></li>
+    </ul>
+</div>
+<div class="footer-section">
+    <h3>Connect with Us</h3>
+    <ul>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Twitter</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Linkedin</a></li>
+    </ul>
+</div>
+</div>
+<div class="footer-bottom">
+<p>&copy; 2023 Hexxa. All Rights Reserved.</p><p>Terms &amp; Conditions | Privacy Policy</p><p>Hexxa is apart of the hdev group</p>
+</p>
+</div>
+</footer>
     <script src="/backend/login.js"></script>
   </body>
 </html>

@@ -77,12 +77,28 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 2rem;
+    margin-top: -20.5rem;
     margin-left: 10%;
+    width: 50%;
+    top: 100%;
+    justify-content: center;
+    position: relative;
 }
 .buysection{
+    position: absolute;
+    top: 100%;
     padding: 20px;
     border: 2px white solid;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.reviewsac {
+    margin-top: 0; /* Default margin-top value */
+}
+
+#moreinfo.onclick + .reviewsac {
+    margin-top: 2rem; /* Adjust the margin-top value as needed */
 }
 #approved{
     border: 1px solid #005700;
@@ -90,6 +106,48 @@ main {
     border-radius: 5px;
     color: white;
     margin-bottom: 15px;
+    backdrop-filter: blur(10px);
+    background-color: #00570065;
+    align-items: center;
+}
+
+#approved:hover{
+    border: 1px solid #005700;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    margin-bottom: 15px;
+    backdrop-filter: blur(10px);
+    background-color: #005700;
+    cursor: pointer;
+}
+
+.hidden {
+    display: block;
+  }
+
+  #moreinfo {
+    border: 1px solid #005700;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    width: 100%;
+    margin-bottom: 15px;
+    display: none;
+    backdrop-filter: blur(10px);
+    background-color: #00570065;
+    max-width: 300px;
+    position: relative;
+    justify-content: center;
+  }
+#moreinfo h2{
+    text-align: center;
+}
+
+#moreinfo img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #role{
@@ -175,7 +233,7 @@ hr{
 #reviewsac {
     text-align: center;
     margin: 20px 0;
-    margin-top: -30px;
+    margin-top: -20px;
 }
 
 .reviews-container {

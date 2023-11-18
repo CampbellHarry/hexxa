@@ -242,29 +242,29 @@ function renderProductPage(product) {
   
   </head>
   <body>
-  <header>
-      <img src="/assets/images/favicon.png" alt="Hexxa Logo" height="100px">
-      <div class="search-container">
-          <div class="search-box">
-              <input type="text" placeholder="Search for products, brands and more with Hexxa">
-              <button>Search</button>
-          </div>
-      </div>
-      <div class="basket">
-          <img src="/assets/images/shoppingb.png" height="50px" alt="Basket" class="basket">
-              <p id="basketcount">0</p>
+      <header>
+          <img src="/assets/images/favicon.png" alt="Hexxa Logo" height="100px">
+          <div class="search-container">
+              <div class="search-box">
+                  <input type="text" placeholder="Search for products, brands and more with Hexxa">
+                  <button>Search</button>
               </div>
-              <nav>
+          </div>
+          <div class="basket">
+              <img src="/assets/images/shoppingb.png" height="50px" alt="Basket" class="basket">
+                  <p id="basketcount">0</p>
+          </div>
+          <nav>
               <ul class="nav-links">
-              <li class="box"><a class="text" href="">Welcome <span id="username"></span>!</a></li>
-              <li class="box"><a class="text" href="/">Home</a></li>
-              <li class="box"><a class="text" href="/shopping">Shopping</a></li>
-              <li class="box"><a class="text" href="/allitems">All Items</a></li>
-              <li class="box"><a class="text" href="/sell">Sell an Item</a></li>
-              <li class="box"><a class="text" href="/dashboard">Manage Your Items</a></li>
-              <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
-              <li class="box"><a class="text" href="#contact">Contact</a></li>
-          </ul>
+                  <li class="box"><a class="text" href="">Welcome <span id="username"></span>!</a></li>
+                  <li class="box"><a class="text" href="/">Home</a></li>
+                  <li class="box"><a class="text" href="/shopping">Shopping</a></li>
+                  <li class="box"><a class="text" href="/allitems">All Items</a></li>
+                  <li class="box"><a class="text" href="/sell">Sell an Item</a></li>
+                  <li class="box"><a class="text" href="/dashboard">Manage Your Items</a></li>
+                  <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
+                  <li class="box"><a class="text" href="#contact">Contact</a></li>
+              </ul>
               <div class="burger-menu">
                   <div class="line"></div>
                   <div class="line"></div>
@@ -280,7 +280,7 @@ function renderProductPage(product) {
             <div class="item">
               <h2 id="name">${product.productName}</h2>
               <div id="reviews">Reviews: ${product.reviews}</div>
-              <div id="seller">Seller: <a href="/user/${product.seller}">${product.seller}</a></div>
+              <div id="seller">Seller: ${product.seller}</div>
               <hr>
               <p id="price1">£${product.price}</p>
               <hr>
@@ -289,17 +289,22 @@ function renderProductPage(product) {
           </section>
           <section class="buy-container">
             <div class="buysection">
-            <div id="approved" style="border: ${product.approved ? 'border: 1px solid #005700; color: green;' : '2px solid red'}">
-              THIS SELLER IS <span>${product.approved ? 'APPROVED              <img src="/assets/images/authorised.png" width="40px;">' : 'NOT APPROVED'}</span>
-            </div>
-            <div id="role" style="border: ${product.sellerrole === 'owner' ? 'border: 1px solid #FFD700; color: #FFD700;' : product.sellerrole === 'developer' ? 'border: 1px solid #800080; color: #800080;' : product.sellerrole === 'moderator' ? 'border: 1px solid #008000; color: #008000;' : product.sellerrole === 'support' ? 'border: 1px solid #87CEEB; color: #87CEEB;' : product.sellerrole === 'user' ? 'border: 1px solid #008080; color: ;008080;' : '2px solid #008080; color: ;008080;'}">
-              THIS SELLER IS <span>${product.sellerrole === 'owner' ? 'AN OWNER' : product.sellerrole === 'developer' ? 'A DEVELOPER' : product.sellerrole === 'moderator' ? 'A MODERATOR' : product.sellerrole === 'support' ? 'A SUPPORT AGENT' : product.sellerrole === 'user' ? 'A USER' : 'USER'}</span>
-          </div>                 
+              <div id="approved" style="border: ${product.approved ? 'border: 1px solid #005700;' : '2px solid red'}" onclick="popdown()">
+                  THIS SELLER IS <span>${product.approved ? 'APPROVED' : 'NOT APPROVED'}</span>
+              </div>
+                  ${product.approved ? `
+                  <div id="moreinfo">
+                      <img src="/assets/images/authorised.png" width="50px"><h2>Verified Seller</h2><p>Approved sellers are sellers that have been approved by Hexxa. This means that they have been verified and are trusted sellers.</p>
+                  </div>
+                  ` : ''}
+              <div id="role" style="border: ${product.sellerrole === 'owner' ? 'border: 1px solid #FFD700; color: #FFD700;' : product.sellerrole === 'developer' ? 'border: 1px solid #800080; color: #800080;' : product.sellerrole === 'moderator' ? 'border: 1px solid #008000; color: #008000;' : product.sellerrole === 'support' ? 'border: 1px solid #87CEEB; color: #87CEEB;' : product.sellerrole === 'user' ? 'border: 1px solid #008080; color: ;008080;' : '2px solid #008080; color: ;008080;'}">
+                  THIS SELLER IS <span>${product.sellerrole === 'owner' ? 'AN OWNER' : product.sellerrole === 'developer' ? 'A DEVELOPER' : product.sellerrole === 'moderator' ? 'A MODERATOR' : product.sellerrole === 'support' ? 'A SUPPORT AGENT' : product.sellerrole === 'user' ? 'A USER' : 'USER'}</span>
+              </div>                 
               <hr>
               <div id="price">Price: £${product.price}</div>
               <div id="delivery">Delivery: ${product.delivery}</div>
               <hr>
-                <div id="instock" style="color: ${product.inStock ? 'green' : 'red'}">${product.inStock ? 'In stock' : 'Out of stock'}</div>
+              <div id="instock">${product.inStock ? 'In stock' : 'Out of stock'}</div>
               <hr>
               <button class="add-to-basket" data-product-id="${product.productId}">Add to Basket</button>
               <button id="buynow">Buy Now</button>
@@ -399,37 +404,47 @@ function renderProductPage(product) {
           </div>
       </footer>
       <script>
-      fetch('/getUsername')
-    .then(response => response.json())
-    .then(data => {
-      var usernameElement = document.getElementById("username");
-      usernameElement.innerHTML = data.username;
-    })
-    .catch(error => console.error('Error:', error));
+        fetch('/getUsername')
+      .then(response => response.json())
+      .then(data => {
+        var usernameElement = document.getElementById("username");
+        usernameElement.innerHTML = data.username;
+      })
+      .catch(error => console.error('Error:', error));
+    </script>
+    <script src="/backend/basca.js"></script>
+    <script hidden>
+    const burgerMenu = document.querySelector('.burger-menu');
+    const navLinks = document.querySelector('.nav-links');
+    const links = document.querySelectorAll('.nav-links li');
+  
+    burgerMenu.addEventListener('click', () => {
+        // Toggle Nav
+        navLinks.classList.toggle('nav-active');
+  
+        // Burger Animation
+        burgerMenu.classList.toggle('toggle');
+  
+        // Hide navLinks when it's not active
+        if (!navLinks.classList.contains('nav-active')) {
+            navLinks.style.display = 'none';
+        } else {
+            navLinks.style.display = 'block';
+        }
+    });
+  </script>
+  <script>
+  const popdown = () => {
+      var popup = document.getElementById("moreinfo");
+      if (popup.style.display === "none") {
+          popup.style.display = "block";
+      } else {
+          popup.style.display = "none";
+      }
+  }
+  
   </script>
   <script src="/backend/basca.js"></script>
-  <script>
-  <script hidden>
-  const burgerMenu = document.querySelector('.burger-menu');
-  const navLinks = document.querySelector('.nav-links');
-  const links = document.querySelectorAll('.nav-links li');
-
-  burgerMenu.addEventListener('click', () => {
-      // Toggle Nav
-      navLinks.classList.toggle('nav-active');
-
-      // Burger Animation
-      burgerMenu.classList.toggle('toggle');
-
-      // Hide navLinks when it's not active
-      if (!navLinks.classList.contains('nav-active')) {
-          navLinks.style.display = 'none';
-      } else {
-          navLinks.style.display = 'block';
-      }
-  });
-</script>
-<script src="backend/product.js">
   </body>
   </html>
   `;

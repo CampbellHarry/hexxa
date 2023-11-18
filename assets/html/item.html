@@ -60,12 +60,17 @@
         </section>
         <section class="buy-container">
           <div class="buysection">
-          <div id="approved" style="border: ${product.approved ? 'border: 1px solid #005700;' : '2px solid red'}">
-            THIS SELLER IS <span>${product.approved ? 'APPROVED' : 'NOT APPROVED'}</span>
-          </div>
-          <div id="role" style="border: ${product.sellerrole === 'owner' ? 'border: 1px solid #FFD700; color: #FFD700;' : product.sellerrole === 'developer' ? 'border: 1px solid #800080; color: #800080;' : product.sellerrole === 'moderator' ? 'border: 1px solid #008000; color: #008000;' : product.sellerrole === 'support' ? 'border: 1px solid #87CEEB; color: #87CEEB;' : product.sellerrole === 'user' ? 'border: 1px solid #008080; color: ;008080;' : '2px solid #008080; color: ;008080;'}">
-            THIS SELLER IS <span>${product.sellerrole === 'owner' ? 'AN OWNER' : product.sellerrole === 'developer' ? 'A DEVELOPER' : product.sellerrole === 'moderator' ? 'A MODERATOR' : product.sellerrole === 'support' ? 'A SUPPORT AGENT' : product.sellerrole === 'user' ? 'A USER' : 'USER'}</span>
-        </div>                 
+            <div id="approved" style="border: ${product.approved ? 'border: 1px solid #005700;' : '2px solid red'}" onclick="popdown()">
+                THIS SELLER IS <span>${product.approved ? 'APPROVED' : 'NOT APPROVED'}</span>
+            </div>
+                ${product.approved ? `
+                <div id="moreinfo">
+                    <img src="/assets/images/authorised.png" width="50px"><h2>Verified Seller</h2><p>Approved sellers are sellers that have been approved by Hexxa. This means that they have been verified and are trusted sellers.</p>
+                </div>
+                ` : ''}
+            <div id="role" style="border: ${product.sellerrole === 'owner' ? 'border: 1px solid #FFD700; color: #FFD700;' : product.sellerrole === 'developer' ? 'border: 1px solid #800080; color: #800080;' : product.sellerrole === 'moderator' ? 'border: 1px solid #008000; color: #008000;' : product.sellerrole === 'support' ? 'border: 1px solid #87CEEB; color: #87CEEB;' : product.sellerrole === 'user' ? 'border: 1px solid #008080; color: ;008080;' : '2px solid #008080; color: ;008080;'}">
+                THIS SELLER IS <span>${product.sellerrole === 'owner' ? 'AN OWNER' : product.sellerrole === 'developer' ? 'A DEVELOPER' : product.sellerrole === 'moderator' ? 'A MODERATOR' : product.sellerrole === 'support' ? 'A SUPPORT AGENT' : product.sellerrole === 'user' ? 'A USER' : 'USER'}</span>
+            </div>                 
             <hr>
             <div id="price">Price: £${product.price}</div>
             <div id="delivery">Delivery: ${product.delivery}</div>
@@ -198,6 +203,17 @@
           navLinks.style.display = 'block';
       }
   });
+</script>
+<script>
+const popdown = () => {
+    var popup = document.getElementById("moreinfo");
+    if (popup.style.display === "none") {
+        popup.style.display = "block";
+    } else {
+        popup.style.display = "none";
+    }
+}
+
 </script>
 <script src="/backend/basca.js"></script>
 </body>
