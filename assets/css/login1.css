@@ -28,22 +28,22 @@ form img{
     width: 50%;
     height: 50%;
     margin-top: 5%;
-    border-radius: 50px;
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     box-shadow: 0 1px 15px rgb(0, 0, 0);
+    border-radius: 50px;
 }
 
 .text{
     color: #fff;
     background: linear-gradient(to right, #2600ff, #5499C7);
     border-radius: 50px;
-    border-bottom-left-radius: 140px;
-    border-top-left-radius: 140px;
+    border-bottom-right-radius: 140px;
+    border-top-right-radius: 140px;
     position: relative;
     max-width: 100%;
     margin-left: 10px;
-    min-width: 50%;
+    min-width: 51.1%;
     text-align: center;
     top: 0;
     transform: translateX(0);
@@ -60,7 +60,7 @@ form img{
 
 @keyframes move{
     0%{
-        transform: translateX(-100%);
+        transform: translateX(100%);
     }
     100%{
         transform: translateX(0);
@@ -72,7 +72,11 @@ form h1{
     color: white;
     margin-top: 15px;
     font-size: 2.3rem;
+}
 
+a{
+    color: white;
+    text-decoration: none;
 }
 
 h1 {
@@ -114,8 +118,8 @@ form {
     min-width: 44.7%;
     background-color: #ffffff;
     padding: 20px;
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
     backdrop-filter: blur(10px);
 }
 
@@ -189,8 +193,4 @@ footer{
     left: 50%;
     transform: translateX(-50%);
     margin-bottom: 10px;
-}
-a{
-    color: white;
-    text-decoration: none;
 }

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hexxa</title>
     <link rel="icon" href="/assets/images/favicon.png">
-    <link rel="stylesheet" href="/assets/css/login.css">
+    <link rel="stylesheet" href="/assets/css/login1.css">
     <link rel="stylesheet" href="/assets/css/header.css">
     <link rel="stylesheet" href="/assets/css/footer.css">
 </head>
@@ -15,19 +15,17 @@
     <form action="/login" method="post">
         <img src="/assets/images/hexxa.png" alt="Hexxa Logo" width="150px" class="logo">
         <h1 style="color: black;">Sign In</h1>
-        <label for="username">Username:</label>
-        <input type="text" id="username" maxlength="38" name="username" required><br><br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" maxlength="70" required><br>
+        <input type="text" id="username" maxlength="15" name="username" required placeholder="Username"><br><br>
+        <input type="password" id="password" name="password" maxlength="50" laceholder="Passowrd" required><br>
         <a href="forgotpassword.html"></a><br><br>
         <input type="submit" value="SIGN IN">
     </form>
     <div class="text">
-        <h1>Welcome Back,</h1>
+        <h1>Welcome Back, <br><span id="usernametext"></span></h1>
         <h2>Let's continue your Hexxa journey.</h2>
         <br>
         <p>New to Hexxa?</p>
-        <button href="/signup"><b>SIGN UP</b></button>
+        <button><b><a href="/signup" style="text-decoration: white;">SIGN UP</a></b></button>
     </div>
 </div>
 </section>
@@ -62,5 +60,12 @@
 </div>
 </footer>
     <script src="/backend/login.js"></script>
+    <script>
+        document.getElementById('username').addEventListener('input', function(event) {
+        var username = event.target.value;
+        var usernametext = document.getElementById('usernametext');
+        usernametext.innerHTML = username + '!';
+    });
+    </script>
   </body>
 </html>
