@@ -13,16 +13,16 @@
     <section>
     <div class="container">
     <form action="/login" method="post" onsubmit="return validateRecaptcha();">
-        <img src="/assets/images/hexxa.png" alt="Hexxa Logo" width="150px" class="logo">
         <h1 style="color: black;">Sign In</h1>
         <input type="text" id="username" maxlength="15" name="username" required placeholder="Username"><br><br>
         <input type="password" id="password" name="password" maxlength="50" laceholder="Passowrd" required><br>
-        <a href="forgotpassword.html"></a><br><br>
+        <a href="forgotpassword.html" style="color: black;">Forgot your Password?</a>
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
         <div class="g-recaptcha" data-sitekey="6LcgYfIoAAAAAJCnv3pUKcA-2cJSklJ146mlV2y_" aria-required="false"></div>
         <input type="submit" id="signin" value="SIGN IN">
     </form>
     <div class="text">
+        <img src="/assets/images/hexxa.png" alt="Hexxa Logo" width="150px" class="logo">
         <h1>Welcome back, <br><span id="usernametext"></span></h1>
         <h2>Let's continue your Hexxa journey.</h2>
         <br>

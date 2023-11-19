@@ -45,12 +45,12 @@
     <main>
         <section>
             <div class="text1">
-                <h1 class="text1">Sell with <span style="color: #191970; -webkit-text-stroke: 2px black;">H</span><span style="color: #00FFFF;-webkit-text-stroke: 2px black;">e</span><span style="color: #00A5FF;-webkit-text-stroke: 2px black;">xx</span><span style="color: #00FFFF;-webkit-text-stroke: 2px black;">a</span></h1>
+                <h1 class="text1">Sell with <span style="color: #191970;">H</span><span style="color: #00FFFF;">e</span><span style="color: #00A5FF;">xx</span><span style="color: #00FFFF;">a</span></h1>
             </div>
         </section>
         <section>
             <div class="text2">
-                <h2 class="text2"><span style="color: #191970; -webkit-text-stroke: 2px black;">Your</span><span style="color: #00FFFF;-webkit-text-stroke: 2px black;"> Gateway</span> to a <span style="color: #00A5FF;-webkit-text-stroke: 2px black;"> Global</span><span style="color: #00FFFF;-webkit-text-stroke: 2px black;"> Audience</span>.</h2>
+                <h2 class="text2"><span style="color: #191970;">Your</span><span style="color: #00FFFF;"> Gateway</span> to a <span style="color: #00A5FF;"> Global</span><span style="color: #00FFFF;"> Audience</span>.</h2>
         </section>
         <section>
             <form id="sellf" action="/submit" method="post">
@@ -58,7 +58,6 @@
                     <h2 class="text3">Your Items first step:</h2>
                 </div>
                 <fieldset>
-                    <legend class="text3">Item Information</legend>
                     <div class="text3">
                         <label for="productName">What's your item called?</label>
                         <input type="text" id="productName" name="productName" placeholder="Product Name" maxlength="40" required>
@@ -109,13 +108,13 @@
         </section>
     
         <section>
-            <div class="text3">
+            <div class="text3 item">
                 <h2>Your Second Step, <br> Review your Item.</h2>
             </div>
         </section>
     
         <section>
-            <div class="box2">
+            <div class="box2 prev">
                 <h2 id="itemname">Your Item Name</h2>
                 <img src="/assets/images/hexxa.png" alt="Product 2" id="itemimg">
                 <p id="itemdesc">Your Items Description</p>
@@ -134,13 +133,13 @@
         </section>
     
         <section>
-            <div class="text3">
+            <div class="text3 send">
                 <h2>Your Third Step,</h2>
             </div>
         </section>
     
         <section>
-            <button type="submit" class="submitit" id="submitit">Send it on Hexxa!</button>
+            <button type="submit" class="submitit send" id="submitit">Send it on Hexxa!</button>
         </section>
     </main>
     <footer>
@@ -174,6 +173,9 @@
         </div>
     </footer>
     <script src="/backend/sell.js"></script>
+    <script>
+
+    </script>
     <script>
         document.getElementById('submitit').addEventListener('click', function(event) {
             event.preventDefault(); // Prevent the default form submission

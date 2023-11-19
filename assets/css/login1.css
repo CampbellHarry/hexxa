@@ -24,7 +24,7 @@ form img{
 
 .container{
     background-color: white;
-    width: 50%;
+    width: 90%;
     height: 50%;
     margin-top: 5%;
     display: flex;
@@ -42,7 +42,7 @@ form img{
     position: relative;
     max-width: 100%;
     margin-left: 10px;
-    min-width: 51.1%;
+    min-width: 53%;
     text-align: center;
     top: 0;
     transform: translateX(0);
@@ -51,9 +51,6 @@ form img{
     justify-content: center;
     align-items: center;
     animation: move 2s;
-    white-space: normal;
-    overflow: hidden;
-    word-break: break-all;
 }
 
 @keyframes move{
@@ -82,6 +79,9 @@ h1 {
     color: white;
     margin-top: 15px;
     font-size: 3rem;
+    white-space: normal;
+    overflow: hidden;
+    word-break: keep-all;
 }
 h2{
     text-align: center;
@@ -108,7 +108,12 @@ h2{
     margin-right: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
+}
 
+#usernametext{
+    white-space: normal;
+    overflow: hidden;
+    word-break: break-all;
 }
 
 form {
@@ -223,14 +228,17 @@ footer{
     }
 }
 
-@media (max-width: 1399px) {
+@media (max-width: 1499px) {
     .g-recaptcha{
         position: relative;
         left: 0;
         width: 10px !important;
     }
     .container {
-        width: auto;
-        height: auto;
+        width: 90% !important;
+    }
+    .text{
+        left: -14px !important;
+        position: relative;
     }
 }

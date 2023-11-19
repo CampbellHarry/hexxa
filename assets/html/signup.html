@@ -16,19 +16,25 @@
     <section>
         <div class="container">
                 <form>
-                    <img src="/assets/images/hexxa.png" alt="Hexxa Logo" width="150px" class="logo">
                     <h1 style="color: black;">Sign up</h1>
                     <form onsubmit="return validateRecaptcha();" id="signupForm" action="signup" method="post">
+                        <input type="text" id="name" name="name" placeholder="What should we call you?" required maxlength="50" minlength="4" title="Names must be over 4 characters and must not be offensive"><br><br>
                         <input type="text" id="username" name="username" placeholder="Username" required maxlength="15" minlength="4" title="Usernames must be over 4 characters and must not be offensive"><br><br>
-
                         <input type="password" id="password" name="password" minlength="8" maxlength="50" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required title="Password must be at least 8 characters long and contain at least one digit, one uppercase letter, and one lowercase letter" oninput="checkPasswordStrength()"><br>
                         <span id="password-strength"></span><br><br>
+                        <div class="genders">
+                            <input type="radio" id="male" name="gender" value="male" required>
+                            <label for="male">Male</label>
+                            <input type="radio" id="female" name="gender" value="female" required>
+                            <label for="female">Female</label>
+                        </div><br>
                         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
                 <div class="g-recaptcha" data-sitekey="6LcgYfIoAAAAAJCnv3pUKcA-2cJSklJ146mlV2y_" aria-required="false"></div>
                         <b><input type="submit" id="submitBtn" style="font-weight: bold;" value="SIGN UP"></b>
                 </form>
                 <div class="text">
-                    <h1>Hello there, <br> <span id="usernametext"></span></h1>
+                    <img src="/assets/images/hexxa.png" alt="Hexxa Logo" width="150px" class="logo">
+                    <h1>Hello there, <br> <span id="nametext"></span></h1>
                     <h2>Let's get your Hexxa journey started!</h2>
                     <br>
                     <p>Already have an account?</p>
@@ -66,6 +72,8 @@
             </p>
         </div>
     </footer>
+    <script>
+    </script>
     <script>
 function processUpdates(data) {
     function validateRecaptcha() {
@@ -114,6 +122,7 @@ function processUpdates(data) {
             .catch(error => console.error('Error:', error));
         })};
 </script>
+<script src="/backend/signup.js"></script>
 <script>
     function processnametotextbox(data) {
         var username = document.getElementById('username');
@@ -123,9 +132,9 @@ function processUpdates(data) {
         usernametext.innerHTML = data.username;
     }
 
-    document.getElementById('username').addEventListener('input', function(event) {
+    document.getElementById('name').addEventListener('input', function(event) {
         var username = event.target.value;
-        var usernametext = document.getElementById('usernametext');
+        var usernametext = document.getElementById('nametext');
         usernametext.innerHTML = username + '!';
     });
     

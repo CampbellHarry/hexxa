@@ -16,6 +16,7 @@ form {
     margin-bottom: 50px;
 }
 
+
 .text2 {
     font-size: 3.5rem;
     color: white;
@@ -27,7 +28,7 @@ form {
     color: white;
     margin-bottom: 10px;
 }
-input[type="text"],
+form input[type="text"],
 select,
 textarea {
     width: 90%;

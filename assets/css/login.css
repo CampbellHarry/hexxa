@@ -25,7 +25,7 @@ form img{
 
 .container{
     background-color: white;
-    width: 50%;
+    width: 90%;
     height: 50%;
     margin-top: 5%;
     border-radius: 50px;
@@ -43,7 +43,7 @@ form img{
     position: relative;
     max-width: 100%;
     margin-left: 10px;
-    min-width: 50%;
+    min-width: 52.5%;
     text-align: center;
     top: 0;
     transform: translateX(0);
@@ -53,9 +53,6 @@ form img{
     align-items: center;
     animation: move 2s;
     flex-direction: column;
-    white-space: normal;
-    overflow: hidden;
-    word-break: break-all;
 }
 
 @keyframes move{
@@ -80,11 +77,20 @@ h1 {
     color: white;
     margin-top: 15px;
     font-size: 3rem;
+    white-space: normal;
+    overflow: hidden;
+    word-break: keep-all;
 }
 h2{
     text-align: center;
     color: white;
     font-size: 1.4rem;
+}
+
+#usernametext{
+    white-space: normal;
+    overflow: hidden;
+    word-break: break-all;
 }
 
 .g-recaptcha{
@@ -107,8 +113,54 @@ h2{
     margin-right: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
-
 }
+
+.genders{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    gap: 20px;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+/* Style the custom radio button */
+input[type="radio"] + label {
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="radio"]:checked + label[for="female"] {
+    background-color: pink;
+}
+
+/* Style the custom radio button when checked for male */
+input[type="radio"]:checked + label[for="male"] {
+    background-color: blue;
+    color: #fff;
+}
+
+input[type="radio"] {
+    width: 100px;
+    height: 100px;
+}
+
+input[type="radio"].active {
+    width: 100px;
+    height: 100px;
+    border: 10px solid #2600ff;
+}
+
 
 form {
     max-width: 100%;
