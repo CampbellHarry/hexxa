@@ -12,16 +12,18 @@
 <body>
     <section>
     <div class="container">
-    <form action="/login" method="post">
+    <form action="/login" method="post" onsubmit="return validateRecaptcha();">
         <img src="/assets/images/hexxa.png" alt="Hexxa Logo" width="150px" class="logo">
         <h1 style="color: black;">Sign In</h1>
         <input type="text" id="username" maxlength="15" name="username" required placeholder="Username"><br><br>
         <input type="password" id="password" name="password" maxlength="50" laceholder="Passowrd" required><br>
         <a href="forgotpassword.html"></a><br><br>
-        <input type="submit" value="SIGN IN">
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        <div class="g-recaptcha" data-sitekey="6LcgYfIoAAAAAJCnv3pUKcA-2cJSklJ146mlV2y_" aria-required="false"></div>
+        <input type="submit" id="signin" value="SIGN IN">
     </form>
     <div class="text">
-        <h1>Welcome Back, <br><span id="usernametext"></span></h1>
+        <h1>Welcome back, <br><span id="usernametext"></span></h1>
         <h2>Let's continue your Hexxa journey.</h2>
         <br>
         <p>New to Hexxa?</p>
@@ -66,6 +68,16 @@
         var usernametext = document.getElementById('usernametext');
         usernametext.innerHTML = username + '!';
     });
+    function validateRecaptcha() {
+            var response = grecaptcha.getResponse();
+            if (response.length === 0) {
+                alert('Please verify that you are not a robot.');
+                return false;
+            } else {
+                document.getElementById('signin').disabled = true;
+                return true;
+            }
+        }
     </script>
   </body>
 </html>

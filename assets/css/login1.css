@@ -1,4 +1,3 @@
-
 /* Add some style to the login page */
 @import url('https://fonts.googleapis.com/css2?family=Cabin:wght@800&family=IBM+Plex+Sans:wght@800&family=Josefin+Sans:wght@500&family=Kanit:ital,wght@1,700&family=Montserrat:wght@700&display=swap');
 
@@ -52,7 +51,6 @@ form img{
     justify-content: center;
     align-items: center;
     animation: move 2s;
-    flex-direction: column;
     white-space: normal;
     overflow: hidden;
     word-break: break-all;
@@ -163,7 +161,6 @@ button{
     cursor: pointer;
     font-size: 1rem;
     border: white 2px solid;
-    
 }
 
 input[type="submit"] {
@@ -188,9 +185,52 @@ footer{
     margin-top: 50px;
 }
 .img1{
+    background: linear-gradient(to left, #2600ff, #5499C7);
     position: relative;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
     margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 100% !important;
+        height: auto;
+    }
+
+    .text {
+        min-width: 80vw;
+        margin-left: 0;
+        display: none !important;
+    }
+    .g-recaptcha{
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        left: 0;
+    }
+    form{
+        width: 100% !important;
+        border-radius: 0;
+        border-top-right-radius: 50px;
+        border-bottom-right-radius: 0;
+    }
+    input[type="submit"] {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (max-width: 1399px) {
+    .g-recaptcha{
+        position: relative;
+        left: 0;
+        width: 10px !important;
+    }
+    .container {
+        width: auto;
+        height: auto;
+    }
 }

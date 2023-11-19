@@ -92,6 +92,7 @@ h2{
     margin-top: 30px;
     position: relative;
     left: 16%;
+    width: auto;
 }
 
 .text h3{
@@ -193,4 +194,45 @@ footer{
 a{
     color: white;
     text-decoration: none;
+}
+@media (max-width: 768px) {
+    .container {
+        width: 100% !important;
+        height: auto;
+    }
+
+    .text {
+        min-width: 80vw;
+        margin-left: 0;
+        display: none !important;
+    }
+    .g-recaptcha{
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        left: 0;
+    }
+    form{
+        width: 100% !important;
+        border-radius: 0;
+        border-top-right-radius: 50px;
+        border-bottom-right-radius: 0;
+    }
+    input[type="submit"] {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (max-width: 1399px) {
+    .g-recaptcha{
+        position: relative;
+        left: 0;
+        width: 10px !important;
+    }
+    .container {
+        width: auto;
+        height: auto;
+    }
 }
