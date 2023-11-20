@@ -12,85 +12,90 @@
 </head>
 <body>
     <header>
-        <img src="/assets/images/favicon.png" class="logo" alt="Hexxa Logo" height="100px">
+        <img src="/assets/images/favicon.png" alt="Hexxa Logo" height="100px">
         <div class="search-container">
             <div class="search-box">
-                <input type="text" placeholder="Welcome Moderator {{name}}!">
+                <input type="text" placeholder="Search for products, brands and more with Hexxa">
                 <button>Search</button>
             </div>
         </div>
-            <a href="" class="signup">Welcome <span id="username"></span></a>
+        <div class="basket">
+            <img src="/assets/images/shoppingb.png" height="50px" alt="Basket" class="basket">
+                <p id="basketcount">0</p>
         </div>
-        <header class="header1">
-            <nav>
-                <ul>
-                    <li class="box"><a class="text" href="/">Home</a></li>
-                    <li class="box"><a class="text" href="">Customer Service</a></li>
-                    <li class="box"><a class="text" href="">Contact</a></li>
-                    <li class="box"><a class="text" href="shopping">Shopping</a></li>
-                    <li class="box"><a class="text" href="">Todays Deals</a></li>
-                    <li class="box"><a class="text" href="allitems">All Items</a></li>
-                    <li class="box"><a class="text" href="sell">Sell a Item</a></li>
-                </ul>
-            </nav>
-        </header>
-    </header>
-    <main>
-        <section class="moderation-section">
-            <h2>Reported Items</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Item ID</th>
-                        <th>View Item</th>
-                        <th>Reported By</th>
-                        <th>Reason</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1234</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <button class="btn btn-approve">Approve</button>
-                            <button class="btn btn-reject">Reject</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-            <section class="moderation-section">
-            <h2>Awaiting Approval</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Item ID</th>
-                        <th>View Item</th>
-                        <th>Submitted By</th>
-                        <th>Item Title</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1234</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <button class="btn btn-approve">Approve</button>
-                            <button class="btn btn-reject">Reject</button>
-                        </td>
-                    </tr>
-
-                </tbody>
-            </table>
-        </section>
+        <nav>
+            <ul class="nav-links">
+                <li class="box"><a class="text" href="">Welcome <span id="username"></span>!</a></li>
+                <li class="box"><a class="text" href="/">Home</a></li>
+                <li class="box"><a class="text" href="/shopping">Shopping</a></li>
+                <li class="box"><a class="text" href="/allitems">All Items</a></li>
+                <li class="box"><a class="text" href="/sell">Sell an Item</a></li>
+                <li class="box"><a class="text" href="/dashboard">Manage Your Items</a></li>
+                <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
+                <li class="box"><a class="text" href="#contact">Contact</a></li>
+            </ul>
+            <div class="burger-menu">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </nav>
+</header>
+<main>
+    <section class="moderation-section">
+        <h2>Reported Items</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Item ID</th>
+                    <th>View Item</th>
+                    <th>Reported By</th>
+                    <th>Reason</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1234</td>
+                    <td><a href="#">View</a></td>
+                    <td>User123</td>
+                    <td>Offensive content</td>
+                    <td>
+                        <button class="btn btn-approve">Approve</button>
+                        <button class="btn btn-reject">Reject</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <section class="moderation-section">
+        <h2>Awaiting Approval</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Item ID</th>
+                    <th>View Item</th>
+                    <th>Submitted By</th>
+                    <th>Item Title</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="h">
+                <tr>
+                    <td>5678</td>
+                    <td><a href="#">View</a></td>
+                    <td>User456</td>
+                    <td>Awesome Item</td>
+                    <td>
+                        <button class="btn btn-approve">Approve</button>
+                        <button class="btn btn-reject">Reject</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
     </main>
-    <!-- END: ed8c6549bwf9 -->
     <footer>
         <div class="footer-container">
             <div class="footer-section">
@@ -118,9 +123,15 @@
         </div>
         <div class="footer-bottom">
             <p>&copy; 2023 Hexxa. All Rights Reserved.</p><p>Terms &amp; Conditions | Privacy Policy</p><p>Hexxa is apart of the hdev group</p>
-            </p>
         </div>
     </footer>
-    <script src="/backend/allitems.js"></script>
-</body>
-</html>
+    <script src="/backend/moderation.js"></script>
+    <script>
+        fetch('/getUsername')
+          .then(response => response.json())
+          .then(data => {
+            document.getElementById('username').innerHTML = data.username;
+          });
+    </script>
+    </body>
+    </html>

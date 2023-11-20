@@ -55,7 +55,7 @@ app.get('/', (req, res) => {
 app.use(bodyParser.json());
 
 app.post('/signup', (req, res) => {
-  const { username, password, approved } = req.body;
+  const { username, name, password, approved } = req.body;
   const role = 'user';
   const dateJoined = new Date().toLocaleDateString();
   const aboutMe = 'This user has not set an about me yet.';
@@ -77,7 +77,7 @@ app.post('/signup', (req, res) => {
       return res.json({ success: false, message: 'User already exists' });
     }
 
-    users.push({ username, passwordhashed, approved, role, dateJoined, location, aboutMe, totalOrders, currentBadge, earlyuser: true});
+    users.push({ username, name, passwordhashed, approved, role, dateJoined, location, aboutMe, totalOrders, currentBadge, earlyuser: true});
 
     fs.writeFile('./users.json', JSON.stringify(users), (err) => {
       if (err) {
@@ -516,6 +516,9 @@ const requireAuth = (req, res, next) => {
 app.post('/success',requireAuth, (_req, res) => {
   res.sendFile(path.join(__dirname, 'assets/html', 'success.html'));
 });
+app.get('/moderation',requireAuth, (_req, res) => {
+  res.sendFile(path.join(__dirname, 'assets/html', 'moderation.html'));
+});
 app.get('/success',requireAuth, (_req, res) => {
   res.sendFile(path.join(__dirname, 'assets/html', 'success.html'));
 });
@@ -559,6 +562,7 @@ app.post('/submit', upload.single('image'), (req, res) => {
   const seller = req.session.user;
   const image = req.file;
   const inStock = true;
+  const modapproval = false;
   const imageUrl = image ? `/uploads/${image.filename}` : '';
 
   // Read sellers data from file
@@ -589,7 +593,8 @@ app.post('/submit', upload.single('image'), (req, res) => {
     approved,
     sellerrole,
     sold: 0,
-    totalCost: 0
+    totalCost: 0,
+    modapproval: false
   };
 
   const rawData = fs.readFileSync('./items.json');

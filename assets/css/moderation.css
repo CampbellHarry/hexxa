@@ -1,28 +1,30 @@
-/* Add some spacing between elements */
-.moderation-section {
-    margin-top: 2rem;
-    padding: 10px;
-    align-items: center;
+main {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
 }
 
-body{
-    overflow-x: hidden;
+.moderation-section {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 45%;
 }
 
 h2 {
-    margin-bottom: 1rem;
+    color: #333;
 }
 
 table {
+    width: 100%;
+    margin-top: 15px;
     border-collapse: collapse;
-    width: 80%;
-    border: black 4px solid;
-    margin: auto;
 }
 
 th, td {
+    padding: 12px;
     text-align: left;
-    padding: 0.5rem;
     border-bottom: 1px solid #ddd;
 }
 
@@ -30,24 +32,21 @@ th {
     background-color: #f2f2f2;
 }
 
-/* Style the approve and reject buttons */
 .btn {
+    padding: 8px 12px;
+    margin-right: 5px;
     border: none;
-    color: white;
-    padding: 0.5rem;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 1rem;
-    margin: 0.2rem;
+    border-radius: 4px;
     cursor: pointer;
-    border-radius: 0.25rem;
+    font-size: 14px;
 }
 
 .btn-approve {
     background-color: #4CAF50;
+    color: #fff;
 }
 
 .btn-reject {
     background-color: #f44336;
+    color: #fff;
 }

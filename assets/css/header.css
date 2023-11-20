@@ -12,7 +12,7 @@ body {
 }
 
 body{
-                background-image: linear-gradient(to right, #e2e2e2, #5499C7);
+                background-image: linear-gradient(to right, #9b9a9a, #5499C7);
                 margin: 0;
                 padding: 0;
                 overflow-x: hidden;
@@ -38,7 +38,7 @@ header{
 .search-container {
                 display: flex;
                 align-items: center;
-                max-width: 290px;
+                max-width: 390px;
                 width: auto;
 }
 
@@ -48,6 +48,7 @@ header{
                 background-color: var(--secondary);
                 border-radius: 20px;
                 padding: 5px 10px;
+                width: 100%;
 }
 
 .search-box input[type="text"] {
@@ -55,6 +56,7 @@ header{
                 background-color: var(--secondary);
                 margin-right: 10px;
                 font-family: Nunito;
+                width: auto;
 }
 
 .search-box button {

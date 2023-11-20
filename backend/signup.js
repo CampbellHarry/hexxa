@@ -4,7 +4,6 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
 
-    // Send a request to check if the username is available
     fetch('/check-username', {
         method: 'POST',
         headers: {
