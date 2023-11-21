@@ -147,7 +147,6 @@ app.use(session({
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/login.html');
 });
-
 app.post('/login', (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -160,13 +159,50 @@ app.post('/login', (req, res) => {
 
     res.cookie('session_token', sessionToken);
     req.session.user = user.username; // Set the session variable
-    res.redirect('/shopping');
+
+    // Check user role and redirect accordingly
+    if (user.role === 'owner' || user.role === 'developer' || user.role === 'moderator' || user.role === 'support') {
+      res.redirect('/moderation');
+    } else if (user.role === 'user') {
+      res.redirect('/shopping');
+    } else {
+      // Handle other roles or unexpected cases
+      res.redirect('/login');
+    }
   } else {
     res.redirect('/login');
   }
 });
-
 const cookieParser = require('cookie-parser');
+
+const protectSensitiveRoutes = (req, res, next) => {
+  // Check if the user is authenticated and has the necessary role
+  if (req.session && req.session.user && req.session.user.role === 'owner') {
+    // User is authenticated and has the 'admin' role, proceed to the next middleware
+    next();
+  } else {
+    // User is not authenticated or lacks the necessary permissions, send an unauthorized response
+    res.redirect('/security');
+  }
+};
+
+// Apply the middleware to routes needing protection
+app.use('/users.json', protectSensitiveRoutes);
+app.use('/items.json', protectSensitiveRoutes);
+app.use('/basket.json', protectSensitiveRoutes);
+
+// Example route accessible only to users with the 'admin' role
+app.get('/users.json', (req, res) => {
+  res.sendFile(path.join(__dirname, 'users.json'));
+});
+app.get('/users.json', (req, res) => {
+  res.sendFile(path.join(__dirname, 'items.json'));
+});
+app.get('/basket.json', (req, res) => {
+  res.sendFile(path.join(__dirname, 'basket.json'));
+});
+
+
 
 // Middleware
 app.use(express.json());
@@ -540,6 +576,18 @@ app.get('/allitems',requireAuth, (_req, res) => {
 
 app.post('/allitems',requireAuth, (_req, res) => {
   res.sendFile(path.join(__dirname, 'assets/html', 'allitems.html'));
+});
+
+app.put('/items.json', (req, res) => {
+  const items = req.body;
+  fs.writeFile('items.json', JSON.stringify(items), err => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error writing to file');
+    } else {
+      res.send('File updated successfully');
+    }
+  });
 });
 
 app.get('/getUsername', (req, res) => {
