@@ -7,12 +7,12 @@
       })
       .then(items => {
         const container = document.querySelector('#container');
-  
+
         // Clear the existing content in the container
         container.innerHTML = '';
-  
+
         items.forEach(item => {
-          if (item.modapproval === "true") {
+          if (item.modapproval !== "false") {
             const div = document.createElement('div');
             div.classList.add('box2');
 

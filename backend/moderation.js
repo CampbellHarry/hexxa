@@ -21,6 +21,18 @@ fetch('./items.json')
                     <td>
                         <button class="btn btn-approve" data-product-id="${item.productId}">Approve</button>
                         <button class="btn btn-reject" data-product-id="${item.productId}">Reject</button>
+                        <select class="reason-dropdown" style="display: none;">
+                            <option value="inaccurate-description">Inaccurate product description</option>
+                            <option value="poor-quality">Poor product quality</option>
+                            <option value="unacceptable-pricing">Unacceptable pricing</option>
+                            <option value="policy-violation">Violation of Hexxa policies</option>
+                            <option value="insufficient-information">Insufficient product information</option>
+                            <option value="outdated-product">Outdated or expired product</option>
+                            <option value="inadequate-images">Inadequate product images</option>
+                            <option value="unreliable-seller">Unreliable seller reputation</option>
+                            <option value="non-compliance">Non-compliance with legal requirements</option>
+                            <option value="offensive-content">Offensive or inappropriate content</option>
+                        </select>
                     </td>
                 `;
                 tableBody.appendChild(row);
@@ -35,13 +47,29 @@ fetch('./items.json')
 
                 // Add event listener to the "Reject" button
                 const rejectButton = row.querySelector('.btn-reject');
+                const reasonDropdown = row.querySelector('.reason-dropdown');
+
                 rejectButton.addEventListener('click', () => {
-                    // Remove the item from the items array
-                    const index = items.indexOf(item);
-                    if (index > -1) {
-                        items.splice(index, 1);
-                    }
-                    updateItemsJson(items);
+                    // Show the reason dropdown when rejecting an item
+                    reasonDropdown.style.display = 'inline-block';
+                });
+
+                // Add event listener to the reason dropdown
+                reasonDropdown.addEventListener('change', () => {
+                    const denialReason = reasonDropdown.value;
+                    // Log the denial information in the notification database
+                    logDenial(item.productId, item.seller, item.productName, denialReason)
+                        .then(() => {
+                            // Remove the item from the items array
+                            const index = items.indexOf(item);
+                            if (index > -1) {
+                                items.splice(index, 1);
+                                updateItemsJson(items);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error logging denial information:', error);
+                        });
                 });
             }
         });
@@ -49,8 +77,8 @@ fetch('./items.json')
 
 function updateItemsJson(items) {
     // Update the items.json file with the modified items array
-    fetch('./items.json', {
-        method: 'PUT',
+    fetch('/items.json', {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -65,4 +93,56 @@ function updateItemsJson(items) {
     .catch(error => {
         console.error('Error updating items.json:', error);
     });
+}
+
+function logDenial(productId, seller, productName, denialReason) {
+    // Log denial information in the notification database
+    return fetch('./logDenial', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            productId: productId,
+            seller: seller,
+            productName: productName,
+            status: 'denied',
+            reason: denialReason,
+        }),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        console.log('Denial information logged successfully!');
+        // Delete the item from the items.json file
+        return deleteItemFromItemsJson(productId);
+    })
+    .catch(error => {
+        console.error('Error logging denial information:', error);
+    });
+}
+
+function deleteItemFromItemsJson(productId) {
+    // Fetch the items.json file
+    fetch('./items.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(items => {
+            // Find the item with the given productId
+            const index = items.findIndex(item => item.productId === productId);
+            if (index > -1) {
+                // Remove the item from the items array
+                items.splice(index, 1);
+                // Update the items.json file with the modified items array
+                updateItemsJson(items);
+            }
+        })
+        .catch(error => {
+            console.error('Error deleting item from items.json:', error);
+        });
 }

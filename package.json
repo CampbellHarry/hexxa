@@ -1,7 +1,6 @@
 {
   "name": "hexxa",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -28,5 +27,6 @@
     "socket.io": "^4.7.2",
     "speakeasy": "^2.0.0",
     "ws": "^8.14.2"
-  }
+  },
+  "description": ""
 }

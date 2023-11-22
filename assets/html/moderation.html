@@ -55,16 +55,6 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1234</td>
-                    <td><a href="#">View</a></td>
-                    <td>User123</td>
-                    <td>Offensive content</td>
-                    <td>
-                        <button class="btn btn-approve">Approve</button>
-                        <button class="btn btn-reject">Reject</button>
-                    </td>
-                </tr>
             </tbody>
         </table>
     </section>
@@ -81,16 +71,6 @@
                 </tr>
             </thead>
             <tbody id="h">
-                <tr>
-                    <td>5678</td>
-                    <td><a href="#">View</a></td>
-                    <td>User456</td>
-                    <td>Awesome Item</td>
-                    <td>
-                        <button class="btn btn-approve">Approve</button>
-                        <button class="btn btn-reject">Reject</button>
-                    </td>
-                </tr>
             </tbody>
         </table>
     </section>
@@ -133,5 +113,27 @@
             document.getElementById('username').innerHTML = data.username;
           });
     </script>
+          <script>
+            const burgerMenu = document.querySelector('.burger-menu');
+            const navLinks = document.querySelector('.nav-links');
+            const links = document.querySelectorAll('.nav-links li');
+    
+            burgerMenu.addEventListener('click', () => {
+                // Toggle Nav
+                navLinks.classList.toggle('nav-active');
+    
+                // Animate Links
+                links.forEach((link, index) => {
+                    if (link.style.animation) {
+                        link.style.animation = '';
+                    } else {
+                        link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
+                    }
+                });
+    
+                // Burger Animation
+                burgerMenu.classList.toggle('toggle');
+            });
+        </script>
     </body>
     </html>

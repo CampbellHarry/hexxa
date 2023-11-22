@@ -100,11 +100,6 @@ const storage = multer.diskStorage({
   }
 });
 
-
-app.get('/items.json', (_req, res) => {
-  res.sendFile(path.join(__dirname, 'items.json'));
-});
-
 app.get('/login', (_req, res) => {
   res.sendFile(path.join(__dirname, 'assets/html', 'login.html'));
 });
@@ -175,29 +170,83 @@ app.post('/login', (req, res) => {
 });
 const cookieParser = require('cookie-parser');
 
+// Add the following code before the route definitions
 const protectSensitiveRoutes = (req, res, next) => {
   // Check if the user is authenticated and has the necessary role
-  if (req.session && req.session.user && req.session.user.role === 'owner') {
+  if (req.session && req.session.user) {
     // User is authenticated and has the 'admin' role, proceed to the next middleware
     next();
   } else {
     // User is not authenticated or lacks the necessary permissions, send an unauthorized response
-    res.redirect('/security');
+    res.status(401).send('Unauthorized');
   }
 };
 
 // Apply the middleware to routes needing protection
-app.use('/users.json', protectSensitiveRoutes);
 app.use('/items.json', protectSensitiveRoutes);
+app.use('/users.json', protectSensitiveRoutes);
 app.use('/basket.json', protectSensitiveRoutes);
+app.use('/notifs.json', protectSensitiveRoutes);
 
 // Example route accessible only to users with the 'admin' role
 app.get('/users.json', (req, res) => {
   res.sendFile(path.join(__dirname, 'users.json'));
 });
+
+app.get('/notifs.json', (req, res) => 
+  res.sendFile(path.join(__dirname, 'notifs.json')));
+app.get('/items.json', (req, res) => 
+  res.sendFile(path.join(__dirname, 'items.json')));
+app.get('/items.json', (req, res) => 
+  res.sendFile(path.join(__dirname, 'items.json')));
+app.get('/basket.json', (req, res) => 
+  res.sendFile(path.join(__dirname, 'basket.json')));
+
+// Middleware
+app.use(express.json());
+app.use(cookieParser());
+
+// Load users from JSON file
+
+// Example route accessible only to users with the 'admin' role
 app.get('/users.json', (req, res) => {
-  res.sendFile(path.join(__dirname, 'items.json'));
+  res.sendFile(path.join(__dirname, 'users.json'));
 });
+app.post('/logDenial', (req, res) => {
+  const { productId, productName, status, reason } = req.body;
+
+  // Load existing notifications from the file
+  const existingNotifs = fs.readFileSync('notifs.json', 'utf8');
+  const notifs = existingNotifs ? JSON.parse(existingNotifs) : [];
+
+  // Add the new denial information to the notifications array
+  notifs.push({
+      productId,
+      productName,
+      status,
+      reason,
+      timestamp: new Date().toISOString(),
+  });
+
+  // Write the updated notifications array back to the file
+  fs.writeFileSync('notifs.json', JSON.stringify(notifs, null, 2), 'utf8');
+
+  res.sendStatus(200);
+});
+
+
+app.post('/items.json',protectSensitiveRoutes, (req, res) => {
+  const items = req.body;
+  fs.writeFile('items.json', JSON.stringify(items), err => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('Error writing to file');
+    }
+
+    res.send('File updated successfully');
+  });
+});
+
 app.get('/basket.json', (req, res) => {
   res.sendFile(path.join(__dirname, 'basket.json'));
 });
@@ -578,17 +627,6 @@ app.post('/allitems',requireAuth, (_req, res) => {
   res.sendFile(path.join(__dirname, 'assets/html', 'allitems.html'));
 });
 
-app.put('/items.json', (req, res) => {
-  const items = req.body;
-  fs.writeFile('items.json', JSON.stringify(items), err => {
-    if (err) {
-      console.error(err);
-      res.status(500).send('Error writing to file');
-    } else {
-      res.send('File updated successfully');
-    }
-  });
-});
 
 app.get('/getUsername', (req, res) => {
   const username = req.session.user;
