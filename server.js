@@ -374,6 +374,10 @@ function renderProductPage(product) {
           </section>
           <section class="buy-container">
             <div class="buysection">
+              <div class="flag">
+                <img src="/assets/images/flagitem.png" width="30px" onmouseover="src='/assets/images/hoverflag.png'" onmouseout="this.src='/assets/images/flagitem.png'">
+                <br>
+              </div>
               <div id="approved" style="border: ${product.approved ? 'border: 1px solid #005700;' : '2px solid red'}" onclick="popdown()">
                   THIS SELLER IS <span>${product.approved ? 'APPROVED' : 'NOT APPROVED'}</span>
               </div>
