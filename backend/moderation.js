@@ -22,16 +22,16 @@ fetch('./items.json')
                         <button class="btn btn-approve" data-product-id="${item.productId}">Approve</button>
                         <button class="btn btn-reject" data-product-id="${item.productId}">Reject</button>
                         <select class="reason-dropdown" style="display: none;">
-                            <option value="inaccurate-description">Inaccurate product description</option>
-                            <option value="poor-quality">Poor product quality</option>
-                            <option value="unacceptable-pricing">Unacceptable pricing</option>
-                            <option value="policy-violation">Violation of Hexxa policies</option>
-                            <option value="insufficient-information">Insufficient product information</option>
-                            <option value="outdated-product">Outdated or expired product</option>
-                            <option value="inadequate-images">Inadequate product images</option>
-                            <option value="unreliable-seller">Unreliable seller reputation</option>
-                            <option value="non-compliance">Non-compliance with legal requirements</option>
-                            <option value="offensive-content">Offensive or inappropriate content</option>
+                            <option value="Misleading product description">Inaccurate product description</option>
+                            <option value="Below expected product quality">Poor product quality</option>
+                            <option value="Pricing concerns for this product">Unacceptable pricing</option>
+                            <option value="Possible policy violation by the product">Violation of Hexxa policies</option>
+                            <option value="Insufficient product information provided">Insufficient product information</option>
+                            <option value="Outdated or expired product information">Outdated or expired product</option>
+                            <option value="Inadequate product images">Inadequate product images</option>
+                            <option value="Seller's reputation raises reliability concerns">Unreliable seller reputation</option>
+                            <option value="Possible non-compliance with legal requirements">Non-compliance with legal requirements</option>
+                            <option value="Presence of offensive or inappropriate content">Offensive or inappropriate content</option>
                         </select>
                     </td>
                 `;

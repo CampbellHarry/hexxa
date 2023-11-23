@@ -1,9 +1,10 @@
 [
   {
-    "productId": 1700678021558,
-    "productName": "asfasgf2",
+    "productId": 1700679821170,
+    "productName": "test",
+    "seller": "harrycampbell",
     "status": "denied",
     "reason": "policy-violation",
-    "timestamp": "2023-11-22T19:00:27.154Z"
+    "timestamp": "2023-11-22T22:02:35.833Z"
   }
 ]

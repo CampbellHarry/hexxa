@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hexxa</title>
+    <link rel="icon" href="/assets/images/favicon.png">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/footer.css">
+    <link rel="stylesheet" href="/assets/css/notifications.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.4/purify.min.js"></script>
+</head>
+<body>
+    <header>
+        <img src="/assets/images/favicon.png" alt="Hexxa Logo" height="100px">
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" placeholder="Search for products, brands and more with Hexxa">
+                <button>Search</button>
+            </div>
+        </div>
+        <div class="basket">
+            <img src="/assets/images/shoppingb.png" height="50px" alt="Basket" class="basket">
+                <p id="basketcount">0</p>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li class="box"><a class="text" href="">Welcome <span id="username"></span>!</a></li>
+                <li class="box"><a class="text" href="/">Home</a></li>
+                <li class="box"><a class="text" href="/shopping">Shopping</a></li>
+                <li class="box"><a class="text" href="/allitems">All Items</a></li>
+                <li class="box"><a class="text" href="/sell">Sell an Item</a></li>
+                <li class="box"><a class="text" href="/dashboard">Manage Your Items</a></li>
+                <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
+                <li class="box"><a class="text" href="#contact">Contact</a></li>
+            </ul>
+            <div class="burger-menu">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </nav>
+</header>
+<main>
+    <section>
+        <h1 class="maint">Welcome <span id="username1"></span>.</h1>
+        <h3 class="smallt">You have <span>NOTIFICATIONS</span> notification.</h3>
+    </section>
+    <section>
+        <div id="container">
+            <div class="holder">
+                <div class="notification" style="border-left: green 10px solid;">
+                    <div class="title">
+                        <h3>Item Accepted</h3>
+                    </div>
+                    <div class="content">
+                        <p>Your Item has been put online by the Hexxa team.</p>
+                    </div>
+                    <div class="date">
+                        <p>23/11/2023</p>
+                    </div>
+                </div>
+                <div class="notification" style="border-left: red 10px solid;">
+                    <div class="title">
+                        <h3>Item Declined</h3>
+                    </div>
+                    <div class="content">
+                        <p>Hello, SELLER. Your Item has been removed due to REASON</p>
+                    </div>
+                    <div class="date">
+                        <p>23/11/2023</p>
+                    </div>
+                </div>
+                <div class="notification" style="border-left: rgb(0, 225, 255) 10px solid;">
+                    <div class="title">
+                        <h3>Flagged Item</h3>
+                    </div>
+                    <div class="content">
+                        <p>Thank you for keeping Hexxa safe. Our moderators will do a review and get back to you soon.</p>
+                    </div>
+                    <div class="date">
+                        <p>23/11/2023</p>
+                    </div>
+                </div>
+                <div class="notification" style="border-left: rgb(0, 225, 255) 10px solid;">
+                    <div class="title">
+                        <h3>Flagged Item Follow up</h3>
+                    </div>
+                    <div class="content">
+                        <p>Our team has found the Item a: ISBREACH?</p>
+                    </div>
+                    <div class="date">
+                        <p>23/11/2023</p>
+                    </div>
+                </div>
+                <div class="notification" style="border-left: red 10px solid;">
+                    <div class="title">
+                        <h3>Flagged Item</h3>
+                    </div>
+                    <div class="content">
+                        <p>Hello, SELLER. Your Item has been found in breach of RULE. This item has been removed.</p>
+                    </div>
+                    <div class="date">
+                        <p>23/11/2023</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+</main>
+<footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>About Hexxa</h3>
+                <p>Hexxa is an online marketplace that offers a wide range of products from electronics to clothing. We have a wide range of brands to choose from and we are committed to providing our customers with the best shopping experience possible.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Returns &amp; Refunds</a></li>
+                    <li><a href="#">Shipping &amp; Delivery</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect with Us</h3>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Linkedin</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Hexxa. All Rights Reserved.</p><p>Terms &amp; Conditions | Privacy Policy</p><p>Hexxa is apart of the hdev group</p>
+            </p>
+        </div>
+</footer>
+    <script src="/backend/allitems.js"></script>
+    <script src="/backend/auth.js"></script>
+    <script>
+        const burgerMenu = document.querySelector('.burger-menu');
+        const navLinks = document.querySelector('.nav-links');
+        const links = document.querySelectorAll('.nav-links li');
+
+        burgerMenu.addEventListener('click', () => {
+            // Toggle Nav
+            navLinks.classList.toggle('nav-active');
+
+            // Animate Links
+            links.forEach((link, index) => {
+                if (link.style.animation) {
+                    link.style.animation = '';
+                } else {
+                    link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
+                }
+            });
+
+            // Burger Animation
+            burgerMenu.classList.toggle('toggle');
+        });
+        fetch('/getUsername')
+  .then(response => response.json())
+  .then(data => {
+    var usernameElement = document.getElementById("username");
+    var usernameElement1 = document.getElementById("username1");
+    usernameElement.innerHTML = data.username;
+    usernameElement1.innerHTML = data.username;
+  })
+  .catch(error => console.error('Error:', error));
+    </script>
+    <script src="/backend/basca.js"></script>
+</body>
+</html>

@@ -178,7 +178,7 @@ const protectSensitiveRoutes = (req, res, next) => {
     next();
   } else {
     // User is not authenticated or lacks the necessary permissions, send an unauthorized response
-    res.status(401).send('Unauthorized');
+    res.redirect('/security');
   }
 };
 
@@ -195,9 +195,7 @@ app.get('/users.json', (req, res) => {
 
 app.get('/notifs.json', (req, res) => 
   res.sendFile(path.join(__dirname, 'notifs.json')));
-app.get('/items.json', (req, res) => 
-  res.sendFile(path.join(__dirname, 'items.json')));
-app.get('/items.json', (req, res) => 
+app.get('/items.json',protectSensitiveRoutes, (req, res) => 
   res.sendFile(path.join(__dirname, 'items.json')));
 app.get('/basket.json', (req, res) => 
   res.sendFile(path.join(__dirname, 'basket.json')));
@@ -213,7 +211,7 @@ app.get('/users.json', (req, res) => {
   res.sendFile(path.join(__dirname, 'users.json'));
 });
 app.post('/logDenial', (req, res) => {
-  const { productId, productName, status, reason } = req.body;
+  const { productId, productName, seller, status, reason } = req.body;
 
   // Load existing notifications from the file
   const existingNotifs = fs.readFileSync('notifs.json', 'utf8');
@@ -223,6 +221,7 @@ app.post('/logDenial', (req, res) => {
   notifs.push({
       productId,
       productName,
+      seller,
       status,
       reason,
       timestamp: new Date().toISOString(),
