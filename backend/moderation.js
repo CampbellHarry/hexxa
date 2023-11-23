@@ -25,7 +25,7 @@ fetch('./items.json')
                             <option value="Misleading product description">Inaccurate product description</option>
                             <option value="Below expected product quality">Poor product quality</option>
                             <option value="Pricing concerns for this product">Unacceptable pricing</option>
-                            <option value="Possible policy violation by the product">Violation of Hexxa policies</option>
+                            <option value="Hexxa policy violation by the product">Violation of Hexxa policies</option>
                             <option value="Insufficient product information provided">Insufficient product information</option>
                             <option value="Outdated or expired product information">Outdated or expired product</option>
                             <option value="Inadequate product images">Inadequate product images</option>

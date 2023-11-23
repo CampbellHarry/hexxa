@@ -1,10 +1,10 @@
 [
   {
-    "productId": 1700679821170,
-    "productName": "test",
+    "productId": 1700738713071,
+    "productName": "Test",
     "seller": "harrycampbell",
     "status": "denied",
-    "reason": "policy-violation",
-    "timestamp": "2023-11-22T22:02:35.833Z"
+    "reason": "Pricing concerns for this product",
+    "timestamp": "23/11/2023, 11:41:55"
   }
 ]

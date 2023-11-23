@@ -193,7 +193,7 @@ app.get('/users.json', (req, res) => {
   res.sendFile(path.join(__dirname, 'users.json'));
 });
 
-app.get('/notifs.json', (req, res) => 
+app.get('/notifs.json',protectSensitiveRoutes, (req, res) => 
   res.sendFile(path.join(__dirname, 'notifs.json')));
 app.get('/items.json',protectSensitiveRoutes, (req, res) => 
   res.sendFile(path.join(__dirname, 'items.json')));
@@ -210,6 +210,7 @@ app.use(cookieParser());
 app.get('/users.json', (req, res) => {
   res.sendFile(path.join(__dirname, 'users.json'));
 });
+// Handle POST request to log denial
 app.post('/logDenial', (req, res) => {
   const { productId, productName, seller, status, reason } = req.body;
 
@@ -219,12 +220,12 @@ app.post('/logDenial', (req, res) => {
 
   // Add the new denial information to the notifications array
   notifs.push({
-      productId,
-      productName,
-      seller,
-      status,
-      reason,
-      timestamp: new Date().toISOString(),
+    productId,
+    productName,
+    seller,
+    status,
+    reason,
+    timestamp: new Date().toLocaleString(),
   });
 
   // Write the updated notifications array back to the file
@@ -600,7 +601,12 @@ const requireAuth = (req, res, next) => {
   next(); // Continue with the next middleware or route handler
 };
 
-
+app.get('/notifications',requireAuth, (_req, res) => {
+  res.sendFile(path.join(__dirname, 'assets/html', 'notifications.html'));
+});
+app.post('/notifications',requireAuth, (_req, res) => {
+  res.sendFile(path.join(__dirname, 'assets/html', 'notifications.html'));
+});
 app.post('/success',requireAuth, (_req, res) => {
   res.sendFile(path.join(__dirname, 'assets/html', 'success.html'));
 });

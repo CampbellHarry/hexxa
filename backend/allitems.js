@@ -12,7 +12,7 @@
         container.innerHTML = '';
 
         items.forEach(item => {
-          if (item.modapproval !== "false") {
+          if (item.modapproval == "true") {
             const div = document.createElement('div');
             div.classList.add('box2');
 
@@ -31,6 +31,9 @@
 
             console.log(productName);
             container.appendChild(div);
+          } else {
+            // If modapproval is false, don't create the item
+            console.log('modapproval is false, skipping item:', item);
           }
         });
       })
