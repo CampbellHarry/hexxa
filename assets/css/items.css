@@ -9,8 +9,9 @@ main {
 
 .product-image-container {
     margin-right: 2rem;
-    margin-top: 15px;
+    margin-top: 25px;
     border: black 3px solid;
+    margin-left: 10%;
 }
 
 .product-info-container {

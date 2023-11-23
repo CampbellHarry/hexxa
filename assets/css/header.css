@@ -12,14 +12,14 @@ body {
 }
 
 body{
-                background-image: linear-gradient(to right, #9b9a9a, #5499C7);
+        background-color: #6e6e6e;
                 margin: 0;
                 padding: 0;
                 overflow-x: hidden;
 }
 
 header{
-                background-image: linear-gradient(to top left, #00A5FF , #DDEBFF);
+                background-color: #6e6e6e;
                 margin: 0;
                 padding: 0;
                 display: flex;

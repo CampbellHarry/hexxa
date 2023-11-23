@@ -1,24 +1,9 @@
 [
   {
-    "productId": 1700738713071,
-    "productName": "Test",
-    "seller": "harrycampbell",
-    "status": "denied",
-    "reason": "Pricing concerns for this product",
-    "timestamp": "23/11/2023, 11:41:55"
-  },
-  {
-    "productId": 1700768308954,
-    "productName": "Cheeze",
+    "productId": 1700779741455,
+    "productName": "Harry Potter 2nd Edition",
     "seller": "test",
     "status": "accepted",
-    "timestamp": "23/11/2023, 19:41:59"
-  },
-  {
-    "productId": 1700768308954,
-    "productName": "Cheeze",
-    "seller": "test",
-    "status": "accepted",
-    "timestamp": "23/11/2023, 19:55:43"
+    "timestamp": "23/11/2023, 22:59:19"
   }
 ]
