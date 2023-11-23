@@ -40,6 +40,7 @@ fetch('./items.json')
                 // Add event listener to the "Approve" button
                 const approveButton = row.querySelector('.btn-approve');
                 approveButton.addEventListener('click', () => {
+                    logaccept(item.productId, item.seller, item.productName)
                     // Update the modapproval property to true
                     item.modapproval = true;
                     updateItemsJson(items);
@@ -92,6 +93,32 @@ function updateItemsJson(items) {
     })
     .catch(error => {
         console.error('Error updating items.json:', error);
+    });
+}
+
+function logaccept(productId, seller, productName,) {
+    // Log denial information in the notification database
+    return fetch('./logAccept', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            productId: productId,
+            seller: seller,
+            productName: productName,
+            status: 'accepted',
+        }),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        console.log('Accept information logged successfully!');
+        // Delete the item from the items.json file
+    })
+    .catch(error => {
+        console.error('Error logging accept information:', error);
     });
 }
 

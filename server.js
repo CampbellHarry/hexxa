@@ -219,12 +219,34 @@ app.post('/logDenial', (req, res) => {
   const notifs = existingNotifs ? JSON.parse(existingNotifs) : [];
 
   // Add the new denial information to the notifications array
-  notifs.push({
+  notifs.unshift({
     productId,
     productName,
     seller,
     status,
     reason,
+    timestamp: new Date().toLocaleString(),
+  });
+
+  // Write the updated notifications array back to the file
+  fs.writeFileSync('notifs.json', JSON.stringify(notifs, null, 2), 'utf8');
+
+  res.sendStatus(200);
+});
+// Handle POST request to log denial
+app.post('/logAccept', (req, res) => {
+  const { productId, productName, seller, status} = req.body;
+
+  // Load existing notifications from the file
+  const existingNotifs = fs.readFileSync('notifs.json', 'utf8');
+  const notifs = existingNotifs ? JSON.parse(existingNotifs) : [];
+
+  // Add the new denial information to the notifications array
+  notifs.unshift({
+    productId,
+    productName,
+    seller,
+    status,
     timestamp: new Date().toLocaleString(),
   });
 
@@ -1272,6 +1294,10 @@ app.post('/changePrice', (req, res) => {
 
 app.set('view engine', 'ejs');
 
+app.get('/getCurrentUser', (req, res) => {
+  const username = req.session.user;
+  res.json({ username });
+});
 
 app.get('/dashboardData', (req, res) => {
   const username = req.session.user;

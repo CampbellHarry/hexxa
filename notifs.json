@@ -6,5 +6,19 @@
     "status": "denied",
     "reason": "Pricing concerns for this product",
     "timestamp": "23/11/2023, 11:41:55"
+  },
+  {
+    "productId": 1700768308954,
+    "productName": "Cheeze",
+    "seller": "test",
+    "status": "accepted",
+    "timestamp": "23/11/2023, 19:41:59"
+  },
+  {
+    "productId": 1700768308954,
+    "productName": "Cheeze",
+    "seller": "test",
+    "status": "accepted",
+    "timestamp": "23/11/2023, 19:55:43"
   }
 ]

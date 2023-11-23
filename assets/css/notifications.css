@@ -37,6 +37,7 @@
     backdrop-filter: blur(10px);
     transform: scale(1);
     transition: 0.5s;
+    border-radius: 16px;
 }
 .title{
     font-size: 1.9rem;
@@ -55,7 +56,10 @@
 }
 .date{
     font-size: 1.2rem;
-    text-align: right;
+    border: black 2px solid;
+    width: 40%;
+    text-align: center;
+    float: right;
 }
 .notification:hover{
     transform: scale(1.1);

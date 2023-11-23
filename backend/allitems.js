@@ -12,7 +12,7 @@
         container.innerHTML = '';
 
         items.forEach(item => {
-          if (item.modapproval == "true") {
+          if (item.modapproval === true) { // Use strict equality operator
             const div = document.createElement('div');
             div.classList.add('box2');
 
@@ -32,11 +32,15 @@
             console.log(productName);
             container.appendChild(div);
           } else {
-            // If modapproval is false, don't create the item
-            console.log('modapproval is false, skipping item:', item);
+            if (item.modapproval === false) { // Use strict equality operator
+              console.log('modapproval is false, skipping item:', item);
+            } else {
+              console.error('modapproval is not a boolean, skipping item:', item);
+            }
           }
         });
       })
       .catch(error => {
-        console.error('Error fetching items:', error);
+        console.error('Error:', error);
       });
+  

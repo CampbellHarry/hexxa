@@ -38,8 +38,8 @@ header{
 .search-container {
                 display: flex;
                 align-items: center;
-                max-width: 390px;
-                width: auto;
+                max-width: 490px;
+                width: 490px;
 }
 
 .search-box {
