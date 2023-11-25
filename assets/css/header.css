@@ -283,6 +283,7 @@ nav {
                 text-align: center;
                 transition: 0.5s;
         }
+/* Issue with mobile support due too incorrect media queries */
         @media screen and (max-width: 674px) {
                 .search-box {
                         max-width: 130px;
