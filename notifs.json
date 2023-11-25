@@ -3,7 +3,16 @@
     "productId": 1700779741455,
     "productName": "Harry Potter 2nd Edition",
     "seller": "test",
-    "status": "accepted",
+    "status": "denied",
+    "reason": "Hexxa policy violation by the product",
+    "timestamp": "23/11/2023, 22:59:19"
+  },
+  {
+    "productId": 1700779741455,
+    "productName": "Harry Potter 2nd Edition",
+    "seller": "testa",
+    "status": "denied",
+    "reason": "Hexxa policy violation by the product",
     "timestamp": "23/11/2023, 22:59:19"
   }
 ]

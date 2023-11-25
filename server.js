@@ -3,6 +3,8 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const multer = require('multer');
+const helmet = require('helmet');
+require('dotenv').config();
 
 
 const app = express();
@@ -170,11 +172,59 @@ app.post('/login', (req, res) => {
 });
 const cookieParser = require('cookie-parser');
 
-// Add the following code before the route definitions
+
+const checkApiKey = (req, res, next) => {
+  const apiKey = req.headers['api-key'];
+  if (apiKey === process.env.API_KEY) {
+    next();
+  } else {
+    res.status(401).json({ error: 'Unauthorized access' });
+  }
+};
+
+// Apply the middleware to routes needing protection
+app.use('/items.json', checkApiKey);
+app.use('/users.json', checkApiKey);
+app.use('/basket.json', checkApiKey);
+app.use('/notifs.json', checkApiKey);
+
+// Middleware to parse JSON and form data
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Helmet middleware for setting HTTP headers
+app.use(helmet());
+
+// Content Security Policy (CSP)
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", 'trusted-cdn.com'],
+      // Add other directives as needed
+    },
+  })
+);
+
+// Protect sensitive routes middleware
 const protectSensitiveRoutes = (req, res, next) => {
-  // Check if the user is authenticated and has the necessary role
   if (req.session && req.session.user) {
-    // User is authenticated and has the 'admin' role, proceed to the next middleware
+    // Check if the user making the request matches the authenticated user
+    if (req.params.userId && req.params.userId !== req.session.user.id) {
+      // Unauthorized access, send an unauthorized response
+      return res.status(401).json({ error: 'Unauthorized access' });
+    }
+
+    // Only send necessary information to the client
+    const user = {
+      id: req.session.user.id,
+      username: req.session.user.username,
+    };
+
+    res.locals.user = user; // Make user data available to other middleware/routes
+    next();
+  } else if (req.method === 'POST') {
+    // Allow POST requests to go
     next();
   } else {
     // User is not authenticated or lacks the necessary permissions, send an unauthorized response
@@ -187,6 +237,13 @@ app.use('/items.json', protectSensitiveRoutes);
 app.use('/users.json', protectSensitiveRoutes);
 app.use('/basket.json', protectSensitiveRoutes);
 app.use('/notifs.json', protectSensitiveRoutes);
+
+
+// Sample route
+app.get('/security', (req, res) => {
+  res.send('Security Page');
+});
+
 
 // Example route accessible only to users with the 'admin' role
 app.get('/users.json', (req, res) => {

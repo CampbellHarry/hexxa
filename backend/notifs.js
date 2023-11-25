@@ -1,9 +1,14 @@
-// Function to fetch notifications from the server
 async function getNotifications() {
     try {
-        const currentUser = await getCurrentUser(); // Replace with the function that retrieves the current user's ID or username
-
-        const response = await fetch('/notifs.json');
+      const currentUser = await getCurrentUser(); // Replace with the function that retrieves the current user's ID or username
+      const apiKey = process.env.API_KEY
+  
+      const response = await fetch('/notifs.json', {
+        headers: {
+          'Api-Key': apiKey,
+        },
+      });
+  
         const notifications = await response.json();
         const container = document.getElementById('container');
         let holderElement = container.querySelector('.holder');

@@ -1,10 +1,16 @@
-fetch('./items.json')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-    })
+const apiKey = process.env.API_KEY;
+
+fetch('./items.json', {
+  headers: {
+    'Api-Key': apiKey,
+  },
+})
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
     .then(items => {
         console.log('Fetched items:', items);
 

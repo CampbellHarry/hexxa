@@ -19,13 +19,12 @@ body{
 }
 
 header{
-                background-color: #6e6e6e;
+                background-color: rgb(3, 161, 161);
                 margin: 0;
                 padding: 0;
                 display: flex;
                 justify-content: space-between;
                 height: 100px;
-                border-bottom: black 2px solid;
 }
 
 .logo {
@@ -38,8 +37,8 @@ header{
 .search-container {
                 display: flex;
                 align-items: center;
-                max-width: 490px;
-                width: 490px;
+                max-width: 300px;
+                width: 300px;
 }
 
 .search-box {
@@ -69,26 +68,6 @@ header{
                 font-family: Nunito;
 }
 
-.basket {
-                display: flex;
-                align-items: center;
-                width: auto;
-                margin-top: 5px;
-}
-
-.basket:hover {
-        cursor: pointer;
-}
-
-.basket p{
-                right: 60px;
-                top: -6px;
-                position: relative;
-}
-
-.basket img {
-                margin-right: 10px;
-}
 
 .signup {
                 color: var(--secondary);
@@ -106,20 +85,19 @@ header{
                 font-weight: bold;
 }
 
-nav {
-                display: flex;
-                justify-content: center;
-}
 
 ul {
                 display: flex;
                 list-style: none;
+                align-items: left;
                 margin: 0;
                 padding: 0;
+                justify-content: flex-start;
 }
 
 li {
                 margin: 0 10px;
+                
 }
 
 li a{
@@ -127,25 +105,13 @@ li a{
                 padding: 5px;
 }
 
-.box a {
-                color: var(--secondary);
-                text-decoration: none;
-                font-weight: bold;
-                border: white 2px solid;
-                background-image: linear-gradient(to top right, #424040, #999999);
-}
-
-.box a:hover {
-                color: black !important;
-                background-image: linear-gradient(to top right, transparent, transparent);
-                background-color: white;
-}
 
 nav {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: left;
         padding: 10px;
+        position: relative;
 }
 
 .burger-menu {
@@ -159,53 +125,18 @@ nav {
         margin: 5px;
 }
 
-.nav-links {
-        display: flex;
-        justify-content: center;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        position: absolute;
-        top: 900px;
-        left: 0;
-        display: none;
-        width: 100%;
-        background-color: var(--primary);
-        transform: scaleY(0);
-        transform-origin: top;
-        transition: transform 0.3s ease-in-out;
-        z-index: 1;
-}
-
-.nav-links li {
-        margin: 0 10px;
-        display: block;
-}
-
-.nav-links li a {
-        color: white;
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 18px;
-        letter-spacing: 1px;
-        padding: 5px;
-        display: block;
-}
-
-.nav-links li a:hover {
-        color: white;
-}
-
         header {
-                justify-content: space-between;
+                justify-content: left;
                 align-items: center;
                 padding: 20px;
         }
         .box a {
                 color: var(--secondary);
                 text-decoration: none;
-                border: white 2px solid;
-                background-image: linear-gradient(to top right, #424040, #999999);
+
+        }
+        li{
+                list-style: none;
         }
         .logo {
                 margin-bottom: 15px;
@@ -214,56 +145,156 @@ nav {
 
         .search-container {
                 max-width: 100%;
-                margin-top: 20px;
+                position: absolute;
+                right: 0;
+        }
+        .text {
+                margin-right: 0;
+                font-size: 1.2rem;
+                text-decoration: none;
+                color: white;
+        }
+        .text:hover{
+                text-decoration: underline;
+                color: #5e5e5e;
+        }
+        .tophead {
+                display: flex;
+                padding: 20px;
+                height: 50px !important;
+                background-color: rgb(2, 131, 131);
+                color: black;
         }
 
         .search-box {
                 max-width: 100%;
                 height: 50px;
+                position: absolute;
+                right: 0;
+                margin-right: 10px;
         }
         .search-box input[type="text"] {
                 width: 100%;
                 height: 100%;
         }
 
-        .basket p {
-                display: none;
-        }
+        .containe {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                margin-top: 20px;
 
+                gap: 10px;
+                gap: 10px;
+        }
+        .notifs{
+
+                cursor: pointer;
+        }
         .signup {
                 margin-right: 0;
+                overflow: visible;
         }
-
-        .nav-links {
-                position: static;
-                transform: scaleY(1);
-                background-color: transparent;
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
-                margin-top: 200px;
+        .basket{
+                margin-left: -13px;
+                cursor: pointer;
+        }
+        /* now doing header dropdowns */
+        .manageitems{
+                display: none;
+                position: absolute;
+                background-color: rgb(2, 131, 131);
                 width: 100%;
+                z-index: 1;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 10px;
+                border-radius: 10px;
+                margin-top: 10px;
         }
-
-        .nav-links li {
-                opacity: 1;
+        .buyitems{
+                display: none;
+                position: absolute;
+                background-color: rgb(2, 131, 131);
+                width: 100%;
+                z-index: 1;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 10px;
+                border-radius: 10px;
+        }
+        .help{
+                display: none;
+                position: absolute;
+                background-color: rgb(2, 131, 131);
+                width: 100%;
+                z-index: 1;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 10px;
+                border-radius: 10px;
+                margin-top: 10px;
+        }
+        .account{
+                display: none;
+                position: absolute;
+                background-color: rgb(2, 131, 131);
+                width: 100%;
+                z-index: 1;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 10px;
+                border-radius: 10px;
+                margin-top: 10px;
+        }
+        .buyhover:hover 
+        .buyitems{
+                display: block;
+        }
+        .issues{
+                height: auto !important;
+                background-color: rgb(0, 209, 0);
+                display: flex;
+                justify-content: center;
                 color: white;
                 text-align: center;
-                gap: 60px !important;
+                user-select: none;
         }
+        .issue{
+                border: green 2px solid;
+                padding: 5px;
+        }
+        .showissue {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
 
-        .burger-menu {
+            .showissue.show {
+                max-height: 500px;
                 display: block;
-                cursor: pointer;
-                color: white;
-
-        }
-        
-        .nav-active {
-                transform: scaleY(1);
-                display: block;
-        }
-        
-        .burger-menu.hidden {
+            }
+        .showissue{
                 display: none;
+                text-align: center;
+                transition: 0.5s;
+        }
+        @media screen and (max-width: 674px) {
+                .search-box {
+                        max-width: 130px;
+                        width: 130px;
+                }
+                .buyitems{
+                        display: none;
+                }
+                .buyhover{
+                        display: none;
+                }
+                .box{
+                        display: none;
+                }
         }
