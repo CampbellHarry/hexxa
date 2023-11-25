@@ -34,6 +34,7 @@ Start the server
   node server.js
 ```
 
+Remember to create a .env file with API_KEY and your key 
 
 ## Tech Stack
 
