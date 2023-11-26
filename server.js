@@ -407,15 +407,13 @@ function renderProductPage(product) {
   <body>
   <header class="issues">
   <div class="issuee">
-      Click here for the latest issues regarding Hexxa.
-      <img src="/assets/images/issue.png" alt="Issue" height="30px">
-      <div class="showissue">
-          <div class="issue">
-              <h3>All operational.</h3>
-              <p>No issues reported. If you face an issue, please let us know.</p>
-          </div>
-      </div>
-  </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+      $('.issuee').load('/assets/html/header.html');
+  });
+</script>
+</div>
 </header>
 <header class="tophead">
 <div class="search-container">
@@ -630,7 +628,6 @@ function readItemsFile() {
   const fileContent = fs.readFileSync(filePath, 'utf-8');
   return JSON.parse(fileContent);
 }
-
 // Function to check if items.json file has changed
 function hasItemsFileChanged(lastModifiedTime) {
   const filePath = path.join(__dirname, 'items.json');
@@ -711,7 +708,9 @@ app.get('/shopping',requireAuth, (_req, res) => {
 app.post('/shopping',requireAuth, (_req, res) => {
   res.sendFile(path.join(__dirname, 'assets/html', 'shopping.html'));
 });
-
+app.get('/support',requireAuth, (_req, res) => {
+  res.sendFile(path.join(__dirname, 'assets/html', 'support.html'));
+});
 
 app.get('/allitems',requireAuth, (_req, res) => {
   res.sendFile(path.join(__dirname, 'assets/html', 'allitems.html'));
@@ -898,15 +897,13 @@ function renderUserPage(user) {
   <body>
   <header class="issues">
   <div class="issuee">
-      Click here for the latest issues regarding Hexxa.
-      <img src="/assets/images/issue.png" alt="Issue" height="30px">
-      <div class="showissue">
-          <div class="issue">
-              <h3>All operational.</h3>
-              <p>No issues reported. If you face an issue, please let us know.</p>
-          </div>
-      </div>
-  </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+      $('.issuee').load('/assets/html/header.html');
+  });
+</script>
+</div>
 </header>
 <header class="tophead">
 <div class="search-container">

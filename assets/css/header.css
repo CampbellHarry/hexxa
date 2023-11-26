@@ -255,34 +255,7 @@ nav {
         .buyitems{
                 display: block;
         }
-        .issues{
-                height: auto !important;
-                background-color: rgb(0, 209, 0);
-                display: flex;
-                justify-content: center;
-                color: white;
-                text-align: center;
-                user-select: none;
-        }
-        .issue{
-                border: green 2px solid;
-                padding: 5px;
-        }
-        .showissue {
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.3s ease;
-            }
 
-            .showissue.show {
-                max-height: 500px;
-                display: block;
-            }
-        .showissue{
-                display: none;
-                text-align: center;
-                transition: 0.5s;
-        }
         @media screen and (max-width: 674px) {
                 .search-box {
                         max-width: 130px;

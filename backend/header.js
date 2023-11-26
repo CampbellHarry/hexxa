@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
         showIssues.classList.toggle('show');
     }
 
-    const issueElement = document.querySelector('.issuee');
+    const issueElement = document.querySelector('.issues');
     issueElement.addEventListener('click', showIssue);
 });
 
@@ -22,4 +22,17 @@ fetch('/getUsername')
 const basket = document.querySelector('.basket');
 basket.addEventListener('click', () => {
     window.location.href = '/basket';
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', '/assets/html/header.html', true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            const response = xhr.responseText;
+            const issueeElement = document.querySelector('.issuee');
+            issueeElement.innerHTML = response;
+        }
+    };
+    xhr.send();
 });

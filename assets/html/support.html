@@ -7,12 +7,17 @@
     <link rel="icon" href="/assets/images/favicon.png">
     <link rel="stylesheet" href="/assets/css/header.css">
     <link rel="stylesheet" href="/assets/css/footer.css">
-    <link rel="stylesheet" href="/assets/css/team.css">
+    <link rel="stylesheet" href="/assets/css/support.css">
 </head>
 <body>
     <header class="issues">
         <div class="issuee">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.issuee').load('/assets/html/header.html');
+        });
+    </script>
     </div>
     </header>
     <header class="tophead">
@@ -71,62 +76,30 @@
         </nav>
 </header>
     <main>
-        <h1>Meet the Team</h1>
-        <section class="executives">
-            <div class="exec" onclick="togglePopup('harryc')">
-                <img src="/assets/images/owner.png" alt="CEO">
-                <h3>Technical Project Lead</h3>
-                <h2>Harry Campbell</h2>
-            </div>
-
-        <div id="harryc" class="popup">
-            <button class="closebtn" onclick="closePopup('harryc')"><h4>X</h4></button>
-            <h2>Harry Campbell         <img src="/assets/images/owner.png" width="40px" alt="CEO"></h2>
-            <h3>Harry is the project manager and lead developer of Hexxa. He specialises in Front-end and Back-end Development.</h3>
-            <div class="socials">
-                <a href="https://www.linkedin.com/in/harry-campbell-75ab83250/"><img src="/assets/images/indexphotos/LinkedIn_icon.svg.png" width="50px" alt="LinkedIn"></a>
-                <a href="github.com/campbellharry"><img src="/assets/images/indexphotos/github-icon-2048x1999-d37ckpm6-removebg-preview.png" width="50px" alt="GitHub"></a>
-            </div>
-            </div>
-          </div>
-          <div id="overlay" onclick="closePopup('harryc')" class="overlay"></div>
-            <div class="exec" onclick="togglePopup('fin')">
-                <img src="/assets/images/developer.png" alt="CEO">
-                <h3>Icon Design</h3>
-                <h2>Finley Martin</h2>
+        <section>
+            <div class="support">
+                <h1>Do you need help with a recent item, <span id="username1">USERNAME</span>?</h1>
+                <div class="support-item">
+                    <h2>Choose the item you require assistance with or seek support for a different matter.</h2>
+                <div class="itemwrapper">
+                    <div class="item" role="button">
+                        <div class="itemimg">
+                            <img src="/assets/images/hexxa.png" alt="Phone" height="auto" style="max-height: 100px; max-width: 100px;">
+                        </div>
+                        <div class="itemtext">
+                            <h3>Test item</h3>
+                            <p>Delivered on the 26th of November</p>
+                        </div>
+                    </div>
             </div>
         </section>
-        <div id="fin" class="popup">
-            <button class="closebtn" onclick="closePopup('fin')"><h4>X</h4></button>
-            <h2>Finley Martin         <img src="/assets/images/developer.png" width="40px" alt="CEO"></h2>
-            <h3>Finley assists with icons in Hexxa and has assisted Harry with tests.</h3>
-            <div class="socials">
-                <a href="https://www.linkedin.com/in/finleymartin/"><img src="/assets/images/indexphotos/LinkedIn_icon.svg.png" width="50px" alt="LinkedIn"></a>
-                <a href="https://github.com/3zia"><img src="/assets/images/indexphotos/github-icon-2048x1999-d37ckpm6-removebg-preview.png" width="50px" alt="GitHub"></a>
-            </div>
-            </div>
-          </div>
-          <div id="overlay" onclick="closePopup('fin')" class="overlay"></div>
+        <section>
+            <div class="support">
+                <h1>Explore more ways we can help.</h1>
+                <div class="support-item">
+                    <h2>Easily address your needs on this site or contact us when you require assistance.</h2>
+        </section>
     </main>
-    <script>
-        function togglePopup(popupId) {
-            var popup = document.getElementById(popupId);
-            var overlay = document.getElementById('overlay');
-
-            popup.style.display = 'block';
-            overlay.style.display = 'block';
-        }
-
-        function closePopup(popupId) {
-            var popup = document.getElementById(popupId);
-            var overlay = document.getElementById('overlay');
-
-            popup.style.display = 'none';
-            overlay.style.display = 'none';
-
-        }
-        
-    </script>
         <script src="/backend/header.js"></script>
     <footer>
         <div class="footer-container">

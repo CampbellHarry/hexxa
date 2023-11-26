@@ -1,0 +1,42 @@
+<style>
+            .issues{
+                height: auto !important;
+                background-color: red;
+                display: flex;
+                justify-content: center;
+                color: white;
+                text-align: center;
+                user-select: none;
+        }
+        .issue{
+                border: rgb(255, 255, 255) 2px solid;
+                padding: 5px;
+        }
+        .showissue {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+
+            .showissue.show {
+                max-height: 500px;
+                display: block;
+            }
+        .showissue{
+                display: none;
+                text-align: center;
+                transition: 0.5s;
+        }
+</style>
+<header class="issues" >
+    <div class="issuee">
+        <h>Issues reported</h>
+        <img src="/assets/images/issue.png" alt="Issue" height="30px">
+        <div class="showissue">
+            <div class="issue">
+                <h3>Support page is currently under maintenance.</h3>
+                <p>Support page will be temporarily disabled.</p>
+            </div>
+        </div>
+    </div>
+</header>
