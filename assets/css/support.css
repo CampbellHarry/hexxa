@@ -21,18 +21,22 @@ h2{
     margin-left: 10%;
 }
 .itemwrapper{
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    align-items: left;
-    margin: 1rem 0;
-    gap: 10px;
-    flex-wrap: wrap;
-    overflow: inherit;
-    flex-wrap: wrap;
+display: flex;
+flex-direction: row;
+justify-content: left;
+align-items: left;
+margin: 1rem 0;
+gap: 10px;
+flex-wrap: wrap;
+overflow: inherit;
 }
 [role="button"]{
     cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+[role="button"]:hover{
+    border-color: rgb(76, 0, 255) !important;
+    transition: all 0.3s ease 0s;
 }
 .item{
     height: 94px;
@@ -41,14 +45,14 @@ h2{
     width: 30%;
     border: 1px solid #ddd;
     display: flex;
+    transition: all 0.3s ease 0s;
+    min-width: 30%;
 }
 .item img{
     width: 100%;
 }
 .item h3{
-
     color: #fff;
-
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
@@ -64,4 +68,55 @@ h2{
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-align: left;
+}
+.supportfortings {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: left;
+    margin: 1rem 0;
+    gap: 10px;
+    flex-wrap: wrap;
+    overflow: inherit;
+    width: 80%;
+}
+
+.boxxa {
+    height: 94px;
+    background-color: #000000;
+    border-radius: 5px;
+    width: 30%;
+    border: 1px solid #ddd;
+    display: flex;
+    text-align: center;
+    color: white;
+    min-width: 30%;
+}
+.infobox{
+    margin: 1rem 0;
+    text-align: left;
+    color: black;
+    overflow: inherit;
+    flex-wrap: wrap;
+    height: auto;
+    width: 80%;
+    background-color: white;
+    margin-left: 10%;
+    border-left: 10px solid #004a57;
+    border-radius: 10px;
+}
+.infobox h3, .infobox p{
+    margin-left: 10px;
+}
+.infobox h3{
+    margin-top: 30px;
+    padding: 3px;
+}
+.infobox p{
+    margin-top: -10px;
+}
+@media screen and (max-width: 868px) {
+    .boxxa {
+        width: 100%;
+    }
 }

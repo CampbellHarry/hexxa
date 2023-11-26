@@ -1,21 +1,23 @@
 <style>
             .issues{
-                height: auto !important;
-                background-color: red;
+                background-color: green;
                 display: flex;
                 justify-content: center;
                 color: white;
                 text-align: center;
                 user-select: none;
+                height: auto;
+                max-height: 115px;
         }
         .issue{
                 border: rgb(255, 255, 255) 2px solid;
                 padding: 5px;
+                height: auto !important;
         }
         .showissue {
-                max-height: 0;
                 overflow: hidden;
                 transition: max-height 0.3s ease;
+                height: auto !important;
             }
 
             .showissue.show {
@@ -26,16 +28,17 @@
                 display: none;
                 text-align: center;
                 transition: 0.5s;
+                height: auto !important;
         }
 </style>
 <header class="issues" >
     <div class="issuee">
-        <h>Issues reported</h>
+        <h>All Hexxa pages are functional</h>
         <img src="/assets/images/issue.png" alt="Issue" height="30px">
         <div class="showissue">
             <div class="issue">
-                <h3>Support page is currently under maintenance.</h3>
-                <p>Support page will be temporarily disabled.</p>
+                <h3>All Hexxa pages are functional</h3>
+                <p>Please report a issue if you see one.</p>
             </div>
         </div>
     </div>
