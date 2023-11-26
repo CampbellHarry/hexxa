@@ -178,36 +178,8 @@
             </p>
         </div>
     </footer>
-    <script>
-      fetch('/getUsername')
-    .then(response => response.json())
-    .then(data => {
-      var usernameElement = document.getElementById("username");
-      usernameElement.innerHTML = data.username;
-    })
-    .catch(error => console.error('Error:', error));
-  </script>
+    <script src="/backend/header.js"></script>
   <script src="/backend/basca.js"></script>
-  <script hidden>
-  const burgerMenu = document.querySelector('.burger-menu');
-  const navLinks = document.querySelector('.nav-links');
-  const links = document.querySelectorAll('.nav-links li');
-
-  burgerMenu.addEventListener('click', () => {
-      // Toggle Nav
-      navLinks.classList.toggle('nav-active');
-
-      // Burger Animation
-      burgerMenu.classList.toggle('toggle');
-
-      // Hide navLinks when it's not active
-      if (!navLinks.classList.contains('nav-active')) {
-          navLinks.style.display = 'none';
-      } else {
-          navLinks.style.display = 'block';
-      }
-  });
-</script>
 <script>
 const popdown = () => {
     var popup = document.getElementById("moreinfo");

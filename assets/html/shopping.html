@@ -11,12 +11,13 @@
 </head>
 <body>
     <header class="issues">
-        <div class="issuee" onclick="showissue()">
-            Click here for the latest issues regarding Hexxa. <img src="/assets/images/issue.png" alt="Issue" height="30px">
+        <div class="issuee">
+            Click here for the latest issues regarding Hexxa.
+            <img src="/assets/images/issue.png" alt="Issue" height="30px">
             <div class="showissue">
                 <div class="issue">
                     <h3>All operational.</h3>
-                    <p>No issues reported. If you face a issue please let us know.</p>
+                    <p>No issues reported. If you face an issue, please let us know.</p>
                 </div>
             </div>
         </div>
@@ -172,58 +173,7 @@
         </div>
     </footer>
         <script src="/backend/auth.js"></script>
-        <script>
-                function showIssue() {
-                    const issues = document.querySelector('.issues');
-                    const showIssues = document.querySelector('.showissue');
-                    issues.onclick = function() {
-                        showIssues.classList.toggle('show');
-                    }
-                }
-                showIssue(); // Call the function to enable the functionality
-        </script>
-        <style>
-        </style>
-<script>
-    fetch('/getUsername')
-      .then(response => response.json())
-      .then(data => {
-        var usernameElement = document.getElementById("username");
-        usernameElement.innerHTML = data.username;
-        var linkElement = document.getElementById("link");
-        linkElement.href = "/user/" + data.username;
-
-      })
-      .catch(error => console.error('Error:', error));
-  </script>
-      <script>
-        const burgerMenu = document.querySelector('.burger-menu');
-        const navLinks = document.querySelector('.nav-links');
-        const links = document.querySelectorAll('.nav-links li');
-
-        burgerMenu.addEventListener('click', () => {
-            // Toggle Nav
-            navLinks.classList.toggle('nav-active');
-
-            // Animate Links
-            links.forEach((link, index) => {
-                if (link.style.animation) {
-                    link.style.animation = '';
-                } else {
-                    link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
-                }
-            });
-
-            // Burger Animation
-            burgerMenu.classList.toggle('toggle');
-        });
-    </script>
+        <script src="/backend/header.js"></script>
     <script src="/backend/basca.js"></script>
-    <script>
-        const basket = document.querySelector('.basket');
-        basket.addEventListener('click', () => {
-            window.location.href = '/basket';
-        });
-    </script>
 </body>
 </html>

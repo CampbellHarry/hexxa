@@ -16,7 +16,7 @@ const rateLimit = require('express-rate-limit');
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 830, // max 100 requests per windowMs
+  max: 10000, // max 100 requests per windowMs
 });
 
 app.use(limiter);
@@ -200,8 +200,7 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", 'trusted-cdn.com'],
-      // Add other directives as needed
+      scriptSrc: ["'self'", 'localhost:3000'],
     },
   })
 );
@@ -406,36 +405,73 @@ function renderProductPage(product) {
   
   </head>
   <body>
-      <header>
-          <img src="/assets/images/favicon.png" alt="Hexxa Logo" height="100px">
-          <div class="search-container">
-              <div class="search-box">
-                  <input type="text" placeholder="Search for products, brands and more with Hexxa">
-                  <button>Search</button>
-              </div>
+  <header class="issues">
+  <div class="issuee">
+      Click here for the latest issues regarding Hexxa.
+      <img src="/assets/images/issue.png" alt="Issue" height="30px">
+      <div class="showissue">
+          <div class="issue">
+              <h3>All operational.</h3>
+              <p>No issues reported. If you face an issue, please let us know.</p>
           </div>
-          <div class="basket">
-              <img src="/assets/images/shoppingb.png" height="50px" alt="Basket" class="basket">
-                  <p id="basketcount">0</p>
-          </div>
-          <nav>
-              <ul class="nav-links">
-                  <li class="box"><a class="text" href="">Welcome <span id="username"></span>!</a></li>
-                  <li class="box"><a class="text" href="/">Home</a></li>
-                  <li class="box"><a class="text" href="/shopping">Shopping</a></li>
-                  <li class="box"><a class="text" href="/allitems">All Items</a></li>
-                  <li class="box"><a class="text" href="/sell">Sell an Item</a></li>
-                  <li class="box"><a class="text" href="/dashboard">Manage Your Items</a></li>
-                  <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
-                  <li class="box"><a class="text" href="#contact">Contact</a></li>
-              </ul>
-              <div class="burger-menu">
-                  <div class="line"></div>
-                  <div class="line"></div>
-                  <div class="line"></div>
-              </div>
-          </nav>
-  </header>
+      </div>
+  </div>
+</header>
+<header class="tophead">
+<div class="search-container">
+  <div class="search-box">
+      <input type="text" placeholder="Search for products, brands and more with Hexxa">
+      <button>Search</button>
+  </div>
+</div>
+<div class="containe">
+  <div class="login">
+      <a href="/login" class="text">Sign In</a>
+  </div>
+  <p style="color: white; font-size: 1.2rem;">|</p>
+  <div class="notifs">
+      <a href="/notifications" class="text">Notifications</a>
+  </div>
+      <img src="/assets/images/notifs.png" height="55px" alt="Basket" class="basket">
+  <p style="color: white; font-size: 1.2rem;">|</p>
+  <div class="basket">
+      <img src="/assets/images/shoppingb.png" height="100px" alt="Basket" class="basket">
+  </div>
+</div>
+</header>
+<header>
+  <img src="/assets/images/favicon.png" alt="Hexxa Logo" height="100px">
+  <nav>
+      <ul>
+          <li class="box"><p class="text">Welcome <span id="username"></span>!</p></li>
+              <li class="box buyhover"><p class="text buyhover">Buy Items</p>
+                  <ul class="buyitems">
+                      <li><a href="/allitems" class="text buyhover">Browse Items</a></li>
+                      <li><a href="/shopping" class="text buyhover">Store front</a></li>
+                  </ul>
+              </li>
+              <li class="box buyhover"><p class="text buyhover">Manage Items</p>
+                  <ul class="buyitems">
+                      <li><a href="" class="text buyhover">Sell with Hexxa</a></li>
+                      <li><a href="" class="text buyhover">Manage your Items</a></li>
+                  </ul>
+              </li>
+              <li class="box buyhover"><p class="text buyhover" href="">Help</p>
+                  <ul class="buyitems">
+                      <li><a href="" class="text buyhover">FAQs</a></li>
+                      <li><a href="" class="text buyhover">Contact Us</a></li>
+                  </ul>
+              </li>
+                  <li class="box buyhover"><p class="text buyhover">Account</p>
+                      <ul class="buyitems">
+                      <li><a href="" class="text buyhover">Account Settings</a></li>
+                      <li><a href="" class="text buyhover">Orders</a></li>
+                      <li><a href="" class="text buyhover">Saved Items</a></li>
+                      <li><a href="" class="text buyhover">Sign Out</a></li>
+                  </ul>
+      </ul>
+  </nav>
+</header>
       <main>
           <section class="product-image-container">
               <img src="/assets/images/hexxa.png" alt="Product Image">
@@ -571,36 +607,8 @@ function renderProductPage(product) {
               </p>
           </div>
       </footer>
-      <script>
-        fetch('/getUsername')
-      .then(response => response.json())
-      .then(data => {
-        var usernameElement = document.getElementById("username");
-        usernameElement.innerHTML = data.username;
-      })
-      .catch(error => console.error('Error:', error));
-    </script>
     <script src="/backend/basca.js"></script>
-    <script hidden>
-    const burgerMenu = document.querySelector('.burger-menu');
-    const navLinks = document.querySelector('.nav-links');
-    const links = document.querySelectorAll('.nav-links li');
-  
-    burgerMenu.addEventListener('click', () => {
-        // Toggle Nav
-        navLinks.classList.toggle('nav-active');
-  
-        // Burger Animation
-        burgerMenu.classList.toggle('toggle');
-  
-        // Hide navLinks when it's not active
-        if (!navLinks.classList.contains('nav-active')) {
-            navLinks.style.display = 'none';
-        } else {
-            navLinks.style.display = 'block';
-        }
-    });
-  </script>
+    <script src="/backend/header.js"></script>
   <script>
   const popdown = () => {
       var popup = document.getElementById("moreinfo");
@@ -610,9 +618,7 @@ function renderProductPage(product) {
           popup.style.display = "none";
       }
   }
-  
   </script>
-  <script src="/backend/basca.js"></script>
   </body>
   </html>
   `;
@@ -890,35 +896,72 @@ function renderUserPage(user) {
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
-      <header>
-          <img src="/assets/images/favicon.png" alt="Hexxa Logo" height="100px">
-          <div class="search-container">
-              <div class="search-box">
-                  <input type="text" placeholder="Search for products, brands and more with Hexxa">
-                  <button>Search</button>
-              </div>
+  <header class="issues">
+  <div class="issuee">
+      Click here for the latest issues regarding Hexxa.
+      <img src="/assets/images/issue.png" alt="Issue" height="30px">
+      <div class="showissue">
+          <div class="issue">
+              <h3>All operational.</h3>
+              <p>No issues reported. If you face an issue, please let us know.</p>
           </div>
-          <div class="basket">
-              <img src="/assets/images/shoppingb.png" height="50px" alt="Basket" class="basket">
-                  <p id="basketcount">0</p>
-          </div>
-          <nav>
-          <ul class="nav-links">
-          <li class="box"><a class="text" href="">Welcome <span id="username"></span>!</a></li>
-          <li class="box"><a class="text" href="/">Home</a></li>
-          <li class="box"><a class="text" href="/shopping">Shopping</a></li>
-          <li class="box"><a class="text" href="/allitems">All Items</a></li>
-          <li class="box"><a class="text" href="/sell">Sell an Item</a></li>
-          <li class="box"><a class="text" href="/dashboard">Manage Your Items</a></li>
-          <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
-          <li class="box"><a class="text" href="#contact">Contact</a></li>
+      </div>
+  </div>
+</header>
+<header class="tophead">
+<div class="search-container">
+  <div class="search-box">
+      <input type="text" placeholder="Search for products, brands and more with Hexxa">
+      <button>Search</button>
+  </div>
+</div>
+<div class="containe">
+  <div class="login">
+      <a href="/login" class="text">Sign In</a>
+  </div>
+  <p style="color: white; font-size: 1.2rem;">|</p>
+  <div class="notifs">
+      <a href="/notifications" class="text">Notifications</a>
+  </div>
+      <img src="/assets/images/notifs.png" height="55px" alt="Basket" class="basket">
+  <p style="color: white; font-size: 1.2rem;">|</p>
+  <div class="basket">
+      <img src="/assets/images/shoppingb.png" height="100px" alt="Basket" class="basket">
+  </div>
+</div>
+</header>
+<header>
+  <img src="/assets/images/favicon.png" alt="Hexxa Logo" height="100px">
+  <nav>
+      <ul>
+          <li class="box"><p class="text">Welcome <span id="username"></span>!</p></li>
+              <li class="box buyhover"><p class="text buyhover">Buy Items</p>
+                  <ul class="buyitems">
+                      <li><a href="/allitems" class="text buyhover">Browse Items</a></li>
+                      <li><a href="/shopping" class="text buyhover">Store front</a></li>
+                  </ul>
+              </li>
+              <li class="box buyhover"><p class="text buyhover">Manage Items</p>
+                  <ul class="buyitems">
+                      <li><a href="" class="text buyhover">Sell with Hexxa</a></li>
+                      <li><a href="" class="text buyhover">Manage your Items</a></li>
+                  </ul>
+              </li>
+              <li class="box buyhover"><p class="text buyhover" href="">Help</p>
+                  <ul class="buyitems">
+                      <li><a href="" class="text buyhover">FAQs</a></li>
+                      <li><a href="" class="text buyhover">Contact Us</a></li>
+                  </ul>
+              </li>
+                  <li class="box buyhover"><p class="text buyhover">Account</p>
+                      <ul class="buyitems">
+                      <li><a href="" class="text buyhover">Account Settings</a></li>
+                      <li><a href="" class="text buyhover">Orders</a></li>
+                      <li><a href="" class="text buyhover">Saved Items</a></li>
+                      <li><a href="" class="text buyhover">Sign Out</a></li>
+                  </ul>
       </ul>
-          <div class="burger-menu">
-              <div class="line"></div>
-              <div class="line"></div>
-              <div class="line"></div>
-          </div>
-      </nav>
+  </nav>
 </header>
       <main>
           <div class="user">
@@ -986,17 +1029,7 @@ function renderUserPage(user) {
           </div>
       </footer>
       <script src="/backend/user.js"></script>
-      <script>
-              fetch('/getUsername')
-    .then(response => response.json())
-    .then(data => {
-      var usernameElement = document.getElementById("username1");
-      var usernameElement1 = document.getElementById("username");
-      usernameElement.innerHTML = data.username;
-      usernameElement1.innerHTML = data.username;
-    })
-    .catch(error => console.error('Error:', error));
-      </script>
+      <script src="/backend/header.js"></script>
       <script src="/backend/basca.js"></script>
   </body>
   </html>

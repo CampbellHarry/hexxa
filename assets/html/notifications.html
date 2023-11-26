@@ -11,34 +11,71 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.4/purify.min.js"></script>
 </head>
 <body>
+    <header class="issues">
+        <div class="issuee">
+            Click here for the latest issues regarding Hexxa.
+            <img src="/assets/images/issue.png" alt="Issue" height="30px">
+            <div class="showissue">
+                <div class="issue">
+                    <h3>All operational.</h3>
+                    <p>No issues reported. If you face an issue, please let us know.</p>
+                </div>
+            </div>
+        </div>
+    </header>
+    <header class="tophead">
+    <div class="search-container">
+        <div class="search-box">
+            <input type="text" placeholder="Search for products, brands and more with Hexxa">
+            <button>Search</button>
+        </div>
+    </div>
+    <div class="containe">
+        <div class="login">
+            <a href="/login" class="text">Sign In</a>
+        </div>
+        <p style="color: white; font-size: 1.2rem;">|</p>
+        <div class="notifs">
+            <a href="/notifications" class="text">Notifications</a>
+        </div>
+            <img src="/assets/images/notifs.png" height="55px" alt="Basket" class="basket">
+        <p style="color: white; font-size: 1.2rem;">|</p>
+        <div class="basket">
+            <img src="/assets/images/shoppingb.png" height="100px" alt="Basket" class="basket">
+        </div>
+    </div>
+    </header>
     <header>
         <img src="/assets/images/favicon.png" alt="Hexxa Logo" height="100px">
-        <div class="search-container">
-            <div class="search-box">
-                <input type="text" placeholder="Search for products, brands and more with Hexxa">
-                <button>Search</button>
-            </div>
-        </div>
-        <div class="basket">
-            <img src="/assets/images/shoppingb.png" height="50px" alt="Basket" class="basket">
-                <p id="basketcount">0</p>
-        </div>
         <nav>
-            <ul class="nav-links">
-                <li class="box"><a class="text" href="">Welcome <span id="username"></span>!</a></li>
-                <li class="box"><a class="text" href="/">Home</a></li>
-                <li class="box"><a class="text" href="/shopping">Shopping</a></li>
-                <li class="box"><a class="text" href="/allitems">All Items</a></li>
-                <li class="box"><a class="text" href="/sell">Sell an Item</a></li>
-                <li class="box"><a class="text" href="/dashboard">Manage Your Items</a></li>
-                <li class="box"><a class="text" href="#customer-service">Customer Service</a></li>
-                <li class="box"><a class="text" href="#contact">Contact</a></li>
+            <ul>
+                <li class="box"><p class="text">Welcome <span id="username"></span>!</p></li>
+                    <li class="box buyhover"><p class="text buyhover">Buy Items</p>
+                        <ul class="buyitems">
+                            <li><a href="/allitems" class="text buyhover">Browse Items</a></li>
+                            <li><a href="/shopping" class="text buyhover">Store front</a></li>
+                        </ul>
+                    </li>
+                    <li class="box buyhover"><p class="text buyhover">Manage Items</p>
+                        <ul class="buyitems">
+                            <li><a href="" class="text buyhover">Sell with Hexxa</a></li>
+                            <li><a href="" class="text buyhover">Manage your Items</a></li>
+                        </ul>
+                    </li>
+                    <li class="box buyhover"><p class="text buyhover" href="">Help</p>
+                        <ul class="buyitems">
+                            <li><a href="" class="text buyhover">FAQs</a></li>
+                            <li><a href="" class="text buyhover">Contact Us</a></li>
+                        </ul>
+                    </li>
+                        <li class="box buyhover"><p class="text buyhover">Account</p>
+                            <ul class="buyitems">
+                            <li><a href="" class="text buyhover">Account Settings</a></li>
+                            <li><a href="" class="text buyhover">Orders</a></li>
+                            <li><a href="" class="text buyhover">Saved Items</a></li>
+                            <li><a href="" class="text buyhover">Sign Out</a></li>
+                        </ul>
             </ul>
-            <div class="burger-menu">
-                <div class="line"></div>
-                <div class="line"></div>
-                <div class="line"></div>
-            </div>
         </nav>
 </header>
 <main>
@@ -84,37 +121,7 @@
         </div>
 </footer>
     <script src="/backend/auth.js"></script>
-    <script>
-        const burgerMenu = document.querySelector('.burger-menu');
-        const navLinks = document.querySelector('.nav-links');
-        const links = document.querySelectorAll('.nav-links li');
-
-        burgerMenu.addEventListener('click', () => {
-            // Toggle Nav
-            navLinks.classList.toggle('nav-active');
-
-            // Animate Links
-            links.forEach((link, index) => {
-                if (link.style.animation) {
-                    link.style.animation = '';
-                } else {
-                    link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
-                }
-            });
-
-            // Burger Animation
-            burgerMenu.classList.toggle('toggle');
-        });
-        fetch('/getUsername')
-  .then(response => response.json())
-  .then(data => {
-    var usernameElement = document.getElementById("username");
-    var usernameElement1 = document.getElementById("username1");
-    usernameElement.innerHTML = data.username;
-    usernameElement1.innerHTML = data.username;
-  })
-  .catch(error => console.error('Error:', error));
-    </script>
+    <script src="/backend/header.js"></script>
     <script src="/backend/notifs.js"></script>
 </body>
 </html>
