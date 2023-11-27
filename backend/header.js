@@ -13,6 +13,8 @@ fetch('/getUsername')
 .then(data => {
   var usernameElement = document.getElementById("username");
   usernameElement.innerHTML = data.username;
+  var usernameElement1 = document.getElementById("username1");
+  usernameElement1.innerHTML = data.username;
   var linkElement = document.getElementById("link");
   linkElement.href = "/user/" + data.username;
 

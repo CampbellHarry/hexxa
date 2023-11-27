@@ -1,4 +1,4 @@
-const apiKey = process.env.API_KEY;
+const apiKey = 'wsdhnv9uvhw48743gv08gsv8gwe8v74308503-23482-3-29057uhvssuig974tgsorgy7h6igsykrdb8765t3bkergfbv347tnknvg537bknvtgk7ut65vb46d7jvtf45e8in6kls,rgyise7y,hukhai74tgawgfyg4waf7iadp86t86wtb374ftg8643gv';
 
 fetch('./items.json', {
   headers: {

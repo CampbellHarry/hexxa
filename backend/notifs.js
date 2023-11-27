@@ -1,11 +1,12 @@
 async function getNotifications() {
     try {
-      const currentUser = await getCurrentUser(); // Replace with the function that retrieves the current user's ID or username
-      const apiKey = process.env.API_KEY
+      const currentUser = await getCurrentUser();
+
+    const apiKey = 'wsdhnv9uvhw48743gv08gsv8gwe8v74308503-23482-3-29057uhvssuig974tgsorgy7h6igsykrdb8765t3bkergfbv347tnknvg537bknvtgk7ut65vb46d7jvtf45e8in6kls,rgyise7y,hukhai74tgawgfyg4waf7iadp86t86wtb374ftg8643gv';
   
-      const response = await fetch('/notifs.json', {
+    const response = await fetch('/notifs.json', {
         headers: {
-          'Api-Key': apiKey,
+          'api-key': apiKey,
         },
       });
   

@@ -3,7 +3,6 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const multer = require('multer');
-const helmet = require('helmet');
 require('dotenv').config();
 
 
@@ -191,19 +190,6 @@ app.use('/notifs.json', checkApiKey);
 // Middleware to parse JSON and form data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// Helmet middleware for setting HTTP headers
-app.use(helmet());
-
-// Content Security Policy (CSP)
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", 'localhost:3000'],
-    },
-  })
-);
 
 // Protect sensitive routes middleware
 const protectSensitiveRoutes = (req, res, next) => {
@@ -424,7 +410,7 @@ function renderProductPage(product) {
 </div>
 <div class="containe">
   <div class="login">
-      <a href="/login" class="text">Sign In</a>
+      <a href="/login" class="text"><span id="username"></span></a>
   </div>
   <p style="color: white; font-size: 1.2rem;">|</p>
   <div class="notifs">
@@ -441,7 +427,6 @@ function renderProductPage(product) {
   <img src="/assets/images/favicon.png" alt="Hexxa Logo" height="100px">
   <nav>
       <ul>
-          <li class="box"><p class="text">Welcome <span id="username"></span>!</p></li>
               <li class="box buyhover"><p class="text buyhover">Buy Items</p>
                   <ul class="buyitems">
                       <li><a href="/allitems" class="text buyhover">Browse Items</a></li>
@@ -914,7 +899,7 @@ function renderUserPage(user) {
 </div>
 <div class="containe">
   <div class="login">
-      <a href="/login" class="text">Sign In</a>
+      <a href="/login" class="text"><span id="username"></span></a>
   </div>
   <p style="color: white; font-size: 1.2rem;">|</p>
   <div class="notifs">
@@ -931,7 +916,6 @@ function renderUserPage(user) {
   <img src="/assets/images/favicon.png" alt="Hexxa Logo" height="100px">
   <nav>
       <ul>
-          <li class="box"><p class="text">Welcome <span id="username"></span>!</p></li>
               <li class="box buyhover"><p class="text buyhover">Buy Items</p>
                   <ul class="buyitems">
                       <li><a href="/allitems" class="text buyhover">Browse Items</a></li>
@@ -1122,9 +1106,9 @@ app.get('/getBasket', requireAuth, (req, res) => {
   const basket = readBasketData();
   const userBasket = basket.filter(item => item.username === username);
   res.json(userBasket);
-});
+  });
 
-app.post('/add-to-basket', (req, res) => {
+  app.post('/add-to-basket', (req, res) => {
   const { productID, username } = req.body;
   const basket = readBasketData();
 
@@ -1139,163 +1123,163 @@ app.post('/add-to-basket', (req, res) => {
   writeBasketData(basket);
 
   res.json({ success: true, message: 'Product added to basket successfully' });
-});
+  });
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
 
 
-const userDatabase = 'users.json';
-const itemsDatabase = 'items.json';
+  const userDatabase = 'users.json';
+  const itemsDatabase = 'items.json';
 
-// Helper function to read and write JSON files
-function readJSONFile(filename) {
+  // Helper function to read and write JSON files
+  function readJSONFile(filename) {
   return JSON.parse(fs.readFileSync(filename));
-}
+  }
 
-function writeJSONFile(filename, data) {
+  function writeJSONFile(filename, data) {
   fs.writeFileSync(filename, JSON.stringify(data, null, 2));
-}
+  }
 
-app.get('/dashboard', requireAuth, (req, res) => {
+  app.get('/dashboard', requireAuth, (req, res) => {
   res.sendFile(path.join(__dirname, 'assets/html', 'dashboard.html'));
-},
+  },
 
-// Route to serve the dashboard (requires authentication)
-app.get('/dashboard', requireAuth, (req, res) => {
+  // Route to serve the dashboard (requires authentication)
+  app.get('/dashboard', requireAuth, (req, res) => {
   const username = req.session.user;
   const items = readJSONFile(itemsDatabase);
   const userItems = items.filter(item => item.seller === username);
   const itemnumbers = userItems.length;
 
   if (itemnumbers === 0) {
-    // If the user has no items listed, render a message or redirect to a different page
-    res.send("You have no items listed for sale.");
+  // If the user has no items listed, render a message or redirect to a different page
+  res.send("You have no items listed for sale.");
   } else {
-    // If the user has items listed, proceed with rendering the dashboard
-    const htmlContent = fs.readFileSync('assets/html/dashboard.html', 'utf8');
+  // If the user has items listed, proceed with rendering the dashboard
+  const htmlContent = fs.readFileSync('assets/html/dashboard.html', 'utf8');
 
-    const htmlItems = userItems.map(item => `
-    <div class="item">
-      <div class="itemt">
-        <h3>${item.productName}</h3>
-      </div>
-      <div class="itemd">
-        <p>${item.description}</p>
-      </div>
-      <div class="itemp">
-        <p>£${item.price}</p>
-      </div>
-      <div class="options">
-        <button class="instock" onclick="togglePopup('stockPopup')">Is the item in stock?</button>
-        <button class="price" onclick="togglePopup('pricePopup')">Change Price</button>
-        <button class="title" onclick="togglePopup('titlePopup')">Change Title</button>
-        <button class="description" onclick="togglePopup('descriptionPopup')">Change Description</button>
-        <button class="delete" onclick="togglePopup('deletePopup')">Delete Item</button>
-      </div>
+  const htmlItems = userItems.map(item => `
+  <div class="item">
+    <div class="itemt">
+      <h3>${item.productName}</h3>
     </div>
+    <div class="itemd">
+      <p>${item.description}</p>
     </div>
-    </section>
-    <div id="stockPopup" class="popup">
-    <button class="closebtn">Close</button>
-    <h2>Stock Popup</h2>
-    <h3>Is the item in stock?</h3>
-    <p>Currently it is ${item.inStock ? 'in stock' : 'out of stock'}</p>
-    <div class="buttonholder">
-      <form action="/changeStock" method="post">
-        <input type="hidden" name="itemId" value="${item.productId}">
-        <input type="hidden" name="newStock" value="${item.inStock ? 'false' : 'true'}">
-        <button class="outofstock">Out of Stock</button>
-        <button class="instock1">In Stock</button>
-      </form>
+    <div class="itemp">
+      <p>£${item.price}</p>
     </div>
-    <button class="closebtn" onclick="closePopup('stockPopup')">Save</button>
+    <div class="options">
+      <button class="instock" onclick="togglePopup('stockPopup')">Is the item in stock?</button>
+      <button class="price" onclick="togglePopup('pricePopup')">Change Price</button>
+      <button class="title" onclick="togglePopup('titlePopup')">Change Title</button>
+      <button class="description" onclick="togglePopup('descriptionPopup')">Change Description</button>
+      <button class="delete" onclick="togglePopup('deletePopup')">Delete Item</button>
+    </div>
   </div>
-
-    <!-- Price Popup -->
-    <form id="priceForm" action="/changePrice" method="POST">
-    <div id="pricePopup" class="popup">
-      <h2>Price Popup</h2>
-      <h3>Raise or lower your prices</h3>
-      <p>Currently it is £${item.price}</p>
-      <input type="number" id="newPrice" name="newPrice" placeholder="New Price" step="any" required maxlength="6">
-      <button type="submit" class="closebtn">Save</button>
-    </div>
-  </form>
-
-    <!-- Title Popup -->
-    <div id="titlePopup" class="popup">
-    <button class="closebtn" onclick="closePopup('deletePopup')>Close</button>
-    <h2>Title Popup</h2>
-    <h3>Change the title of your item</h3>
-    <p>Currently it is ${item.productName}</p>
-    <form action="/changeTitle" method="POST">
+  </div>
+  </section>
+  <div id="stockPopup" class="popup">
+  <button class="closebtn">Close</button>
+  <h2>Stock Popup</h2>
+  <h3>Is the item in stock?</h3>
+  <p>Currently it is ${item.inStock ? 'in stock' : 'out of stock'}</p>
+  <div class="buttonholder">
+    <form action="/changeStock" method="post">
       <input type="hidden" name="itemId" value="${item.productId}">
-      <input type="text" name="productName" placeholder="Product Name" maxlength="40" required>
-      <button type="submit" class="closebtn">Close</button>
+      <input type="hidden" name="newStock" value="${item.inStock ? 'false' : 'true'}">
+      <button class="outofstock">Out of Stock</button>
+      <button class="instock1">In Stock</button>
     </form>
   </div>
+  <button class="closebtn" onclick="closePopup('stockPopup')">Save</button>
+  </div>
 
-    <!-- Description Popup -->
-    <div id="descriptionPopup" class="popup">
-    <button class="closebtn" onclick="closePopup('deletePopup')>Close</button>
-      <h2>Description Popup</h2>
-      <h3>Change the description of your item</h3>
-      <p>Currently it is ${item.description}</p>
-      <input type="text" id="description" name="description" placeholder="Description" maxlength="100" required>
-      <button class="closebtn" onclick="closePopup('descriptionPopup')">Save</button>
-    </div>
+  <!-- Price Popup -->
+  <form id="priceForm" action="/changePrice" method="POST">
+  <div id="pricePopup" class="popup">
+    <h2>Price Popup</h2>
+    <h3>Raise or lower your prices</h3>
+    <p>Currently it is £${item.price}</p>
+    <input type="number" id="newPrice" name="newPrice" placeholder="New Price" step="any" required maxlength="6">
+    <button type="submit" class="closebtn">Save</button>
+  </div>
+  </form>
 
-    <!-- Delete Popup -->
-    <div id="deletePopup" class="popup">
-    <button class="closebtn" onclick="closePopup('deletePopup')>Close</button>
-      <h2>Delete Popup</h2>
-      <h3>Are you sure you want to delete this item?</h3>
-      <button class="delete1">Delete</button>
-      <button class="closebtn" onclick="closePopup('deletePopup')">Close</button>
-    </div>
-    <!-- Overlay -->
-    <div id="overlay" class="overlay"></div>
+  <!-- Title Popup -->
+  <div id="titlePopup" class="popup">
+  <button class="closebtn" onclick="closePopup('deletePopup')>Close</button>
+  <h2>Title Popup</h2>
+  <h3>Change the title of your item</h3>
+  <p>Currently it is ${item.productName}</p>
+  <form action="/changeTitle" method="POST">
+    <input type="hidden" name="itemId" value="${item.productId}">
+    <input type="text" name="productName" placeholder="Product Name" maxlength="40" required>
+    <button type="submit" class="closebtn">Close</button>
+  </form>
+  </div>
+
+  <!-- Description Popup -->
+  <div id="descriptionPopup" class="popup">
+  <button class="closebtn" onclick="closePopup('deletePopup')>Close</button>
+    <h2>Description Popup</h2>
+    <h3>Change the description of your item</h3>
+    <p>Currently it is ${item.description}</p>
+    <input type="text" id="description" name="description" placeholder="Description" maxlength="100" required>
+    <button class="closebtn" onclick="closePopup('descriptionPopup')">Save</button>
+  </div>
+
+  <!-- Delete Popup -->
+  <div id="deletePopup" class="popup">
+  <button class="closebtn" onclick="closePopup('deletePopup')>Close</button>
+    <h2>Delete Popup</h2>
+    <h3>Are you sure you want to delete this item?</h3>
+    <button class="delete1">Delete</button>
+    <button class="closebtn" onclick="closePopup('deletePopup')">Close</button>
+  </div>
+  <!-- Overlay -->
+  <div id="overlay" class="overlay"></div>
   `).join('');
 
   const modifiedHtmlContent = htmlContent.replace('<div class="containerr">', `<div class="containerr">${htmlItems}`);
   res.send(modifiedHtmlContent);
-}
-}));
-app.post('/changeStock', (req, res) => {
-  try {
-    const itemId = parseInt(req.body.itemId); // Convert itemId to a number
-    const newStock = req.body.newStock === 'true';
-
-    let items = readJSONFile(itemsDatabase);
-
-    // Find the item by its ID and update the inStock property
-    const updatedItems = items.map(item => {
-      if (item.productId === itemId) {
-        item.inStock = newStock;
-      }
-      return item;
-    });
-
-    writeJSONFile(itemsDatabase, updatedItems);
-
-    res.redirect('/success');
-    console.log('Stock changed successfully!');
-  } catch (error) {
-    console.error('Error:', error.message);
-    res.status(500).json({ success: false, error: error.message });
   }
-});
+  }));
+  app.post('/changeStock', (req, res) => {
+  try {
+  const itemId = parseInt(req.body.itemId); // Convert itemId to a number
+  const newStock = req.body.newStock === 'true';
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+  let items = readJSONFile(itemsDatabase);
 
-const itemsDatabase1 = 'items.json';
+  // Find the item by its ID and update the inStock property
+  const updatedItems = items.map(item => {
+    if (item.productId === itemId) {
+      item.inStock = newStock;
+    }
+    return item;
+  });
 
-app.post('/changeTitle', (req, res) => {
+  writeJSONFile(itemsDatabase, updatedItems);
+
+  res.redirect('/success');
+  console.log('Stock changed successfully!');
+  } catch (error) {
+  console.error('Error:', error.message);
+  res.status(500).json({ success: false, error: error.message });
+  }
+  });
+
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
+
+  const itemsDatabase1 = 'items.json';
+
+  app.post('/changeTitle', (req, res) => {
   const itemId = req.body.itemId;
   const newTitle = req.body.productName;
 
@@ -1304,10 +1288,10 @@ app.post('/changeTitle', (req, res) => {
 
   // Find the item by its ID and update the title
   const updatedItems = items.map(item => {
-    if (item.productId === itemId) {
-      item.productName = newTitle;
-    }
-    return item;
+  if (item.productId === itemId) {
+    item.productName = newTitle;
+  }
+  return item;
   });
 
   // Write the updated items back to the JSON file
@@ -1318,11 +1302,11 @@ app.post('/changeTitle', (req, res) => {
 
   // Log the change to the console
   console.log('Title changed successfully! New Title:', newTitle);
-});
+  });
 
 
-// Route to handle changing description
-app.post('/changeDescription', (req, res) => {
+  // Route to handle changing description
+  app.post('/changeDescription', (req, res) => {
   const itemId = req.body.itemId; // Assuming you have an input field with name="itemId"
   const newDescription = req.body.newDescription; // Assuming you have an input field with name="newDescription"
 
@@ -1330,19 +1314,19 @@ app.post('/changeDescription', (req, res) => {
 
   // Find the item by its ID and update the description
   const updatedItems = items.map(item => {
-    if (item.productId === itemId) {
-      item.description = newDescription;
-    }
-    return item;
+  if (item.productId === itemId) {
+    item.description = newDescription;
+  }
+  return item;
   });
 
   writeJSONFile(itemsDatabase, updatedItems);
 
   res.json({ success: true });
-});
+  });
 
-// Route to handle deleting an item
-app.post('/deleteItem', (req, res) => {
+  // Route to handle deleting an item
+  app.post('/deleteItem', (req, res) => {
   const itemId = req.body.itemId; // Assuming you have an input field with name="itemId"
 
   let items = readJSONFile(itemsDatabase);
@@ -1353,103 +1337,103 @@ app.post('/deleteItem', (req, res) => {
   writeJSONFile(itemsDatabase, updatedItems);
 
   res.json({ success: true });
-});
-app.post('/changePrice', (req, res) => {
+  });
+  app.post('/changePrice', (req, res) => {
   try {
-    const itemId = req.body.itemId; // Assuming you have an input field with name="itemId"
-    const newPrice = req.body.newPrice; // Assuming you have an input field with name="newPrice"
+  const itemId = req.body.itemId; // Assuming you have an input field with name="itemId"
+  const newPrice = req.body.newPrice; // Assuming you have an input field with name="newPrice"
 
-    let items = readJSONFile(itemsDatabase);
+  let items = readJSONFile(itemsDatabase);
 
-    // Find the item by its ID and update the price
-    const updatedItems = items.map(item => {
-      if (item.id === itemId) { // Update this line to match your actual property name (e.g., productId)
-        item.price = newPrice;
-      }
-      return item;
-    });
+  // Find the item by its ID and update the price
+  const updatedItems = items.map(item => {
+    if (item.id === itemId) { // Update this line to match your actual property name (e.g., productId)
+      item.price = newPrice;
+    }
+    return item;
+  });
 
-    writeJSONFile(itemsDatabase, updatedItems);
+  writeJSONFile(itemsDatabase, updatedItems);
 
-    res.json({ success: true });
-    console.log('Price changed successfully!');
+  res.json({ success: true });
+  console.log('Price changed successfully!');
   } catch (error) {
-    console.error('Error:', error.message);
-    res.status(500).json({ success: false, error: error.message });
+  console.error('Error:', error.message);
+  res.status(500).json({ success: false, error: error.message });
   }
-});
+  });
 
-app.set('view engine', 'ejs');
+  app.set('view engine', 'ejs');
 
-app.get('/getCurrentUser', (req, res) => {
+  app.get('/getCurrentUser', (req, res) => {
   const username = req.session.user;
   res.json({ username });
-});
+  });
 
-app.get('/dashboardData', (req, res) => {
+  app.get('/dashboardData', (req, res) => {
   const username = req.session.user;
   const users = readJSONFile('users.json');
   const items = readJSONFile('items.json');
   const userItems = items.filter(item => {
-    return item.seller === username;
+  return item.seller === username;
   });
   const itemnumbers = userItems.length;
 
   // Send the data back to the client as JSON
   res.json({ username, itemnumbers });
-});
+  });
 
-app.get('/team', (req, res) => {
+  app.get('/team', (req, res) => {
   res.sendFile(path.join(__dirname, 'assets/html', 'team.html'));
-});
+  });
 
-app.get('/basket',requireAuth, (_req, res) => {
+  app.get('/basket',requireAuth, (_req, res) => {
   res.sendFile(path.join(__dirname, 'assets/html', 'basket.html'));
-});
-const basketDatabase = 'basket.json';
+  });
+  const basketDatabase = 'basket.json';
 
-// Route to add items to the basket
-app.post('/addToBasket', (req, res) => {
+  // Route to add items to the basket
+  app.post('/addToBasket', (req, res) => {
   try {
-    const { productName, inStock, seller, cost } = req.body;
+  const { productName, inStock, seller, cost } = req.body;
 
-    let basket = readJSONFile(basketDatabase);
+  let basket = readJSONFile(basketDatabase);
 
-    // Check if the item already exists in the basket
-    const existingItem = basket.items.find(item => item.productName === productName);
+  // Check if the item already exists in the basket
+  const existingItem = basket.items.find(item => item.productName === productName);
 
-    if (existingItem) {
-      existingItem.quantity++;
-    } else {
-      basket.items.push({ productName, inStock, seller, cost, quantity: 1 });
-    }
-
-    writeJSONFile(basketDatabase, basket);
-
-    res.json({ success: true });
-    console.log('Item added to basket successfully!');
-  } catch (error) {
-    console.error('Error:', error.message);
-    res.status(500).json({ success: false, error: error.message });
+  if (existingItem) {
+    existingItem.quantity++;
+  } else {
+    basket.items.push({ productName, inStock, seller, cost, quantity: 1 });
   }
-});
-// Function to read JSON file
-function readJSONFile(file) {
-    try {
-      const data = fs.readFileSync(file, 'utf8');
-      return JSON.parse(data);
-    } catch (error) {
-      console.error('Error reading JSON file:', error.message);
-      return { items: [] };
-}
-}
 
-// Serve static files from the 'public' directory
-app.use(express.static('public'));
+  writeJSONFile(basketDatabase, basket);
 
-// Route to get the basket items
-// Start the server
-const PORT = process.env.PORT || 3000;
-app.listen(3000, () => {
+  res.json({ success: true });
+  console.log('Item added to basket successfully!');
+  } catch (error) {
+  console.error('Error:', error.message);
+  res.status(500).json({ success: false, error: error.message });
+  }
+  });
+  // Function to read JSON file
+  function readJSONFile(file) {
+  try {
+    const data = fs.readFileSync(file, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.error('Error reading JSON file:', error.message);
+    return { items: [] };
+  }
+  }
+
+  // Serve static files from the 'public' directory
+  app.use(express.static('public'));
+
+  // Route to get the basket items
+  // Start the server
+  const PORT = process.env.PORT || 3000;
+  app.listen(3000, () => {
   console.log('Server is running on port http://localhost:3000');
-});
+  });
