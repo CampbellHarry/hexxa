@@ -11,14 +11,25 @@ document.addEventListener('DOMContentLoaded', function () {
 fetch('/getUsername')
 .then(response => response.json())
 .then(data => {
-  var usernameElement = document.getElementById("username");
-  usernameElement.innerHTML = data.username;
-  var usernameElement1 = document.getElementById("username1");
-  usernameElement1.innerHTML = data.username;
-  var linkElement = document.getElementById("link");
-  linkElement.href = "/user/" + data.username;
+    var usernameElement = document.getElementById("username");
+    var linkElement = document.getElementById("link");
 
+    // Debug: Log the value of data.username
+    console.log("Username:", data.username);
+
+    // Update the username span content
+    usernameElement.innerHTML = data.username;
+
+    // Debug: Log the value of linkElement.href before updating
+    console.log("Before Update - linkElement.href:", linkElement.href);
+
+    // Update the href attribute dynamically
+    linkElement.href = `http://localhost:3000/user/${data.username}`;
+
+    // Debug: Log the value of linkElement.href after updating
+    console.log("After Update - linkElement.href:", linkElement.href);
 })
+
 .catch(error => console.error('Error:', error));
 
 const basket = document.querySelector('.basket');

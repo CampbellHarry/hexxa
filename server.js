@@ -410,7 +410,7 @@ function renderProductPage(product) {
 </div>
 <div class="containe">
   <div class="login">
-      <a href="/login" class="text"><span id="username"></span></a>
+      <a class="text" href="" id="link"><span id="username"></span></a>
   </div>
   <p style="color: white; font-size: 1.2rem;">|</p>
   <div class="notifs">
@@ -419,7 +419,7 @@ function renderProductPage(product) {
       <img src="/assets/images/notifs.png" height="55px" alt="Basket" class="basket">
   <p style="color: white; font-size: 1.2rem;">|</p>
   <div class="basket">
-      <img src="/assets/images/shoppingb.png" height="100px" alt="Basket" class="basket">
+      <a href="/basket" class="text"><img src="/assets/images/shoppingb.png" height="100px" alt="Basket" class="basket"></a>
   </div>
 </div>
 </header>
@@ -435,14 +435,14 @@ function renderProductPage(product) {
               </li>
               <li class="box buyhover"><p class="text buyhover">Manage Items</p>
                   <ul class="buyitems">
-                      <li><a href="" class="text buyhover">Sell with Hexxa</a></li>
-                      <li><a href="" class="text buyhover">Manage your Items</a></li>
+                      <li><a href="/sell" class="text buyhover">Sell with Hexxa</a></li>
+                      <li><a href="/dashboard" class="text buyhover">Manage your Items</a></li>
                   </ul>
               </li>
               <li class="box buyhover"><p class="text buyhover" href="">Help</p>
                   <ul class="buyitems">
-                      <li><a href="" class="text buyhover">FAQs</a></li>
-                      <li><a href="" class="text buyhover">Contact Us</a></li>
+                      <li><a href="/faq" class="text buyhover">FAQs</a></li>
+                      <li><a href="/support" class="text buyhover">Support</a></li>
                   </ul>
               </li>
                   <li class="box buyhover"><p class="text buyhover">Account</p>
@@ -899,7 +899,7 @@ function renderUserPage(user) {
 </div>
 <div class="containe">
   <div class="login">
-      <a href="/login" class="text"><span id="username"></span></a>
+      <a class="text" href="" id="link"><span id="username"></span></a>
   </div>
   <p style="color: white; font-size: 1.2rem;">|</p>
   <div class="notifs">
@@ -908,7 +908,7 @@ function renderUserPage(user) {
       <img src="/assets/images/notifs.png" height="55px" alt="Basket" class="basket">
   <p style="color: white; font-size: 1.2rem;">|</p>
   <div class="basket">
-      <img src="/assets/images/shoppingb.png" height="100px" alt="Basket" class="basket">
+      <a href="/basket" class="text"><img src="/assets/images/shoppingb.png" height="100px" alt="Basket" class="basket"></a>
   </div>
 </div>
 </header>
@@ -924,14 +924,14 @@ function renderUserPage(user) {
               </li>
               <li class="box buyhover"><p class="text buyhover">Manage Items</p>
                   <ul class="buyitems">
-                      <li><a href="" class="text buyhover">Sell with Hexxa</a></li>
-                      <li><a href="" class="text buyhover">Manage your Items</a></li>
+                      <li><a href="/sell" class="text buyhover">Sell with Hexxa</a></li>
+                      <li><a href="/dashboard" class="text buyhover">Manage your Items</a></li>
                   </ul>
               </li>
               <li class="box buyhover"><p class="text buyhover" href="">Help</p>
                   <ul class="buyitems">
-                      <li><a href="" class="text buyhover">FAQs</a></li>
-                      <li><a href="" class="text buyhover">Contact Us</a></li>
+                      <li><a href="/faq" class="text buyhover">FAQs</a></li>
+                      <li><a href="/support" class="text buyhover">Support</a></li>
                   </ul>
               </li>
                   <li class="box buyhover"><p class="text buyhover">Account</p>
