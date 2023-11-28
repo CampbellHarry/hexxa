@@ -1431,6 +1431,58 @@ app.get('/getBasket', requireAuth, (req, res) => {
   // Serve static files from the 'public' directory
   app.use(express.static('public'));
 
+  app.get('/deliverysupport', (req, res) => {
+    res.sendFile(path.join(__dirname, 'assets/support/delivery', 'delivery.ticket.html'))
+  });
+  app.get('/paymentsupport', (req, res) => {
+    res.sendFile(path.join(__dirname, 'assets/support/payment', 'payment.ticket.html'))
+  });
+  app.get('/accountsupport', (req, res) => {
+    res.sendFile(path.join(__dirname, 'assets/support/account', 'account.ticket.html'))
+  });
+  app.get('/modsupport', (req, res) => {
+    res.sendFile(path.join(__dirname, 'assets/support/moderation', 'moderation.ticket.html'))
+  });
+
+  // Middleware to parse incoming JSON requests
+app.use(bodyParser.json());
+
+// Serve static files (if needed)
+app.use(express.static('public'));
+
+app.use(express.json());
+
+// Assuming ticketCount is declared globally
+let ticketCount = 0;
+
+// Form submission endpoint
+app.post('/ticket', (req, res) => {
+  console.log('Raw Request Body:', req.body);
+
+  const ticketData = req.body;
+
+  console.log('Parsed Request Body:', ticketData);
+
+  try {
+      const existingTickets = JSON.parse(fs.readFileSync('tickets.json', 'utf-8')) || [];
+
+      // Assign a unique ID
+      ticketData.id = ++ticketCount;
+
+      // Add the new ticket
+      existingTickets.push(ticketData);
+
+      // Write the updated array back to the JSON file
+      fs.writeFileSync('./tickets.json', JSON.stringify(existingTickets, null, 2));
+
+      // Respond to the client
+      res.json({ message: 'Ticket submitted successfully!' });
+  } catch (error) {
+      console.error('Error:', error.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
   // Route to get the basket items
   // Start the server
   const PORT = process.env.PORT || 3000;

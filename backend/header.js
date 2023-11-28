@@ -9,28 +9,19 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 fetch('/getUsername')
-.then(response => response.json())
-.then(data => {
-    var usernameElement = document.getElementById("username");
-    var linkElement = document.getElementById("link");
+    .then(response => response.json())
+    .then(data => {
+        const usernameInput = document.getElementById('usernameInput');
+        const username = data.username;
+        usernameInput.value = username;
 
-    // Debug: Log the value of data.username
-    console.log("Username:", data.username);
-
-    // Update the username span content
-    usernameElement.innerHTML = data.username;
-
-    // Debug: Log the value of linkElement.href before updating
-    console.log("Before Update - linkElement.href:", linkElement.href);
-
-    // Update the href attribute dynamically
-    linkElement.href = `http://localhost:3000/user/${data.username}`;
-
-    // Debug: Log the value of linkElement.href after updating
-    console.log("After Update - linkElement.href:", linkElement.href);
-})
-
-.catch(error => console.error('Error:', error));
+        // Now that you have the username, you can submit the form
+        submitForm('payment', username);
+    })
+    .catch(error => {
+        console.error('Error fetching username:', error.message);
+        // Handle error if necessary
+    }); 
 
 const basket = document.querySelector('.basket');
 basket.addEventListener('click', () => {
