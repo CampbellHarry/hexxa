@@ -1,0 +1,86 @@
+body{
+    background-color: #007185 !important;
+}
+section{
+    text-align: center;
+    color: white;
+}
+.holder{
+    width: 60%;
+    margin: 0 auto;
+    padding: 10px;
+}
+h1{
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: left;
+}
+.holder1{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: rgb(25, 25, 26);
+    border: 2px solid #a5a3a3;
+    border-radius: 5px;
+}
+.tickethead{
+    align-items: left;
+    background-color: rgb(84, 84, 87);
+    padding: 10px;
+    border: 2px solid #a5a3a3;
+}
+.holder1{
+    width: 60%;
+    margin: 0 auto;
+}
+.ticketbtn{
+    display: flex;
+    width: auto;
+    padding: 10px;
+    background-color: #007185;
+    cursor: pointer;
+    border-radius: 5px;
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+    align-items: right;
+}
+.tickethold{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: rgb(25, 25, 26);
+    border: 2px solid #a5a3a3;
+    padding: 10px;
+}
+.tickets{
+    display: flex;
+    background-color: rgb(25, 25, 26);
+    padding: 10px;
+    width: 100%;
+    border-bottom: 2px solid #a5a3a3;
+}
+.side{
+    width: auto;
+    max-width: 20%;
+    padding: 10px;
+    font-size: 1.5rem;
+}
+.under{
+    width: auto;
+    max-width: 40%;
+    padding: 10px;
+    top: 0%;
+    position: relative;
+    margin-top: 40px;
+    left: -7.3%;
+    font-size: 0.9rem;
+    color: rgb(165, 157, 157);
+}
+.date{
+    width: auto;
+    max-width: 60%;
+    padding: 10px;
+    font-size: 1rem;
+}

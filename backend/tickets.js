@@ -1,18 +1,18 @@
-// Function to submit the form
-let ticketCount = 0;  // Declare ticketCount globally
-
-function submitForm(formId, username) {
+function submitForm(formId) {
     // Increment the ticket count
+    var ticketCount = 0;
     ticketCount++;
 
     // Get form elements using the formId parameter
     const form = document.getElementById(formId);
+    const username = form.elements['usernameInput'].value;
     const topic = form.elements['selecttopic'].value;
     const subject = form.elements['subjectInput'].value;
     const message = form.elements['messageInput'].value;
 
     // Log the form data to the console for debugging
     console.log('Form Data:', {
+        username: username,
         topic: topic,
         subject: subject,
         message: message
@@ -27,6 +27,12 @@ function submitForm(formId, username) {
         subject: subject,
         message: message
     };
+
+    // Log the ticket data to the console for debugging
+    console.log('Ticket Data:', ticket);
+
+    // Prevent the default form submission behavior
+    event.preventDefault();
 
     // Send the ticket data to the server
     fetch('/ticket', {
@@ -52,7 +58,4 @@ function submitForm(formId, username) {
         console.error('Error:', error.message);
         alert('Error submitting ticket. Please try again.');
     });
-
-    // Prevent the default form submission behavior
-    return false;
 }
