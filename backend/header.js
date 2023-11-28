@@ -12,11 +12,10 @@ fetch('/getUsername')
     .then(response => response.json())
     .then(data => {
         const usernameInput = document.getElementById('usernameInput');
+        const username1 = document.getElementById('username');
         const username = data.username;
         usernameInput.value = username;
-
-        // Now that you have the username, you can submit the form
-        submitForm('payment', username);
+        username1.innerHTML = username;
     })
     .catch(error => {
         console.error('Error fetching username:', error.message);

@@ -1431,16 +1431,16 @@ app.get('/getBasket', requireAuth, (req, res) => {
   // Serve static files from the 'public' directory
   app.use(express.static('public'));
 
-  app.get('/deliverysupport', (req, res) => {
+  app.get('/deliverysupport',requireAuth, (req, res) => {
     res.sendFile(path.join(__dirname, 'assets/support/delivery', 'delivery.ticket.html'))
   });
-  app.get('/paymentsupport', (req, res) => {
+  app.get('/paymentsupport',requireAuth, (req, res) => {
     res.sendFile(path.join(__dirname, 'assets/support/payment', 'payment.ticket.html'))
   });
-  app.get('/accountsupport', (req, res) => {
+  app.get('/accountsupport',requireAuth, (req, res) => {
     res.sendFile(path.join(__dirname, 'assets/support/account', 'account.ticket.html'))
   });
-  app.get('/modsupport', (req, res) => {
+  app.get('/modsupport',requireAuth, (req, res) => {
     res.sendFile(path.join(__dirname, 'assets/support/moderation', 'moderation.ticket.html'))
   });
 
@@ -1454,7 +1454,7 @@ app.use(express.json());
 
 // Assuming ticketCount is declared globally
 let ticketCount = 0;
-
+app.use(express.json());
 // Form submission endpoint
 app.post('/ticket', (req, res) => {
   console.log('Raw Request Body:', req.body);
