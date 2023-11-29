@@ -11,10 +11,8 @@ document.addEventListener('DOMContentLoaded', function () {
 fetch('/getUsername')
     .then(response => response.json())
     .then(data => {
-        const usernameInput = document.getElementById('usernameInput');
         const username1 = document.getElementById('username');
         const username = data.username;
-        usernameInput.value = username;
         username1.innerHTML = username;
     })
     .catch(error => {

@@ -31,6 +31,7 @@ function submitForm(formId) {
     const subject = form.elements['subjectInput'].value;
     const message = form.elements['messageInput'].value;
     const timestamp = Date.now();
+    const status = 'Pending'
 
     // Log the form data to the console for debugging
     console.log('Form Data:', {
@@ -48,7 +49,8 @@ function submitForm(formId) {
         topic: topic,
         subject: subject,
         message: message,
-        timestamp: timestamp
+        timestamp: timestamp,
+        status: status,
     };
 
     // Log the ticket data to the console for debugging
@@ -74,11 +76,22 @@ function submitForm(formId) {
     .then(data => {
         console.log(data);
         alert('Ticket submitted successfully!');
-        // Optionally, you can reset the form after successful submission
         form.reset();
+        window.location.href = '/tickets'; 
     })
     .catch(error => {
         console.error('Error:', error.message);
         alert('Error submitting ticket. Please try again.');
     });
 }
+fetch('/getUsername')
+    .then(response => response.json())
+    .then(data => {
+        const usernameInput = document.getElementById('usernameInput');
+        const username = data.username;
+        usernameInput.value = username;
+    })
+    .catch(error => {
+        console.error('Error fetching username:', error.message);
+        // Handle error if necessary
+    }); 
