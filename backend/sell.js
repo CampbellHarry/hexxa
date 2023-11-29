@@ -1,11 +1,3 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const fs = require('fs');
-const app = express();
-
-// set up rate limiter: maximum of five requests per minute
-var express = require('express');
-
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100, // max 100 requests per windowMs
