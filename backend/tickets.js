@@ -1,7 +1,28 @@
+function generateRandomTicketNumber() {
+    const min = 10000000; // Minimum 8-digit number
+    const max = 99999999; // Maximum 8-digit number
+
+    let ticketNumber;
+    let existingTicketNumbers;
+
+    try {
+        const ticketsData = fs.readFileSync('tickets.json');
+        existingTicketNumbers = JSON.parse(ticketsData).map(ticket => ticket.id);
+    } catch (error) {
+        existingTicketNumbers = [];
+    }
+
+    do {
+        ticketNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+    } while (existingTicketNumbers.includes(ticketNumber));
+
+    return ticketNumber;
+}
 function submitForm(formId) {
     // Increment the ticket count
-    var ticketCount = 0;
-    ticketCount++;
+
+
+    const ticketCount = generateRandomTicketNumber();
 
     // Get form elements using the formId parameter
     const form = document.getElementById(formId);
@@ -9,6 +30,7 @@ function submitForm(formId) {
     const topic = form.elements['selecttopic'].value;
     const subject = form.elements['subjectInput'].value;
     const message = form.elements['messageInput'].value;
+    const timestamp = Date.now();
 
     // Log the form data to the console for debugging
     console.log('Form Data:', {
@@ -25,7 +47,8 @@ function submitForm(formId) {
         form: formId,
         topic: topic,
         subject: subject,
-        message: message
+        message: message,
+        timestamp: timestamp
     };
 
     // Log the ticket data to the console for debugging

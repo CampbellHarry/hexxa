@@ -30,12 +30,12 @@ h1{
     padding: 10px;
     border: 2px solid #a5a3a3;
 }
-.holder1{
+.holder1 {
     width: 60%;
     margin: 0 auto;
 }
-.ticketbtn{
-    display: flex;
+
+.ticketbtn {
     width: auto;
     padding: 10px;
     background-color: #007185;
@@ -44,43 +44,86 @@ h1{
     color: white;
     font-weight: 700;
     font-size: 1rem;
-    align-items: right;
+    float: right;
 }
-.tickethold{
+
+.tickethold {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     background-color: rgb(25, 25, 26);
     border: 2px solid #a5a3a3;
     padding: 10px;
 }
-.tickets{
+
+.ticket {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 10px;
     display: flex;
-    background-color: rgb(25, 25, 26);
-    padding: 10px;
-    width: 100%;
-    border-bottom: 2px solid #a5a3a3;
+    justify-content: space-between;
+    align-items: center;
 }
-.side{
-    width: auto;
-    max-width: 20%;
-    padding: 10px;
-    font-size: 1.5rem;
+
+.ticket-content {
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    margin-right: 10px;
 }
 .under{
-    width: auto;
-    max-width: 40%;
-    padding: 10px;
-    top: 0%;
+    text-align: left;
+}
+.info {
+    flex: 1;
+}
+
+.side {
+    font-weight: bold;
+    text-align: left;
+}
+
+.date {
+    font-size: 12px;
+    color: #888;
+}
+.open{
+    fill: green;
+}
+.close{
+    fill: red;
+}
+.pending{
+    fill: #a371f7;
+}
+
+.tooltip {
     position: relative;
-    margin-top: 40px;
-    left: -7.3%;
-    font-size: 0.9rem;
-    color: rgb(165, 157, 157);
+    display: inline-block;
+    cursor: pointer;
 }
-.date{
-    width: auto;
-    max-width: 60%;
-    padding: 10px;
-    font-size: 1rem;
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #000000;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: -90%;
+    left: 350%;
+    transform: translateX(-50%);
+    opacity: 0;
 }
+
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+        transition: opacity 0.3s ease-in;
+    }
