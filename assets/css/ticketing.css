@@ -49,7 +49,7 @@ h1{
     float: right;
 }
 
-.tickethold {
+#ticketContainer {
     display: flex;
     flex-direction: column;
     justify-content: space-between;

@@ -1483,6 +1483,27 @@ app.post('/ticket', (req, res) => {
   }
 });
 
+app.get('/tickets', (req, res) => {
+  // Serve the HTML page for the /tickets route
+  res.sendFile(path.join(__dirname, 'assets/support/', 'tickets.html'));
+});
+
+app.get('/tickets/data', (req, res) => {
+  try {
+    // Assuming tickets.json is in the same directory as server.js
+    const rawData = fs.readFileSync('tickets.json');
+    const tickets = JSON.parse(rawData);
+
+    // Filter tickets for the current user
+    const userTickets = tickets.filter(ticket => ticket.username === req.session.user);
+
+    res.json(userTickets);
+  } catch (error) {
+    console.error('Error reading tickets.json:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
   // Route to get the basket items
   // Start the server
   const PORT = process.env.PORT || 3000;
