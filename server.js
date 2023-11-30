@@ -1504,6 +1504,274 @@ app.get('/tickets/data', (req, res) => {
   }
 });
 
+const tickets = JSON.parse(fs.readFileSync('tickets.json', 'utf8'));
+
+app.get('/ticket/:id', (req, res) => {
+  const ticketId = parseInt(req.params.id);
+  const ticketData = tickets.find((ticket) => ticket.id === ticketId);
+
+  if (!ticketData) {
+    res.status(404).send('Ticket not found');
+    return;
+  }
+
+  // Fetch ticket messages from the ticketmessages.json database
+  const ticketMessages = require('./ticketmessages.json');
+  const ticketMessagesData = ticketMessages.filter((message) => message.ticketId === ticketId);
+
+  // Replace placeholders in the template with actual ticket data and messages`
+  const generatedPage =
+  `;
+  // END: ed8c6549bwf9
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Hexxa</title>
+        <link rel="icon" href="/assets/images/favicon.png">
+        <link rel="stylesheet" href="/assets/css/header.css">
+        <link rel="stylesheet" href="/assets/css/footer.css">
+        <link rel="stylesheet" href="/assets/css/tframe.css">
+    </head>
+    <body>
+        <header class="issues">
+            <div class="issuee">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('.issuee').load('/assets/html/header.html');
+            });
+        </script>
+        </div>
+        </header>
+        <header class="tophead">
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" placeholder="Search for products, brands and more with Hexxa">
+                <button>Search</button>
+            </div>
+        </div>
+        <div class="containe">
+            <div class="login">
+                <a class="text" href="" id="link"><span id="username"></span></a>
+            </div>
+            <p style="color: white; font-size: 1.2rem;">|</p>
+            <div class="notifs">
+                <a href="/notifications" class="text">Notifications</a>
+            </div>
+                <img src="/assets/images/notifs.png" height="55px" alt="Basket" class="basket">
+            <p style="color: white; font-size: 1.2rem;">|</p>
+            <div class="basket">
+                <a href="/basket" class="text"><img src="/assets/images/shoppingb.png" height="100px" alt="Basket" class="basket"></a>
+            </div>
+        </div>
+        </header>
+        <header>
+            <img src="/assets/images/favicon.png" alt="Hexxa Logo" height="100px">
+            <nav>
+                <ul>
+                        <li class="box buyhover"><p class="text buyhover">Buy Items</p>
+                            <ul class="buyitems">
+                                <li><a href="/allitems" class="text buyhover">Browse Items</a></li>
+                                <li><a href="/shopping" class="text buyhover">Store front</a></li>
+                            </ul>
+                        </li>
+                        <li class="box buyhover"><p class="text buyhover">Manage Items</p>
+                            <ul class="buyitems">
+                                <li><a href="/sell" class="text buyhover">Sell with Hexxa</a></li>
+                                <li><a href="/dashboard" class="text buyhover">Manage your Items</a></li>
+                            </ul>
+                        </li>
+                        <li class="box buyhover"><p class="text buyhover" href="">Help</p>
+                            <ul class="buyitems">
+                                <li><a href="/faq" class="text buyhover">FAQs</a></li>
+                                <li><a href="/support" class="text buyhover">Support</a></li>
+                            </ul>
+                        </li>
+                            <li class="box buyhover"><p class="text buyhover">Account</p>
+                                <ul class="buyitems">
+                                <li><a href="" class="text buyhover">Account Settings</a></li>
+                                <li><a href="" class="text buyhover">Orders</a></li>
+                                <li><a href="" class="text buyhover">Saved Items</a></li>
+                                <li><a href="" class="text buyhover">Sign Out</a></li>
+                            </ul>
+                </ul>
+            </nav>
+    </header>
+    <main>
+    <section>
+    <div class="top">
+        <h id="topper"><span id="subject">${ticketData.subject}</span></h> 
+        <h class="ids">#<span id="ids">${ticketData.id}</span></h>
+    </div>
+    <div class="midtop">
+        <div class="status">
+        <svg aria-hidden="true" height="36" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" id="sign" class="${ticketData.status.toUpperCase() === 'PENDING' ? 'pending' : 'closed'}">
+        <path d="M4.25 7.25a.75.75 0 0 0 0 1.5h7.5a.75.75 0 0 0 0-1.5h-7.5Z"></path>
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0Zm-1.5 0a6.5 6.5 0 1 0-13 0 6.5 6.5 0 0 0 13 0Z"></path>
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0Zm-1.5 0a6.5 6.5 0 1 0-13 0 6.5 6.5 0 0 0 13 0Z"></path>
+    </svg>
+    <h1 class="textstat open">Status: <span id="status">${ticketData.status}</span></h1>
+    </div>
+                        <div class="date">
+                            <h1 class="g">Date Created: <span id="date">${formatDate(ticketData.timestamp)}</span></h1>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="messagecontainer">
+                        ${generateMessagesHTML(ticketData)}
+                    </div>
+                </section>
+                <section>
+                <div class="message-send-container">
+                <form method="post" action="/message">
+                        <textarea name="message" id="message2" class="message-send" cols="30" rows="10" minlength="5" maxlength="5000" placeholder="Enter your reply here"></textarea>
+                        <button type="submit" class="message-send-button" id="send">Send Reply</button>
+                    </form>
+                </div>
+            </section>
+            </main>
+            <script src="/backend/header.js"></script>
+<script src="/backend/support.js"></script>
+<footer>
+<div class="footer-container">
+    <div class="footer-section">
+        <h3>About Hexxa</h3>
+        <p>Hexxa is an online marketplace that offers a wide range of products from electronics to clothing. We have a wide range of brands to choose from and we are committed to providing our customers with the best shopping experience possible.</p>
+    </div>
+    <div class="footer-section">
+        <h3>Customer Service</h3>
+        <ul>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Returns &amp; Refunds</a></li>
+            <li><a href="#">Shipping &amp; Delivery</a></li>
+        </ul>
+    </div>
+    <div class="footer-section">
+        <h3>Connect with Us</h3>
+        <ul>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">Linkedin</a></li>
+        </ul>
+    </div>
+</div>
+<div class="footer-bottom">
+    <p>&copy; 2023 Hexxa. All Rights Reserved.</p><p>Terms &amp; Conditions | Privacy Policy</p><p>Hexxa is apart of the hdev group</p>
+    </p>
+</div>
+</footer>
+<script src="/backend/messageclient.js"></script>
+</body>
+</html>
+  `;
+  res.send(generatedPage);
+});
+
+function generateMessagesHTML(ticketData) {
+    const initialMessage = `
+        <div class="message">
+            <div class="messagehead">
+                <div style="display: flex; align-items: center;">
+                    <div style="flex-grow: 1;">
+                        <h1 class="username">${ticketData.username}</h1>
+                    </div>
+                    <div class="supporttag">
+                        <p>${ticketData.form}</p>
+                    </div>
+                    <div style="margin-left: 10px; font-size: 0.6rem; color: black; top: 19px;">
+                        <h1>commented on <span id="timestamp">${formatDate(ticketData.timestamp)}</span></h1>
+                    </div>
+                </div>
+            </div>
+            <div class="messagebody">
+                <p id="message">${ticketData.message}</p>
+            </div>
+            <div class="timeline">
+                <div class="bottom-connecting-line"></div>
+            </div>
+        </div>
+    `;
+
+    const otherMessages = (ticketData.messages || []).map((message) => {
+        return `
+        <div class="message">
+        <div class="messagehead">
+            <div style="display: flex; align-items: center;">
+                <div style="flex-grow: 1;">
+                    <h1 class="username">${ticketData.username}</h1>
+                </div>
+                <div class="supporttag">
+                    <p>${ticketData.form}</p>
+                </div>
+                <div style="margin-left: 10px; font-size: 0.6rem; color: black; top: 19px;">
+                    <h1>commented on <span id="timestamp">${formatDate(ticketData.timestamp)}</span></h1>
+                </div>
+            </div>
+        </div>
+        <div class="messagebody">
+            <p id="message">${ticketData.message}</p>
+        </div>
+        <div class="timeline">
+            <div class="bottom-connecting-line"></div>
+        </div>
+    </div>
+    `;
+  }).join('');
+
+  return initialMessage + otherMessages;
+}
+
+function formatDate(timestamp) {
+  const date = new Date(timestamp);
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+}
+app.use(bodyParser.json());
+
+// Handle POST request to '/message' endpoint
+
+app.post('/message', async (req, res) => {
+  try {
+      const message = req.body.message;
+      const ticketId = req.body.ticketId;
+
+      console.log('Received Message:', message);
+      console.log('Received Ticket ID:', ticketId);
+  // Read the existing messages from ticketmessages.json
+  fs.readFile('ticketmessages.json', 'utf-8', (err, fileContent) => {
+      if (err) {
+          console.error(err);
+          return res.status(500).json({ success: false, error: 'Internal Server Error' });
+      }
+
+      const messages = JSON.parse(fileContent);
+
+      // Add the new message and ticket ID to the messages array
+      messages.push({ message: message, ticketId: ticketId });
+
+      // Write the updated messages back to ticketmessages.json
+      fs.writeFile('ticketmessages.json', JSON.stringify(messages), (err) => {
+          if (err) {
+              console.error(err);
+              return res.status(500).json({ success: false, error: 'Internal Server Error' });
+          }
+
+          // Send a response back to the client
+          res.status(200).json({ success: true, message: { message }, id: { ticketId } });
+  });
+  });
+} catch (error) {
+  console.error(error);
+  res.status(500).json({ success: false, error: 'Internal Server Error' });
+}
+});
   // Route to get the basket items
   // Start the server
   const PORT = process.env.PORT || 3000;
