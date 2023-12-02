@@ -1514,15 +1514,14 @@ app.get('/ticket/:id', (req, res) => {
     res.status(404).send('Ticket not found');
     return;
   }
-
-  // Fetch ticket messages from the ticketmessages.json database
   const ticketMessages = require('./ticketmessages.json');
   const ticketMessagesData = ticketMessages.filter((message) => message.ticketId === ticketId);
+  console.log(ticketMessages);
+  const messagesHTML = ticketMessagesData.map((ticketData) => generateMessagesHTML(ticketData)).join('');
 
   // Replace placeholders in the template with actual ticket data and messages`
   const generatedPage =
-  `;
-  // END: ed8c6549bwf9
+  `
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -1652,7 +1651,7 @@ app.get('/ticket/:id', (req, res) => {
     </div>
     <div class="footer-section">
         <h3>Connect with Us</h3>
-        <ul>
+        <ul>F
             <li><a href="#">Facebook</a></li>
             <li><a href="#">Twitter</a></li>
             <li><a href="#">Instagram</a></li>
@@ -1669,62 +1668,88 @@ app.get('/ticket/:id', (req, res) => {
 </body>
 </html>
   `;
-  res.send(generatedPage);
+  res.send(generatedPage + messagesHTML);
 });
 
 function generateMessagesHTML(ticketData) {
-    const initialMessage = `
-        <div class="message">
-            <div class="messagehead">
-                <div style="display: flex; align-items: center;">
-                    <div style="flex-grow: 1;">
-                        <h1 class="username">${ticketData.username}</h1>
-                    </div>
-                    <div class="supporttag">
-                        <p>${ticketData.form}</p>
-                    </div>
-                    <div style="margin-left: 10px; font-size: 0.6rem; color: black; top: 19px;">
-                        <h1>commented on <span id="timestamp">${formatDate(ticketData.timestamp)}</span></h1>
-                    </div>
-                </div>
-            </div>
-            <div class="messagebody">
-                <p id="message">${ticketData.message}</p>
-            </div>
-            <div class="timeline">
-                <div class="bottom-connecting-line"></div>
-            </div>
+  const initialMessage = `
+    <div class="message">
+      <div class="messagehead">
+        <div style="display: flex; align-items: center;">
+          <div style="flex-grow: 1;">
+            <h1 class="username">${ticketData.username}</h1>
+          </div>
+          <div class="supporttag">
+            <p>${ticketData.form}</p>
+          </div>
+          <div style="margin-left: 10px; font-size: 0.6rem; color: black; top: 19px;">
+            <h1>commented on <span id="timestamp">${formatDate(ticketData.timestamp)}</span></h1>
+          </div>
         </div>
-    `;
+      </div>
+      <div class="messagebody">
+        <p id="message">${ticketData.message}</p>
+      </div>
+      <div class="timeline">
+        <div class="bottom-connecting-line"></div>
+      </div>
+    </div>
+  `;
 
-    const otherMessages = (ticketData.messages || []).map((message) => {
-        return `
-        <div class="message">
+  function generateMessagesHTML(ticketData) {
+    const initialMessage = `
+      <div class="message">
         <div class="messagehead">
-            <div style="display: flex; align-items: center;">
-                <div style="flex-grow: 1;">
-                    <h1 class="username">${ticketData.username}</h1>
-                </div>
-                <div class="supporttag">
-                    <p>${ticketData.form}</p>
-                </div>
-                <div style="margin-left: 10px; font-size: 0.6rem; color: black; top: 19px;">
-                    <h1>commented on <span id="timestamp">${formatDate(ticketData.timestamp)}</span></h1>
-                </div>
+          <div style="display: flex; align-items: center;">
+            <div style="flex-grow: 1;">
+              <h1 class="username">${ticketData.username}</h1>
             </div>
+            <div class="supporttag">
+              <p>${ticketData.form}</p>
+            </div>
+            <div style="margin-left: 10px; font-size: 0.6rem; color: black; top: 19px;">
+              <h1>commented on <span id="timestamp">${formatDate(ticketData.timestamp)}</span></h1>
+            </div>
+          </div>
         </div>
         <div class="messagebody">
-            <p id="message">${ticketData.message}</p>
+          <p id="message">${ticketData.message}</p>
         </div>
         <div class="timeline">
-            <div class="bottom-connecting-line"></div>
+          <div class="bottom-connecting-line"></div>
         </div>
+      </div>
+    `;
+  }
+    const otherMessages = (ticketData.messages || []).map((message) => {
+      return `
+      <div class="message">
+      <div class="messagehead">
+        <div style="display: flex; align-items: center;">
+          <div style="flex-grow: 1;">
+            <h1 class="username">${message.username}</h1>
+          </div>
+          <div class="supporttag">
+            <p>${message.form}</p>
+          </div>
+          <div style="margin-left: 10px; font-size: 0.6rem; color: black; top: 19px;">
+            <h1>commented on <span id="timestamp">${formatDate(message.timestamp)}</span></h1>
+          </div>
+        </div>
+      </div>
+      <div class="messagebody">
+        <p id="message">${message.message}</p>
+      </div>
+      <div class="timeline">
+        <div class="bottom-connecting-line"></div>
+      </div>
     </div>
     `;
-  }).join('');
+    }).join('');
 
-  return initialMessage + otherMessages;
-}
+    return initialMessage + otherMessages;
+  }
+
 
 function formatDate(timestamp) {
   const date = new Date(timestamp);
