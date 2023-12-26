@@ -297,6 +297,25 @@ app.post('/logAccept', (req, res) => {
 
   res.sendStatus(200);
 });
+app.post('/logTicket', (req, res) => {
+  const { ticketId, username, subject, message, status } = req.body;
+
+  const existingNotifs = fs.readFileSync('notifs.json', 'utf8');
+  const notifs = existingNotifs ? JSON.parse(existingNotifs) : [];
+
+  notifs.unshift({
+    ticketId,
+    username,
+    subject,
+    message,
+    status,
+    timestamp: new Date().toLocaleString(),
+  });
+
+  fs.writeFileSync('notifs.json', JSON.stringify(notifs, null, 2), 'utf8');
+
+  res.sendStatus(200);
+});
 
 
 app.post('/items.json',protectSensitiveRoutes, (req, res) => {
@@ -1457,12 +1476,7 @@ let ticketCount = 0;
 app.use(express.json());
 // Form submission endpoint
 app.post('/ticket', (req, res) => {
-  console.log('Raw Request Body:', req.body);
-
   const ticketData = req.body;
-
-  console.log('Parsed Request Body:', ticketData);
-
   try {
       const existingTickets = JSON.parse(fs.readFileSync('tickets.json', 'utf-8')) || [];
 
@@ -1516,7 +1530,6 @@ app.get('/ticket/:id', (req, res) => {
   }
   const ticketMessages = require('./ticketmessages.json');
   const ticketMessagesData = ticketMessages.filter((message) => message.ticketId === ticketId);
-  console.log(ticketMessages);
   const messagesHTML = ticketMessagesData.map((ticketData) => generateMessagesHTML(ticketData)).join('');
 
   // Replace placeholders in the template with actual ticket data and messages`
@@ -1606,7 +1619,7 @@ app.get('/ticket/:id', (req, res) => {
     </div>
     <div class="midtop">
         <div class="status">
-        <svg aria-hidden="true" height="36" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" id="sign" class="${ticketData.status.toUpperCase() === 'PENDING' ? 'pending' : 'closed'}">
+        <svg aria-hidden="true" height="36" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" id="sign" class="${ticketData.status.toUpperCase() === 'PENDING' ? 'pending' : ticketData.status.toUpperCase() === 'OPEN' ? 'open' : 'archived'}">
         <path d="M4.25 7.25a.75.75 0 0 0 0 1.5h7.5a.75.75 0 0 0 0-1.5h-7.5Z"></path>
         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0Zm-1.5 0a6.5 6.5 0 1 0-13 0 6.5 6.5 0 0 0 13 0Z"></path>
         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0Zm-1.5 0a6.5 6.5 0 1 0-13 0 6.5 6.5 0 0 0 13 0Z"></path>
@@ -1695,35 +1708,51 @@ function generateMessagesHTML(ticketData) {
       </div>
     </div>
   `;
-
-  function generateMessagesHTML(ticketData) {
-    const initialMessage = `
+  
+  const otherMessages = (ticketData.messages || []).map((message) => {
+    return `
       <div class="message">
         <div class="messagehead">
           <div style="display: flex; align-items: center;">
             <div style="flex-grow: 1;">
-              <h1 class="username">${ticketData.username}</h1>
+              <h1 class="username">${message.username}</h1>
             </div>
             <div class="supporttag">
-              <p>${ticketData.form}</p>
+              <p>${message.form}</p>
             </div>
             <div style="margin-left: 10px; font-size: 0.6rem; color: black; top: 19px;">
-              <h1>commented on <span id="timestamp">${formatDate(ticketData.timestamp)}</span></h1>
+              <h1>commented on <span id="timestamp">${formatDate(message.timestamp)}</span></h1>
             </div>
           </div>
         </div>
         <div class="messagebody">
-          <p id="message">${ticketData.message}</p>
+          <p id="message">${message.reply}</p>
         </div>
         <div class="timeline">
           <div class="bottom-connecting-line"></div>
         </div>
       </div>
     `;
+  }).join('');
+
+
+return initialMessage + otherMessages;
+};
+// Read the ticketmessages.json file
+fs.readFile('ticketmessages.json', 'utf-8', (err, fileContent) => {
+  if (err) {
+    console.error(err);
+    return;
   }
-    const otherMessages = (ticketData.messages || []).map((message) => {
-      return `
-      <div class="message">
+
+  // Parse the JSON content
+  const ticketData = JSON.parse(fileContent);
+
+  // Use the ticketData object as needed
+
+  // Generate HTML for each message
+  const messagesHTML = ticketData.map((message) => `
+    <div class="message">
       <div class="messagehead">
         <div style="display: flex; align-items: center;">
           <div style="flex-grow: 1;">
@@ -1738,17 +1767,17 @@ function generateMessagesHTML(ticketData) {
         </div>
       </div>
       <div class="messagebody">
-        <p id="message">${message.message}</p>
+        <p id="message">${message.reply}</p>
       </div>
       <div class="timeline">
         <div class="bottom-connecting-line"></div>
       </div>
     </div>
-    `;
-    }).join('');
+  `).join('');
+});
 
-    return initialMessage + otherMessages;
-  }
+
+
 
 
 function formatDate(timestamp) {

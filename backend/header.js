@@ -13,13 +13,12 @@ fetch('/getUsername')
     .then(data => {
         const username1 = document.getElementById('username');
         const username = data.username;
-        username1.innerHTML = username;
-    })
-    .catch(error => {
-        console.error('Error fetching username:', error.message);
-        // Handle error if necessary
-    }); 
-
+        if (typeof username === 'undefined') {
+            username1.innerHTML = 'Login';
+        } else {
+            username1.innerHTML = username;
+        }
+    });
 const basket = document.querySelector('.basket');
 basket.addEventListener('click', () => {
     window.location.href = '/basket';

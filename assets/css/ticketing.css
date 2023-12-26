@@ -99,13 +99,18 @@ h1{
 .open{
     fill: green;
 }
-.close{
-    fill: red;
+.archived{
+    fill: rgb(53, 51, 51);
 }
 .pending{
     fill: #a371f7;
 }
-
+.subjecta{
+    color: white;
+    text-decoration: none;
+    /* Remove purple color */
+    color: inherit;
+}
 .tooltip {
     position: relative;
     display: inline-block;

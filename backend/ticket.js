@@ -28,10 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
               </div>
               <div class="info">
                 <div class="side">
-                  <p id="subject">${data.subject}</p>
+                  <a class="subjecta" href="ticket/${data.id}"><p id="subject">${data.subject}</p></a>
                 </div>
                 <div class="under">
-                  #<span id="id">${data.id}</span> <span id="status"></span> created on <span id="date">${data.timestamp}</span> for <span id="user">${data.username}</span>.
+                  <span id="id">${data.id}</span> <span id="status"></span> created on <span id="date">${data.timeopened}</span> for <span id="user">${data.username}</span>.
                 </div>
               </div>
             </div>
