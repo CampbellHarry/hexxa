@@ -13,7 +13,7 @@
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",
-    "dompurify": "^3.0.6",
+    "dompurify": "^3.0.8",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "express-rate-limit": "^7.1.4",
