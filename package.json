@@ -28,7 +28,7 @@
     "qrcode": "^1.5.3",
     "socket.io": "^4.7.4",
     "speakeasy": "^2.0.0",
-    "ws": "^8.16.0"
+    "ws": "^8.17.1"
   },
   "description": ""
 }
